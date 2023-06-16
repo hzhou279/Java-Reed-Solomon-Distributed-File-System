@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package edu.cmu.rsfs;
+
+service ChunkService {
+  rpc WriteChunk(WriteRequest) returns (WriteResponse) {}
+  rpc ReadChunk(ReadRequest) returns (ReadResponse) {}
+}
+
+message WriteRequest {
+  string chunkId = 1;
+  bytes data = 2;
+}
+
+message WriteResponse {
+  bool success = 1;
+}
+
+message ReadRequest {
+  string chunkId = 1;
+}
+
+message ReadResponse {
+  bytes data = 1;
+}

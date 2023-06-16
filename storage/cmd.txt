@@ -1,0 +1,3 @@
+protoc --java_out=src/main/java --plugin=/usr/local/bin/protoc-gen-grpc-java --grpc-java_out=src/main/java src/main/proto/chunkserver.proto
+docker build -t rsfs .
+docker run rsfs
