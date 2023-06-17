@@ -19,6 +19,74 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
+    <!-- <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.grpc</groupId>
+                        <artifactId>protoc-gen-grpc-java</artifactId>
+                        <version>1.56.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>exe</goal>
+                                </goals>
+                                <configuration>
+                                    <protoSourceRoot>src/main</protoSourceRoot>
+                                    <pluginArtifact>
+                                        io.grpc:protoc-gen-grpc-java:1.56.0:exe:windows-x86_64</pluginArtifact>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.grpc</groupId>
+                        <artifactId>protoc-gen-grpc-java</artifactId>
+                        <version>1.56.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>exe</goal>
+                                </goals>
+                                <configuration>
+                                    <protoSourceRoot>src/main</protoSourceRoot>
+                                    <pluginArtifact>
+                                        io.grpc:protoc-gen-grpc-java:1.56.0:exe:linux-x86_64</pluginArtifact>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles> -->
+
+    <!-- <repositories>
+        <repository>
+            <id>local-maven-repo</id>
+            <url>file://${project.basedir}/maven-repo</url>
+        </repository>
+    </repositories> -->
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -29,10 +97,10 @@
         <!-- BackBlaze Reed Solomon Erasure Coding -->
         <dependency>
             <groupId>edu.cmu.reedsolomon</groupId>
-            <artifactId>reedsolomon</artifactId>
+            <artifactId>reed-solomon</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/reed-solomon-1.0.jar</systemPath>
+            <systemPath>${project.basedir}/maven-repo/reed-solomon-1.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
@@ -149,14 +217,14 @@
         </pluginManagement>
         <plugins>
             <!-- Protobuf Maven Plugin -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <version>0.6.1</version>
                 <configuration>
                     <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.41.0:exe:windows-x86_64</pluginArtifact>
-                    <protoSourceRoot>src/main</protoSourceRoot>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.56.0:exe:windows-x86_64</pluginArtifact>
+                    <protoSourceRoot>src/main/proto</protoSourceRoot>
                 </configuration>
                 <executions>
                     <execution>
@@ -166,7 +234,42 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin> -->
+
+            <plugin>
+                <groupId>com.github.os72</groupId>
+                <artifactId>protoc-jar-maven-plugin</artifactId>
+                <version>3.11.4</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <protocArtifact>com.google.protobuf:protoc:3.17.3</protocArtifact>
+                            <inputDirectories>
+                                <include>src/main/proto</include>
+                            </inputDirectories>
+                            <outputTargets>
+                                <outputTarget>
+                                    <type>java</type>
+                                    <!-- <outputDirectory>src/main/java</outputDirectory> -->
+                                    <outputDirectory>target/generated-sources/java</outputDirectory>
+                                </outputTarget>
+                                <outputTarget>
+                                    <type>grpc-java</type>
+                                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.39.0</pluginArtifact>
+                                    <!-- <outputDirectory>src/main/java</outputDirectory> -->
+                                    <outputDirectory>target/generated-sources/grpc-java</outputDirectory>
+                                </outputTarget>
+                            </outputTargets>
+                            <!-- <protoSourceRoot>src/main/proto</protoSourceRoot> -->
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
     </build>
 </project>
