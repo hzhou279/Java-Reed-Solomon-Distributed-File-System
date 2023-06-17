@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package edu.cmu.reedsolomonfs.client;
+
+message TokenAndMetadataRequest {
+  string requestType = 1;
+  string filePath = 2;
+}
+
+message TokenAndMetadataResponse {
+  bool isHealthy = 1;
+  string token = 2;
+  repeated string ips = 3;
+  Metadata metadata = 4;
+}
+
+message Metadata {
+    int32 fileSize = 1;
+    map<string, List> filePathToBlockNumbers = 2;
+}
+
+message List {
+    repeated int32 numbers = 1;
+}
+
+service ClientMasterService {
+    rpc RetrieveTokenAndMetadata(TokenAndMetadataRequest) returns (TokenAndMetadataResponse);
+}
+
+message ReadRequest {
+    string filePath = 1;
+    int32 sequenceNum = 2;
+}
+
+message ReadResponse {
+    string serverTag = 1;
+    bytes payload = 2;
+    bool isSuccess = 3;
+    bool tokenExpired = 4;
+    int32 sequenceNum = 5;
+}
+
+message WriteRequest {
+
+}
+
+message WriteResponse {
+
+}
+
+// message WriteRequest() {
+
+// }
+
+service ClientStorageClusterService {
+    rpc Read(ReadRequest) returns(ReadResponse);
+    rpc Write(WriteRequest) returns(WriteResponse);
+}
