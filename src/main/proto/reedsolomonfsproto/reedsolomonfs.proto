@@ -2,57 +2,68 @@ syntax = "proto3";
 
 package edu.cmu.reedsolomonfs.client;
 
-message TokenAndMetadataRequest {
-  string requestType = 1;
-  string filePath = 2;
+message TokenRequest {
+    string requestType = 1;
+    string filePath = 2;
 }
 
-message TokenAndMetadataResponse {
-  bool isHealthy = 1;
-  string token = 2;
-  repeated string ips = 3;
-  Metadata metadata = 4;
+message TokenResponse {
+    bool isHealthy = 1;
+    string token = 2;
+    repeated string ips = 3;
+    Metadata metadata = 4;
+    int32 fileSize = 5;
+}
+
+message Node {
+    int32 chunkIdx = 1; 
+    int32 serverId = 2;
+    bool isData = 3;
 }
 
 message Metadata {
     int32 fileSize = 1;
-    map<string, List> filePathToBlockNumbers = 2;
-}
-
-message List {
-    repeated int32 numbers = 1;
-}
-
-service ClientMasterService {
-    rpc RetrieveTokenAndMetadata(TokenAndMetadataRequest) returns (TokenAndMetadataResponse);
+    repeated Node nodes = 2;
 }
 
 message ReadRequest {
-    string filePath = 1;
-    int32 sequenceNum = 2;
+    string operationType = 1;
+    string filePath = 2;
 }
 
 message ReadResponse {
-    string serverTag = 1;
-    bytes payload = 2;
-    bool isSuccess = 3;
-    bool tokenExpired = 4;
-    int32 sequenceNum = 5;
+    bytes payload = 1;
+    bool tokenExpired = 2;
+    bool isSuccessful = 3;
 }
 
 message WriteRequest {
-
+    string operationType = 1;
+    string filePath = 2;
+    int32 fileSize = 3;
+    int32 appendAt = 4;
+    bytes payload = 5;
+    string writeFlag = 6;
 }
 
 message WriteResponse {
-
+    bool tokenExpired = 1;
+    bool isSuccessful = 2;
 }
 
-// message WriteRequest() {
 
+service ClientMasterService {
+    rpc GetToken(TokenRequest) returns (TokenResponse);
+}
+
+service ClientChunkServerService {
+    rpc Read(ReadRequest) returns (ReadResponse);
+}
+
+service ClientZooKeeperService {
+    rpc Write(WriteRequest) returns (WriteResponse);
+}
+
+// service ChunkServerMasterService {
+//     rpc AckServerRecovery() returns ();
 // }
-
-service ClientStorageClusterService {
-    rpc Read(ReadRequest) returns(ReadResponse);
-    rpc Write(WriteRequest) returns(WriteResponse);
-}
