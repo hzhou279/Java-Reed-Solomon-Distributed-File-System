@@ -1,15 +1,15 @@
-package RSFS;
+package edu.cmu.reedsolomonfs.client;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import RSFS.ReedSolomon.ReedSolomon;
+import edu.cmu.reedsolomon.ReedSolomon;
 
 // read data from disks
 // do recovery if any disks are missing
-public class Decoder {
+public class ReedSolomonDecoder {
 
     private static final int BLOCK_SIZE = 4; // number of bytes in one block
     private static final int DATA_SHARD_COUNT = 4; // number of data disks in RSFS
@@ -28,11 +28,10 @@ public class Decoder {
         return fileData;
     }
     
-    public Decoder(String filePath, String[] diskPaths) {
+    public ReedSolomonDecoder(String filePath, String[] diskPaths) {
         this.diskPaths = diskPaths;
         shards = new byte[TOTAL_SHARD_COUNT][];
         shardPresent = new boolean[TOTAL_SHARD_COUNT];
-        // shardPresentCnt = 0;
         byteCntInShard = 0;
         this.filePath = filePath;
     }
@@ -42,7 +41,6 @@ public class Decoder {
             try {
                 shards[i] = Files.readAllBytes(Path.of(diskPaths[i]));
                 shardPresent[i] = true;
-                // shardPresentCnt++;
                 byteCntInShard = shards[i].length;
             } catch (IOException e) {
                 continue;

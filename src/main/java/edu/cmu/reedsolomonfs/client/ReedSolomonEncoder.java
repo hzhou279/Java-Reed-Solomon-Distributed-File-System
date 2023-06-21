@@ -1,4 +1,4 @@
-package RSFS;
+package edu.cmu.reedsolomonfs.client;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -6,10 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 
-import RSFS.ReedSolomon.ReedSolomon;
+import edu.cmu.reedsolomon.ReedSolomon;
 
 // read data from a file and calculate its parity
-public class Encoder {
+public class ReedSolomonEncoder {
 
     private static final int BLOCK_SIZE = 4; // number of bytes in one block
     private static final int DATA_SHARD_COUNT = 4; // number of data disks in RSFS
@@ -25,12 +25,11 @@ public class Encoder {
     private int fileSize;
     private String[] diskPaths;
 
-    public Encoder(String filePath, String[] diskPaths) throws IOException {
+    public ReedSolomonEncoder(String filePath, String[] diskPaths) throws IOException {
         this.filePath = filePath;
         fileData = Files.readAllBytes(Path.of(filePath));
         fileSize = fileData.length;
         this.diskPaths = diskPaths;
-        // encode();
     }
 
     public void store() {
@@ -47,8 +46,6 @@ public class Encoder {
     public void encode()  {
         paddedFileData = pad(fileData);
         shards = splitFileToShards(paddedFileData);
-        byte[] mergedFileData = mergeShardsToFile(shards);
-        if (!Arrays.equals(paddedFileData, mergedFileData)) System.out.println("split and merge failed.");
         REED_SOLOMON.encodeParity(shards, 0, shards[0].length);
     }
 
@@ -63,19 +60,6 @@ public class Encoder {
                 shards[shardIdx][byteIdxInShard] = fileData[byteIdxInFile];
         }
         return shards;
-    }
-
-    private byte[] mergeShardsToFile(byte[][] shards) {
-        byte[] fileData = new byte[shards[0].length * DATA_SHARD_COUNT];
-        int blockCnt = fileData.length / BLOCK_SIZE;
-        for (int blockIdx = 0; blockIdx < blockCnt; blockIdx++) {
-            int byteIdxInFile = blockIdx * BLOCK_SIZE;
-            int shardIdx = blockIdx % DATA_SHARD_COUNT;
-            int byteIdxInShard = blockIdx / BLOCK_SIZE * BLOCK_SIZE;
-            for (int i = 0; i < BLOCK_SIZE; i++, byteIdxInFile++, byteIdxInShard++)
-                fileData[byteIdxInFile] = shards[shardIdx][byteIdxInShard];
-        }
-        return fileData;
     }
 
     private byte[] pad(byte[] fileData) {
