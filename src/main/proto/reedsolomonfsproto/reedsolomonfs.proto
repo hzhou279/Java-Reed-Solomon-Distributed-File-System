@@ -11,19 +11,19 @@ message TokenResponse {
     bool isHealthy = 1;
     string token = 2;
     repeated string ips = 3;
-    Metadata metadata = 4;
+    GRPCMetadata metadata = 4;
     int32 fileSize = 5;
 }
 
-message Node {
+message GRPCNode {
     int32 chunkIdx = 1; 
     int32 serverId = 2;
     bool isData = 3;
 }
 
-message Metadata {
-    int32 fileSize = 1;
-    repeated Node nodes = 2;
+message GRPCMetadata {
+    string filePath = 1;
+    repeated GRPCNode nodes = 2;
 }
 
 message ReadRequest {

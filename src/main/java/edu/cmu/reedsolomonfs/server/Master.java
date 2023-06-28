@@ -7,9 +7,11 @@ import java.util.Base64;
 import java.util.List;
 
 import edu.cmu.reedsolomonfs.client.ClientMasterServiceGrpc.ClientMasterServiceImplBase;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.Metadata;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.GRPCMetadata;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
+import edu.cmu.reedsolomonfs.datatype.Node;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.GRPCNode;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -20,15 +22,20 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Master extends ClientMasterServiceImplBase {
 
     private static String secretKey;
+    private static Map<String, List<Node>> metadata;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Server server = ServerBuilder.forPort(8080)
                 .addService(new Master())
                 .build();
+
+        metadata = new HashMap<>();
 
         // Generate secret key for master signing JWTs
         generateSecretKey();
@@ -38,14 +45,40 @@ public class Master extends ClientMasterServiceImplBase {
         server.awaitTermination();
     }
 
+    public List<Node> getMetadata(String filePath) {
+        return metadata.get(filePath);
+    }
+
+    public void addMetadata(String filePath, List<Node> nodes) {
+        metadata.put(filePath, nodes);
+    }
+
+    public void deleteMetadata(String filePath) {
+        metadata.remove(filePath);
+    }
+
     @Override
     public void getToken(TokenRequest request, StreamObserver<TokenResponse> responseObserver) {
         // Server-side implementation logic
         boolean isHealthy = true; // Compute the value of isHealthy
         String token = generateJWT(request.getRequestType(), request.getFilePath()); // Compute the value of token
         List<String> ips = new ArrayList<>(); // Compute the value of ips
-        Metadata data = Metadata.newBuilder()
-                .setFileSize(0)
+
+        // Get nodes of current file
+        List<GRPCNode> grpcNodes = new ArrayList<>();
+        List<Node> nodes = getMetadata(request.getFilePath());
+        for (Node node : nodes) {
+            GRPCNode grpcNode = GRPCNode.newBuilder()
+                .setChunkIdx(node.getChunkIdx())
+                .setServerId(node.getServerId())
+                .setIsData(node.isData())
+                .build();
+            grpcNodes.add(grpcNode);
+        } 
+
+        GRPCMetadata data = GRPCMetadata.newBuilder()
+                .setFilePath(request.getFilePath())
+                .addAllNodes(grpcNodes)
                 .build(); // Compute the value of data
 
         // Prepare the response
