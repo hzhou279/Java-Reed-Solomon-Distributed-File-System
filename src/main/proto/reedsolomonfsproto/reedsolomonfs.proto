@@ -42,8 +42,9 @@ message WriteRequest {
     string filePath = 2;
     int32 fileSize = 3;
     int32 appendAt = 4;
-    bytes payload = 5;
+    repeated bytes payload = 5;
     string writeFlag = 6;
+    int32 lastChunkIdx = 7;
 }
 
 message WriteResponse {
