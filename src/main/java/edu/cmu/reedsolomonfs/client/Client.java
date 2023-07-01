@@ -79,16 +79,9 @@ public class Client {
         String filePath = "./Files/test.txt";
         byte[] fileData = Files.readAllBytes(Path.of(filePath));
 
-        System.out.println("\n\n\n\n" + new String(fileData) + "\n\n\n\n");
-
         ReedSolomonEncoder encoder = new ReedSolomonEncoder(fileData);
         encoder.encode();
         byte[][] shards = encoder.getShards();
-
-        for (byte[] shard : shards) {
-            System.out.println("current shard is: " + new String(shard));
-            // requestBuilder.addPayload(ByteString.copyFrom(shard));
-        }
 
         WriteRequest request = packWriteRequest("touch", "./Files/test.txt", encoder.getFileSize(), 0, shards, "create",
                 encoder.getLastChunkIdx());

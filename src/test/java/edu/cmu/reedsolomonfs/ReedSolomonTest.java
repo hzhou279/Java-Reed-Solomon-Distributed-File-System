@@ -31,7 +31,7 @@ public class ReedSolomonTest {
     private final static String FILE_READ_PATH = "./FilesRead/test.txt";
     private final static int MB = 1000000;
     private final static int KB = 1000;
-    private final static int FILE_SIZE = 1000;
+    private final static int FILE_SIZE = 4 * KB;
     private static ReedSolomonEncoder encoder;
     private static ReedSolomonDecoder decoder;
 

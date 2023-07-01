@@ -14,7 +14,8 @@ import edu.cmu.reedsolomonfs.client.ReedSolomonDecoder;
 
 public class WriteTest {
 
-    private final String[] ALL_DISK_PATHS = {"./Disks/chunkserver-0.txt", "./Disks/chunkserver-1.txt", "./Disks/chunkserver-2.txt"};
+    private final String[] ALL_DISK_PATHS = {"./Disks/chunkserver-0.txt", "./Disks/chunkserver-1.txt", "./Disks/chunkserver-2.txt", 
+"./Disks/chunkserver-3.txt", "./Disks/chunkserver-4.txt", "./Disks/chunkserver-5.txt"};
     private final String FILE_PATH = "./Files/test.txt";
     private final String FILE_READ_PATH = "./MergedFiles/test.txt";
 
@@ -26,12 +27,6 @@ public class WriteTest {
         decoder.store();
         byte[] fileDataRead = decoder.getFileData();
         assertEquals(fileData.length, fileDataRead.length);
-        // for (int i = 0; i < fileData.length; i++) {
-        //     if (fileData[i] != fileDataRead[i]) {
-        //         System.out.println(i + " characters matched and there are " + fileData.length + " characters in total.");
-        //     }
-        //     // assertEquals(i + "characters matched", fileData[i], fileDataRead[i]);
-        // }
         assertTrue(Arrays.equals(fileData, decoder.getFileData()));
     }
     

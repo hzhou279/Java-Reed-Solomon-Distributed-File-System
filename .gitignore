@@ -1,2 +1,14 @@
 /target
+/.devcontainer
 /.vscode
+/Disks
+/Files
+/FilesRead
+/MergedFiles
+/chunkserver1
+/chunkserver2
+/chunkserver3
+/chunkserver4
+/chunkserver5
+/chunkserver6
+/log
