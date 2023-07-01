@@ -23,17 +23,19 @@ public class ReedSolomonDecoder {
     private byte[] fileData;
     private String filePath; // destination file path
     private int byteCntInShard;
+    private int fileSize;
 
     public byte[] getFileData() {
         return fileData;
     }
     
-    public ReedSolomonDecoder(String filePath, String[] diskPaths) {
+    public ReedSolomonDecoder(String filePath, String[] diskPaths, int fileSize) {
         this.diskPaths = diskPaths;
         shards = new byte[TOTAL_SHARD_COUNT][];
         shardPresent = new boolean[TOTAL_SHARD_COUNT];
         byteCntInShard = 0;
         this.filePath = filePath;
+        this.fileSize = fileSize;
     }
 
     public void retrieveShards() {
@@ -48,6 +50,12 @@ public class ReedSolomonDecoder {
         }
     }
 
+    public void trimPadding() {
+        byte[] trimmedFileData = new byte[fileSize];
+        System.arraycopy(fileData, 0, trimmedFileData, 0, fileSize);
+        fileData = trimmedFileData;
+    }
+
     public void decode() {
         retrieveShards();
         if (byteCntInShard == 0) throw new IllegalArgumentException("There is not enough data to decode");
@@ -56,6 +64,7 @@ public class ReedSolomonDecoder {
         }
         REED_SOLOMON.decodeMissing(shards, shardPresent, 0, byteCntInShard);
         fileData = mergeShardsToFile(shards);
+        trimPadding();
     }
 
     public void store() {
