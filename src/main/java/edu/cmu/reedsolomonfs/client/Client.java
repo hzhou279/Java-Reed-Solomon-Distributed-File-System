@@ -31,12 +31,31 @@ import com.google.protobuf.ByteString;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
+import java.util.concurrent.TimeoutException;
 
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
+import edu.cmu.reedsolomonfs.datatype.FileMetadata;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 
 public class Client {
+
+    // private final String groupId;
+    // private final String confStr;
+    // private final CliClientServiceImpl cliClientService;
+
+    // public Client(final String groupId, final String confStr, final
+    // CliClientServiceImpl cliClientService) {
+    // this.groupId = groupId;
+    // this.confStr = confStr;
+    // this.cliClientService = cliClientService;
+    // }
 
     public static void main(final String[] args) throws Exception {
         if (args.length != 2) {
@@ -68,27 +87,72 @@ public class Client {
         System.out.println("Leader is " + leader + "\n\n");
         System.out.println("RouteTable is " + RouteTable.getInstance() + "\n\n");
         System.out.println("Configuration is " + RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
+
+        // Create a channel to connect to the master
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+                .usePlaintext() // Use insecure connection, for testing only
+                .build();
+
+        // Cache file metadata
+        Map<String, FileMetadata> cache = new HashMap<>();
+
+        // Make a create request
+        String filePath = "./Files/test.txt";
+        byte[] fileData = Files.readAllBytes(Path.of(filePath));
+        create(cliClientService, filePath, fileData, groupId);
+
+        // Shutdown the channel to the master
+        channel.shutdown();
+
+        // Exit the client
+        System.exit(0);
+    }
+
+    public static TokenResponse requestToken(ManagedChannel channel, String requestType, String filePath) {
+        // Create a stub for the service
+        ClientMasterServiceGrpc.ClientMasterServiceBlockingStub stub = ClientMasterServiceGrpc.newBlockingStub(channel);
+
+        TokenRequest request = TokenRequest.newBuilder()
+                .setRequestType(requestType)
+                .setFilePath(filePath)
+                .build();
+
+        // Make the RPC call and receive the response
+        TokenResponse response = stub.getToken(request);
+
+        System.out.println("JWT token received at client is: " + response.getToken());
+
+        return response;
+    }
+
+    public static void delete() {
+
+    }
+
+    public static void overwrite() {
+
+    }
+
+    public static void append() {
+
+    }
+
+    public static void create(final CliClientServiceImpl cliClientService, String filePath, byte[] fileData,
+            final String groupId) throws RemotingException, InterruptedException {
         final int n = 1000;
         final CountDownLatch latch = new CountDownLatch(n);
         final long start = System.currentTimeMillis();
-        // for (int i = 0; i < n; i++) {
-        // incrementAndGet(cliClientService, leader, i, latch);
-        // }
-        // setBytesValue(cliClientService, leader, "hello".getBytes(), latch);
-
-        String filePath = "./Files/test.txt";
-        byte[] fileData = Files.readAllBytes(Path.of(filePath));
 
         ReedSolomonEncoder encoder = new ReedSolomonEncoder(fileData);
         encoder.encode();
         byte[][] shards = encoder.getShards();
 
-        WriteRequest request = packWriteRequest("touch", "./Files/test.txt", encoder.getFileSize(), 0, shards, "create",
+        WriteRequest request = packWriteRequest("touch", filePath, encoder.getFileSize(), 0, shards, "create",
                 encoder.getLastChunkIdx());
+        final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
         latch.await();
         System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start) + " mssssssss.");
-        System.exit(0);
     }
 
     private static WriteRequest packWriteRequest(String operationType, String filePath, int fileSize, int appendAt,
@@ -162,7 +226,6 @@ public class Client {
 
 }
 
-
 // package edu.cmu.reedsolomonfs.client;
 
 // import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
@@ -171,27 +234,28 @@ public class Client {
 // import io.grpc.ManagedChannelBuilder;
 
 // public class Client {
-//     public static void main(String[] args) {
-//         // Create a channel to connect to the server
-//         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
-//                 .usePlaintext() // Use insecure connection, for testing only
-//                 .build();
+// public static void main(String[] args) {
+// // Create a channel to connect to the server
+// ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+// .usePlaintext() // Use insecure connection, for testing only
+// .build();
 
-//         // Create a stub for the service
-//         ClientMasterServiceGrpc.ClientMasterServiceBlockingStub stub = ClientMasterServiceGrpc.newBlockingStub(channel);
+// // Create a stub for the service
+// ClientMasterServiceGrpc.ClientMasterServiceBlockingStub stub =
+// ClientMasterServiceGrpc.newBlockingStub(channel);
 
-//         TokenRequest request = TokenRequest.newBuilder()
-//                 .setRequestType("R")
-//                 .setFilePath("./Files/test.txt")
-//                 .build();
+// TokenRequest request = TokenRequest.newBuilder()
+// .setRequestType("R")
+// .setFilePath("./Files/test.txt")
+// .build();
 
-//         // Make the RPC call and receive the response
-//         TokenResponse response = stub.getToken(request);
+// // Make the RPC call and receive the response
+// TokenResponse response = stub.getToken(request);
 
-//         System.out.println("JWT token received at client is: " + response.getToken());
+// System.out.println("JWT token received at client is: " +
+// response.getToken());
 
-//         // Shutdown the channel
-//         channel.shutdown();
-//     }
+// // Shutdown the channel
+// channel.shutdown();
 // }
-
+// }

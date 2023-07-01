@@ -1,14 +1,32 @@
 package edu.cmu.reedsolomonfs.datatype;
 import java.util.List;
 
-public class Metadata {
+public class FileMetadata {
     
     private String filePath;
+    private int fileSize;
+    private int lastChunkIdx;
     private List<Node> nodes;
 
-    public Metadata(String filePath, List<Node> nodes) {
+    public FileMetadata(String filePath, List<Node> nodes) {
         this.filePath = filePath;
         this.nodes = nodes;
+    }
+
+    public int getLastChunkIdx() {
+        return lastChunkIdx;
+    }
+
+    public void setLastChunkIdx(int lastChunkIdx) {
+        this.lastChunkIdx = lastChunkIdx;
+    }
+
+    public int getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(int fileSize) {
+        this.fileSize = fileSize;
     }
 
     public String getFilePath() {
