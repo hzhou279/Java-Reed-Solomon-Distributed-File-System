@@ -103,9 +103,17 @@ public class ChunkserverServiceImpl implements ChunkserverService {
     }
 
     @Override
-    public void write(byte[][] shards, ChunkserverClosure closure) {
-        // throw new UnsupportedOperationException("Unimplemented method 'write'");
+    public void write(final byte[][] shards, final ChunkserverClosure closure) {
         applyOperation(ChunkserverOperation.createWrite(shards), closure);
+    }
+
+    @Override
+    public void read(final ChunkserverClosure closure) {
+        byte[] fileData = this.counterServer.getFsm().readFromServerDisk();
+        // LOG.info("Get byte value={} length={} at logIndex={}", fileData, fileData.length);
+        closure.successWithRead(fileData);
+        closure.run(Status.OK());
+        return;
     }
 
     private void applyOperation(final ChunkserverOperation op, final ChunkserverClosure closure) {

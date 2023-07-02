@@ -18,7 +18,7 @@ package edu.cmu.reedsolomonfs.server.rpc;
 
 import com.alipay.sofa.jraft.Status;
 
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
 import edu.cmu.reedsolomonfs.server.ChunkserverClosure;
 import edu.cmu.reedsolomonfs.server.ChunkserverService;
 
@@ -26,38 +26,40 @@ import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
 /**
- * SetBytesValueRequest processor.
+ * GetBytesValueRequest processor.
  *
  * @author boyan (boyan@alibaba-inc.com)
  *
- * 2018-Apr-09 5:43:57 PM
+ *         2018-Apr-09 5:48:33 PM
  */
-public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
+public class ReadRequestProcessor implements RpcProcessor<ReadRequest> {
 
     private final ChunkserverService counterService;
 
-    public WriteRequestProcessor(ChunkserverService counterService) {
+    public ReadRequestProcessor(ChunkserverService counterService) {
         super();
         this.counterService = counterService;
     }
 
     @Override
-    public void handleRequest(final RpcContext rpcCtx, final WriteRequest request) {
+    public void handleRequest(final RpcContext rpcCtx, final ReadRequest request) {
+        // log to see if the request is handled in the same thread
+        System.out.println("ReadRequestProcessor thread: " + Thread.currentThread().getName());
+
         final ChunkserverClosure closure = new ChunkserverClosure() {
             @Override
             public void run(Status status) {
                 rpcCtx.sendResponse(getValueResponse());
             }
         };
+        // log to see if the request is handled in the same thread
+        System.out.println("ReadRequestProcessor thread2: " + Thread.currentThread().getName());
 
-        byte[][] shards = new byte[request.getPayloadCount()][];
-        for (int i = 0; i < request.getPayloadCount(); i++)
-            shards[i] = request.getPayload(i).toByteArray();
-        this.counterService.write(shards, closure);
+        this.counterService.read(closure);
     }
 
     @Override
     public String interest() {
-        return WriteRequest.class.getName();
+        return ReadRequest.class.getName();
     }
 }

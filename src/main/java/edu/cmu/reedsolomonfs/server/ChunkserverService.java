@@ -41,7 +41,13 @@ public interface ChunkserverService {
     void setBytesValue(final byte[] bytes, final ChunkserverClosure closure);
 
     /**
-     * Write new data in
+     * Write data from client to cluster
      */
     void write(final byte[][] shards, final ChunkserverClosure closure);
+
+
+    /**
+     * Read data from cluster to client
+     */
+    void read(final ChunkserverClosure closure);
 }

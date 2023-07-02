@@ -54,9 +54,9 @@ public class ReedSolomonEncoder {
     private byte[][] splitFileToShards(byte[] fileData) {
         byte[][] shards = new byte[ConfigurationVariables.TOTAL_SHARD_COUNT][fileData.length / ConfigurationVariables.DATA_SHARD_COUNT];
         int blockCnt = fileData.length / ConfigurationVariables.BLOCK_SIZE;
-        System.out.println("file size is: " + this.fileSize);
-        System.out.println("padded file size is: " + fileData.length);
-        System.out.println("blockCnt: " + blockCnt);
+        // System.out.println("file size is: " + this.fileSize);
+        // System.out.println("padded file size is: " + fileData.length);
+        // System.out.println("blockCnt: " + blockCnt);
         for (int blockIdx = 0; blockIdx < blockCnt; blockIdx++) {
             int byteIdxInFile = blockIdx * ConfigurationVariables.BLOCK_SIZE;
             int shardIdx = blockIdx % ConfigurationVariables.DATA_SHARD_COUNT;

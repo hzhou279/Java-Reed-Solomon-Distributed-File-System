@@ -23,15 +23,20 @@ import java.util.Random;
  */
 public class ReedSolomonTest {
 
-    private final static String[] DIR_PATHS = {"./Disks", "./Files", "./FilesRead"};
+    private final static String TEST_FILES_DIR = "./ReedSolomonTestFiles";
 
-    private final static String[] ALL_DISK_PATHS = {"./Disks/DataDiskOne.txt", "./Disks/DataDiskTwo.txt", "./Disks/DataDiskThree.txt"
-,"./Disks/DataDiskFour.txt", "./Disks/ParityDiskOne.txt", "./Disks/ParityDiskTwo.txt"};
-    private final static String FILE_PATH = "./Files/test.txt";
-    private final static String FILE_READ_PATH = "./FilesRead/test.txt";
+    private final static String[] DIR_PATHS = { TEST_FILES_DIR + "/Disks", TEST_FILES_DIR + "/Files",
+            TEST_FILES_DIR + "/FilesRead" };
+
+    private final static String[] ALL_DISK_PATHS = { TEST_FILES_DIR + "/Disks/DataDiskOne.txt",
+            TEST_FILES_DIR + "/Disks/DataDiskTwo.txt", TEST_FILES_DIR + "/Disks/DataDiskThree.txt",
+            TEST_FILES_DIR + "/Disks/DataDiskFour.txt", TEST_FILES_DIR + "/Disks/ParityDiskOne.txt",
+            TEST_FILES_DIR + "/Disks/ParityDiskTwo.txt" };
+    private final static String FILE_PATH = TEST_FILES_DIR + "/Files/test.txt";
+    private final static String FILE_READ_PATH = TEST_FILES_DIR + "/FilesRead/test.txt";
     private final static int MB = 1000000;
     private final static int KB = 1000;
-    private final static int FILE_SIZE = 4 * KB;
+    private final static int FILE_SIZE = 200 * MB;
     private static ReedSolomonEncoder encoder;
     private static ReedSolomonDecoder decoder;
 
@@ -41,7 +46,7 @@ public class ReedSolomonTest {
             Path directory = Paths.get(directoryPath);
             try {
                 Files.createDirectories(directory); // Create the directory and any nonexistent parent directories
-                System.out.println("Directory created successfully.");
+                // System.out.println("Directory created successfully.");
             } catch (IOException e) {
                 System.out.println("Failed to create the directory: " + e.getMessage());
             }
@@ -67,49 +72,26 @@ public class ReedSolomonTest {
         decoder = new ReedSolomonDecoder(FILE_READ_PATH, ALL_DISK_PATHS, FILE_SIZE);
         decoder.decode();
         assertTrue(Arrays.equals(encoder.getFileData(), decoder.getFileData()));
-        String filePath = "./Disks/ParityDiskTwo.txt";
-        Path path = Paths.get(filePath);
-        try {
-            Files.delete(path);
-            System.out.println("File deleted permanently.");
-        } catch (IOException e) {
-            System.out.println("Failed to delete the file: " + e.getMessage());
-        }
-        try {
-            encoder = new ReedSolomonEncoder(FILE_PATH, ALL_DISK_PATHS);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        decoder = new ReedSolomonDecoder(FILE_READ_PATH, ALL_DISK_PATHS, FILE_SIZE);
-        decoder.decode();
-        // System.out.println("This is the original string: " + new String(encoder.getFileData()));
-        // System.out.println("This is the decoded string: " + new String(decoder.getFileData()));
-        assertTrue(Arrays.equals(encoder.getFileData(), decoder.getFileData()));
     }
 
     @Test
     public void testDecodeMissingShards() {
-        String filePath = "./Disks/ParityDiskTwo.txt";
-        Path path = Paths.get(filePath);
-        try {
-            Files.delete(path);
-            System.out.println("File deleted permanently.");
-        } catch (IOException e) {
-            System.out.println("Failed to delete the file: " + e.getMessage());
-        }
-        try {
-            encoder = new ReedSolomonEncoder(FILE_PATH, ALL_DISK_PATHS);
-        } catch (IOException e) {
-            e.printStackTrace();
+        String[] filePathsMissing = new String[] { TEST_FILES_DIR + "/Disks/ParityDiskTwo.txt",
+                TEST_FILES_DIR + "/Disks/DataDiskOne.txt" };
+        for (String filePath : filePathsMissing) {
+            Path path = Paths.get(filePath);
+            try {
+                Files.delete(path);
+                // System.out.println("File deleted permanently.");
+            } catch (IOException e) {
+                System.out.println("Failed to delete the file: " + e.getMessage());
+            }
         }
         decoder = new ReedSolomonDecoder(FILE_READ_PATH, ALL_DISK_PATHS, FILE_SIZE);
         decoder.decode();
-        System.out.println("This is original string" + new String(encoder.getFileData()));
-        System.out.println("This is decoded string" + new String(decoder.getFileData()));
         assertTrue(Arrays.equals(encoder.getFileData(), decoder.getFileData()));
     }
 
-    @Test
     public void compareDecodedAndOriginalFile() {
         try {
             decoder.decode();
@@ -132,7 +114,7 @@ public class ReedSolomonTest {
     public static void writeRandomFileData(byte[] fileData) {
         try (FileOutputStream fos = new FileOutputStream(FILE_PATH)) {
             fos.write(fileData); // Write the byte data to the file
-            System.out.println("Byte data stored in read file successfully.");
+            // System.out.println("Byte data stored in read file successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }

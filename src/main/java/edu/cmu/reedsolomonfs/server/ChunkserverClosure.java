@@ -17,6 +17,8 @@
 package edu.cmu.reedsolomonfs.server;
 
 import com.alipay.sofa.jraft.Closure;
+import com.google.protobuf.ByteString;
+
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse;
 
 /**
@@ -51,6 +53,19 @@ public abstract class ChunkserverClosure implements Closure {
 
     protected void success(final long value) {
         final ValueResponse response = ValueResponse.newBuilder().setValue(value).setSuccess(true).build();
+        setValueResponse(response);
+    }
+
+    protected void successWithRead(final byte[] bytes) {
+        final ValueResponse.Builder builder = ValueResponse.newBuilder();
+
+        if (bytes != null && bytes.length != 0)
+            builder.setChunkData(ByteString.copyFrom(bytes));
+
+        builder.setSuccess(true);
+        builder.setValue(1);
+
+        final ValueResponse response = builder.build();
         setValueResponse(response);
     }
 }

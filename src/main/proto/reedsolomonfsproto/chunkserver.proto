@@ -22,6 +22,7 @@ message ValueResponse {
   required bool success = 2;
   optional string redirect = 3;
   optional string errorMsg = 4;
+  optional bytes chunkData = 5;
 }
 
 

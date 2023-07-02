@@ -25,6 +25,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicLong;
@@ -58,9 +60,11 @@ import com.alipay.sofa.jraft.storage.snapshot.SnapshotWriter;
 public class ChunkserverStateMachine extends StateMachineAdapter {
 
     private final int serverIdx;
+    private final String serverDiskPath;
 
     public ChunkserverStateMachine(int serverIdx) {
         this.serverIdx = serverIdx;
+        serverDiskPath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + serverIdx + ".txt";
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(ChunkserverStateMachine.class);
@@ -110,6 +114,19 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
         return this.byteValue;
     }
 
+    public byte[] readFromServerDisk() {
+        byte[] fileData = new byte[0];
+            File file = new File(serverDiskPath);
+            if (file.exists())
+                try {
+                    fileData = Files.readAllBytes(Path.of(serverDiskPath));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        System.out.println("read from disk " + serverDiskPath);
+        return fileData;
+    }
+
     @Override
     public void onApply(final Iterator iter) {
         while (iter.hasNext()) {
@@ -151,7 +168,6 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                         break;
                     case WRITE_BYTES:
                         final byte[][] shards = counterOperation.getShards();
-                        final String serverDiskPath = "./Disks/chunkserver-" + serverIdx + ".txt";
                         try (FileOutputStream fos = new FileOutputStream(serverDiskPath)) {
                             fos.write(shards[serverIdx]); // Write the byte data to the file
                             System.out.println("Byte data to store is " + new String(shards[serverIdx]));
@@ -193,7 +209,8 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
     public void onSnapshotSave(final SnapshotWriter writer, final Closure done) {
         final long currVal = this.value.get();
         executor.submit(() -> {
-            final ChunkserverSnapshotFile snapshot = new ChunkserverSnapshotFile(writer.getPath() + File.separator + "data");
+            final ChunkserverSnapshotFile snapshot = new ChunkserverSnapshotFile(
+                    writer.getPath() + File.separator + "data");
             if (snapshot.save(currVal)) {
                 if (writer.addFile("data")) {
                     done.run(Status.OK());
@@ -221,7 +238,8 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
             LOG.error("Fail to find data file in {}", reader.getPath());
             return false;
         }
-        final ChunkserverSnapshotFile snapshot = new ChunkserverSnapshotFile(reader.getPath() + File.separator + "data");
+        final ChunkserverSnapshotFile snapshot = new ChunkserverSnapshotFile(
+                reader.getPath() + File.separator + "data");
         try {
             this.value.set(snapshot.load());
             return true;

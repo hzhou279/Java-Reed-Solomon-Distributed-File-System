@@ -25,6 +25,16 @@ public class ReedSolomonDecoder {
     public byte[] getFileData() {
         return fileData;
     }
+
+    public ReedSolomonDecoder(byte[][] shards, boolean[] shardPresent, int byteCntInShard, int fileSize) {
+        // this.shards = shards;
+        // this.shardPresent = shardPresent;
+        // this.byteCntInShard = byteCntInShard;
+        this.fileSize = fileSize;
+        REED_SOLOMON.decodeMissing(shards, shardPresent, 0, byteCntInShard);
+        fileData = mergeShardsToFile(shards);
+        trimPadding();
+    }
     
     public ReedSolomonDecoder(String filePath, String[] diskPaths, int fileSize) {
         this.diskPaths = diskPaths;
@@ -41,7 +51,7 @@ public class ReedSolomonDecoder {
                 shards[i] = Files.readAllBytes(Path.of(diskPaths[i]));
                 shardPresent[i] = true;
                 byteCntInShard = shards[i].length;
-                System.out.println(shards[i].length);
+                // System.out.println(shards[i].length);
             } catch (IOException e) {
                 continue;
             }

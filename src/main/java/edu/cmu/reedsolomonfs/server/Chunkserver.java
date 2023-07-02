@@ -24,6 +24,7 @@ import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse;
 import edu.cmu.reedsolomonfs.server.rpc.ChunkserverGrpcHelper;
 import edu.cmu.reedsolomonfs.server.rpc.GetValueRequestProcessor;
 import edu.cmu.reedsolomonfs.server.rpc.IncrementAndGetRequestProcessor;
+import edu.cmu.reedsolomonfs.server.rpc.ReadRequestProcessor;
 import edu.cmu.reedsolomonfs.server.rpc.SetBytesValueRequestProcessor;
 import edu.cmu.reedsolomonfs.server.rpc.WriteRequestProcessor;
 
@@ -66,6 +67,7 @@ public class Chunkserver {
         rpcServer.registerProcessor(new IncrementAndGetRequestProcessor(counterService));
         rpcServer.registerProcessor(new SetBytesValueRequestProcessor(counterService));
         rpcServer.registerProcessor(new WriteRequestProcessor(counterService));
+        rpcServer.registerProcessor(new ReadRequestProcessor(counterService));
 
         // record the server index
         this.serverIdx = serverIdx;
