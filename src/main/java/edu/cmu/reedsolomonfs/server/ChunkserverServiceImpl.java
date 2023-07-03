@@ -33,6 +33,8 @@ import com.alipay.sofa.jraft.rhea.StoreEngineHelper;
 import com.alipay.sofa.jraft.rhea.options.StoreEngineOptions;
 import com.alipay.sofa.jraft.util.BytesUtil;
 
+import edu.cmu.reedsolomonfs.datatype.FileMetadata;
+
 /**
  * @author likun (saimu.msm@antfin.com)
  */
@@ -103,8 +105,8 @@ public class ChunkserverServiceImpl implements ChunkserverService {
     }
 
     @Override
-    public void write(final byte[][] shards, final ChunkserverClosure closure) {
-        applyOperation(ChunkserverOperation.createWrite(shards), closure);
+    public void write(final byte[][] shards, final FileMetadata metadata, final ChunkserverClosure closure) {
+        applyOperation(ChunkserverOperation.createWrite(shards, metadata), closure);
     }
 
     @Override

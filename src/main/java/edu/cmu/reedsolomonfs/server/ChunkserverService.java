@@ -16,6 +16,8 @@
  */
 package edu.cmu.reedsolomonfs.server;
 
+import edu.cmu.reedsolomonfs.datatype.FileMetadata;
+
 /**
  * The counter service supporting query and count function.
  *
@@ -43,7 +45,7 @@ public interface ChunkserverService {
     /**
      * Write data from client to cluster
      */
-    void write(final byte[][] shards, final ChunkserverClosure closure);
+    void write(final byte[][] shards, final FileMetadata metadata, final ChunkserverClosure closure);
 
 
     /**

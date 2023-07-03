@@ -107,18 +107,18 @@ public class Client {
         create(cliClientService, filePath, fileData, groupId);
 
         // // sleep for 5s to wait for the data to be replicated to the follower
-        Thread.sleep(5000);
+        // Thread.sleep(5000);
 
-        byte[] fileDataRead = read(cliClientService, "read", filePath, fileData.length, groupId);
+        // byte[] fileDataRead = read(cliClientService, "read", filePath, fileData.length, groupId);
 
-        // check data read correctly
-        if (fileDataRead != null && Arrays.equals(fileData, fileDataRead))
-            System.out.println("Client-Cluster Create and Read a new file succeeded!!!!");
-        else {
-            System.out.println("Client-Cluster Create and Read a new file failed?????");
-            System.out.println(new String(fileData) + "\n\n\n\n\n");
-            System.out.println(new String(fileDataRead));
-        }
+        // // check data read correctly
+        // if (fileDataRead != null && Arrays.equals(fileData, fileDataRead))
+        //     System.out.println("Client-Cluster Create and Read a new file succeeded!!!!");
+        // else {
+        //     System.out.println("Client-Cluster Create and Read a new file failed?????");
+        //     System.out.println(new String(fileData) + "\n\n\n\n\n");
+        //     System.out.println(new String(fileDataRead));
+        // }
             
 
         // Shutdown the channel to the master
@@ -216,7 +216,7 @@ public class Client {
 
     public static void create(final CliClientServiceImpl cliClientService, String filePath, byte[] fileData,
             final String groupId) throws RemotingException, InterruptedException {
-        final int n = 1000;
+        final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
         final long start = System.currentTimeMillis();
 
@@ -228,7 +228,7 @@ public class Client {
                 encoder.getLastChunkIdx());
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
-        // latch.await();
+        latch.await();
         System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start) + " mssssssss.");
     }
 

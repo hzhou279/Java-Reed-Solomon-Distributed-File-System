@@ -18,6 +18,8 @@ package edu.cmu.reedsolomonfs.server;
 
 import java.io.Serializable;
 
+import edu.cmu.reedsolomonfs.datatype.FileMetadata;
+
 /**
  * The counter operation
  *
@@ -40,6 +42,7 @@ public class ChunkserverOperation implements Serializable {
     private long              delta;
     private byte[]            bytes;
     private byte[][]          shards;
+    private FileMetadata      metadata;
 
     public static ChunkserverOperation createGet() {
         return new ChunkserverOperation(GET);
@@ -53,8 +56,8 @@ public class ChunkserverOperation implements Serializable {
         return new ChunkserverOperation(WRITE_BYTES, bytes);
     }
 
-    public static ChunkserverOperation createWrite(final byte[][] shards) {
-        return new ChunkserverOperation(WRITE_BYTES, shards);
+    public static ChunkserverOperation createWrite(final byte[][] shards, final FileMetadata metadata) {
+        return new ChunkserverOperation(WRITE_BYTES, shards, metadata);
     }
 
     public static ChunkserverOperation createReadBytes() {
@@ -75,9 +78,10 @@ public class ChunkserverOperation implements Serializable {
         this.bytes = bytes;
     }
 
-    public ChunkserverOperation(byte op, byte[][] shards) {
+    public ChunkserverOperation(byte op, byte[][] shards, FileMetadata metadata) {
         this.op = op;
         this.shards = shards;
+        this.metadata = metadata;
     }
 
     public byte getOp() {
@@ -94,6 +98,10 @@ public class ChunkserverOperation implements Serializable {
 
     public byte[][] getShards() {
         return shards;
+    }
+
+        public FileMetadata getMetadata() {
+        return metadata;
     }
 
     public boolean isReadOp() {
