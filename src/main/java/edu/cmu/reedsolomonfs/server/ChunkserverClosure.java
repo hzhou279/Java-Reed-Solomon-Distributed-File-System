@@ -16,6 +16,8 @@
  */
 package edu.cmu.reedsolomonfs.server;
 
+import java.util.Map;
+
 import com.alipay.sofa.jraft.Closure;
 import com.google.protobuf.ByteString;
 
@@ -56,11 +58,21 @@ public abstract class ChunkserverClosure implements Closure {
         setValueResponse(response);
     }
 
-    protected void successWithRead(final byte[] bytes) {
+    protected void successWithRead(final Map<String, byte[]> bytesMap) {
         final ValueResponse.Builder builder = ValueResponse.newBuilder();
 
-        if (bytes != null && bytes.length != 0)
-            builder.setChunkData(ByteString.copyFrom(bytes));
+        // print out the bytesMap
+        System.out.println("bytesMap: " + bytesMap);
+
+        for (final Map.Entry<String, byte[]> entry : bytesMap.entrySet()) {
+            final String key = entry.getKey();
+            final byte[] bytes = entry.getValue();
+            if (bytes != null && bytes.length != 0) {
+                builder.putChunkDataMap(key, ByteString.copyFrom(bytes));
+            }
+        }
+        // if (bytes != null && bytes.length != 0)
+            // builder.setChunkData(ByteString.copyFrom(bytes));
 
         builder.setSuccess(true);
         builder.setValue(1);

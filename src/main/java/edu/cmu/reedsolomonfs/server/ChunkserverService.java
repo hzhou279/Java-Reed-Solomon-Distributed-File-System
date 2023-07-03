@@ -51,5 +51,5 @@ public interface ChunkserverService {
     /**
      * Read data from cluster to client
      */
-    void read(final ChunkserverClosure closure);
+    void read(String filePath, final ChunkserverClosure closure);
 }

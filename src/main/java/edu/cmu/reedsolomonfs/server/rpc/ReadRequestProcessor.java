@@ -54,8 +54,8 @@ public class ReadRequestProcessor implements RpcProcessor<ReadRequest> {
         };
         // log to see if the request is handled in the same thread
         System.out.println("ReadRequestProcessor thread2: " + Thread.currentThread().getName());
-
-        this.counterService.read(closure);
+        String filePath = request.getFilePath();
+        this.counterService.read(filePath, closure);
     }
 
     @Override
