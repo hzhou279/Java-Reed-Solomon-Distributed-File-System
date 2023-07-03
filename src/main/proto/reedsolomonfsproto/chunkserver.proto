@@ -24,5 +24,3 @@ message ValueResponse {
   optional string errorMsg = 4;
   optional bytes chunkData = 5;
 }
-
-

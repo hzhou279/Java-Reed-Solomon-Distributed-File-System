@@ -21,12 +21,16 @@ import com.alipay.sofa.jraft.RaftGroupService;
 import com.alipay.sofa.jraft.conf.Configuration;
 import com.alipay.sofa.jraft.entity.PeerId;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
 import edu.cmu.reedsolomonfs.server.rpc.ChunkserverGrpcHelper;
 import edu.cmu.reedsolomonfs.server.rpc.GetValueRequestProcessor;
 import edu.cmu.reedsolomonfs.server.rpc.IncrementAndGetRequestProcessor;
 import edu.cmu.reedsolomonfs.server.rpc.ReadRequestProcessor;
 import edu.cmu.reedsolomonfs.server.rpc.SetBytesValueRequestProcessor;
 import edu.cmu.reedsolomonfs.server.rpc.WriteRequestProcessor;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 
 import com.alipay.sofa.jraft.option.NodeOptions;
 import com.alipay.sofa.jraft.rpc.RaftRpcServerFactory;
@@ -49,6 +53,7 @@ public class Chunkserver {
     private Node                node;
     private ChunkserverStateMachine fsm;
     private int                 serverIdx;
+    private ManagedChannel channel;
 
     public Chunkserver(final String dataPath, final String groupId, final PeerId serverId,
                          final NodeOptions nodeOptions, int serverIdx) throws IOException {
@@ -60,13 +65,18 @@ public class Chunkserver {
         // GrpcServer need init marshaller
         ChunkserverGrpcHelper.initGRpc();
         ChunkserverGrpcHelper.setRpcServer(rpcServer);
-
+        
         // register business processor
+        channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+                .usePlaintext() // Use insecure connection, for testing only
+                .build();
+        heartbeatThread hbt = new heartbeatThread(channel, rpcServer);
+        hbt.start();
         ChunkserverService counterService = new ChunkserverServiceImpl(this);
         rpcServer.registerProcessor(new GetValueRequestProcessor(counterService));
         rpcServer.registerProcessor(new IncrementAndGetRequestProcessor(counterService));
         rpcServer.registerProcessor(new SetBytesValueRequestProcessor(counterService));
-        rpcServer.registerProcessor(new WriteRequestProcessor(counterService));
+        rpcServer.registerProcessor(new WriteRequestProcessor(counterService, channel));
         rpcServer.registerProcessor(new ReadRequestProcessor(counterService));
 
         // record the server index
@@ -87,6 +97,33 @@ public class Chunkserver {
         // start raft node
         this.node = this.raftGroupService.start();
     }
+
+    private class heartbeatThread extends Thread {
+        
+        private ManagedChannel channel;
+        private RpcServer rpcServer;
+
+        public heartbeatThread(ManagedChannel channel, RpcServer rpcServer) {
+            this.channel = channel;
+            this.rpcServer = rpcServer;
+        }
+
+        public void run() {
+            while (true) {
+                MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(channel);
+                HeartbeatRequest hb = HeartbeatRequest.newBuilder().setServerTag(rpcServer.toString()).build();
+                stub.heartBeat(hb);
+                try {
+                    sleep(5000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
 
     public int getServerIdx() {
         return this.serverIdx;

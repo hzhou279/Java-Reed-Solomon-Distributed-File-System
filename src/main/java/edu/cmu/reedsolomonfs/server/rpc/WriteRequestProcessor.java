@@ -21,6 +21,11 @@ import com.alipay.sofa.jraft.Status;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.server.ChunkserverClosure;
 import edu.cmu.reedsolomonfs.server.ChunkserverService;
+import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 
 import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
@@ -35,22 +40,53 @@ import com.alipay.sofa.jraft.rpc.RpcProcessor;
 public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
 
     private final ChunkserverService counterService;
+    private int appendAt;
+    private String writeFlag;
+    private String filePath;
+    private int fileSize;
+    private ManagedChannel masterChannel;
 
-    public WriteRequestProcessor(ChunkserverService counterService) {
+
+    public WriteRequestProcessor(ChunkserverService counterService, ManagedChannel masterChannel) {
         super();
         this.counterService = counterService;
+        this.masterChannel = masterChannel;
     }
 
     @Override
     public void handleRequest(final RpcContext rpcCtx, final WriteRequest request) {
+        
         final ChunkserverClosure closure = new ChunkserverClosure() {
             @Override
             public void run(Status status) {
+                // send success to master 
+                MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(masterChannel);
+                ackMasterWriteSuccessRequest ack = ackMasterWriteSuccessRequest.newBuilder()
+                .setAppendAt(appendAt)
+                .setWriteFlag(writeFlag)
+                .setFileName(filePath)
+                .setFileSize(fileSize).build();
+
+                stub.writeSuccess(ack);
+                
+                // send reponse back to the client
                 rpcCtx.sendResponse(getValueResponse());
+                
             }
         };
 
         byte[][] shards = new byte[request.getPayloadCount()][];
+
+        writeFlag = request.getWriteFlag();
+        appendAt = request.getAppendAt();
+        filePath = request.getFilePath();
+        fileSize = request.getFileSize();
+        System.out.printf("writeFlag: %s \n", writeFlag);
+        System.out.printf("appendAt: %d \n", appendAt);
+        System.out.printf("filePath: %s \n", filePath);
+        System.out.printf("fileSize: %d \n", fileSize);
+
+
         for (int i = 0; i < request.getPayloadCount(); i++)
             shards[i] = request.getPayload(i).toByteArray();
         this.counterService.write(shards, closure);

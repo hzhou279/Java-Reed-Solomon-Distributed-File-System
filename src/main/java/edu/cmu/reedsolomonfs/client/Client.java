@@ -109,20 +109,20 @@ public class Client {
         // // sleep for 5s to wait for the data to be replicated to the follower
         Thread.sleep(5000);
 
-        byte[] fileDataRead = read(cliClientService, "read", filePath, fileData.length, groupId);
+        // byte[] fileDataRead = read(cliClientService, "read", filePath, fileData.length, groupId);
 
-        // check data read correctly
-        if (fileDataRead != null && Arrays.equals(fileData, fileDataRead))
-            System.out.println("Client-Cluster Create and Read a new file succeeded!!!!");
-        else {
-            System.out.println("Client-Cluster Create and Read a new file failed?????");
-            System.out.println(new String(fileData) + "\n\n\n\n\n");
-            System.out.println(new String(fileDataRead));
-        }
+        // // check data read correctly
+        // if (fileDataRead != null && Arrays.equals(fileData, fileDataRead))
+        //     System.out.println("Client-Cluster Create and Read a new file succeeded!!!!");
+        // else {
+        //     System.out.println("Client-Cluster Create and Read a new file failed?????");
+        //     System.out.println(new String(fileData) + "\n\n\n\n\n");
+        //     System.out.println(new String(fileDataRead));
+        // }
             
 
-        // Shutdown the channel to the master
-        channel.shutdown();
+        // // Shutdown the channel to the master
+        // channel.shutdown();
 
         // Exit the client
         System.exit(0);

@@ -170,8 +170,8 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                         final byte[][] shards = counterOperation.getShards();
                         try (FileOutputStream fos = new FileOutputStream(serverDiskPath)) {
                             fos.write(shards[serverIdx]); // Write the byte data to the file
-                            System.out.println("Byte data to store is " + new String(shards[serverIdx]));
-                            System.out.println("Byte data stored in " + serverDiskPath + " successfully.");
+                            // System.out.println("Byte data to store is " + new String(shards[serverIdx]));
+                            // System.out.println("Byte data stored in " + serverDiskPath + " successfully.");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -199,6 +199,7 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                 if (closure != null) {
                     closure.success(current);
                     closure.run(Status.OK());
+                    System.out.println("Write Success");
                 }
             }
             iter.next();
