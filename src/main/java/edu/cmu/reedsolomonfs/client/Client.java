@@ -104,7 +104,7 @@ public class Client {
         // Make a create request
         String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
         byte[] fileData = Files.readAllBytes(Path.of(filePath));
-        create(cliClientService, filePath, fileData, groupId);
+        create(cliClientService, "test.txt", fileData, groupId);
 
         // // sleep for 5s to wait for the data to be replicated to the follower
         // Thread.sleep(5000);

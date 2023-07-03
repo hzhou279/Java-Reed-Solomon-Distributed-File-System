@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicLong;
@@ -35,6 +37,9 @@ import java.util.concurrent.atomic.AtomicLongArray;
 import com.alipay.sofa.jraft.util.NamedThreadFactory;
 import com.alipay.sofa.jraft.util.ThreadPoolUtil;
 
+import edu.cmu.reedsolomonfs.datatype.FileMetadata;
+import edu.cmu.reedsolomonfs.datatype.FileMetadataHelper;
+import edu.cmu.reedsolomonfs.datatype.NodeHelper;
 import edu.cmu.reedsolomonfs.server.snapshot.ChunkserverSnapshotFile;
 
 import org.slf4j.Logger;
@@ -64,7 +69,7 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
 
     public ChunkserverStateMachine(int serverIdx) {
         this.serverIdx = serverIdx;
-        serverDiskPath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + serverIdx + ".txt";
+        serverDiskPath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + serverIdx + "/";
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(ChunkserverStateMachine.class);
@@ -116,13 +121,13 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
 
     public byte[] readFromServerDisk() {
         byte[] fileData = new byte[0];
-            File file = new File(serverDiskPath);
-            if (file.exists())
-                try {
-                    fileData = Files.readAllBytes(Path.of(serverDiskPath));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        File file = new File(serverDiskPath);
+        if (file.exists())
+            try {
+                fileData = Files.readAllBytes(Path.of(serverDiskPath));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         System.out.println("read from disk " + serverDiskPath);
         return fileData;
     }
@@ -168,13 +173,38 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                         break;
                     case WRITE_BYTES:
                         final byte[][] shards = counterOperation.getShards();
-                        try (FileOutputStream fos = new FileOutputStream(serverDiskPath)) {
-                            fos.write(shards[serverIdx]); // Write the byte data to the file
-                            System.out.println("Byte data to store is " + new String(shards[serverIdx]));
-                            System.out.println("Byte data stored in " + serverDiskPath + " successfully.");
+                        final FileMetadata metadata = counterOperation.getMetadata();
+                        final byte[][] chunks = NodeHelper.splitShardToChunks(shards[serverIdx]);
+                        List<String> chunkFilePaths = FileMetadataHelper.retrieveFileChunkPaths(metadata, serverIdx);
+
+                        Path directory = Paths.get(serverDiskPath);
+                        try {
+                            Files.createDirectories(directory); // Create the directory and any nonexistent parent directories
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            System.out.println("Failed to create the directory: " + e.getMessage());
                         }
+
+                        for (int i = 0; i < chunks.length; i++) {
+                            String chunkFilePath = serverDiskPath + chunkFilePaths.get(i);
+                            try (FileOutputStream fos = new FileOutputStream(chunkFilePath)) {
+                                fos.write(chunks[i]); // Write the byte data to the file
+                                System.out.println("Byte data to store is " + new String(chunks[i]));
+                                System.out.println("Byte data stored in " + chunkFilePath + " successfully.");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        // final byte[][] shards = counterOperation.getShards();
+                        // try (FileOutputStream fos = new FileOutputStream(serverDiskPath)) {
+                        // fos.write(shards[serverIdx]); // Write the byte data to the file
+                        // System.out.println("Byte data to store is " + new String(shards[serverIdx]));
+                        // System.out.println("Byte data stored in " + serverDiskPath + "
+                        // successfully.");
+                        // } catch (IOException e) {
+                        // e.printStackTrace();
+                        // }
+
                         // for (int i = 0; i < byteValue.length; i++) {
                         // this.byteValue[i] = byteValue[i];
                         // }
