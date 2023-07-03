@@ -32,15 +32,16 @@ public class Master extends ClientMasterServiceImplBase {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Server server = ServerBuilder.forPort(8080)
-                .addService(new Master())
-                .build();
-
+                .addService(new MasterImpl())
+                .build()
+                .start();
+        
         metadata = new HashMap<>();
 
         // Generate secret key for master signing JWTs
         generateSecretKey();
 
-        server.start();
+    
         // FileInputStream fileInputStream = new FileInputStream("./as");
         server.awaitTermination();
     }

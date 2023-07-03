@@ -284,6 +284,7 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                 if (closure != null) {
                     closure.success(current);
                     closure.run(Status.OK());
+                    System.out.println("Write Success");
                 }
             }
             iter.next();

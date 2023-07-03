@@ -25,5 +25,3 @@ message ValueResponse {
   optional bytes chunkData = 5;
   optional map<string, bytes> chunkDataMap = 6;
 }
-
-
