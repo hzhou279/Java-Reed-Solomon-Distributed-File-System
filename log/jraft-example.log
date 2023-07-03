@@ -18958,3 +18958,729 @@ peers: "127.0.0.1:8086"
 2023-07-03 16:21:33 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver1/snapshot/temp to chunkserver1/snapshot/snapshot_44.
 2023-07-03 16:21:33 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver1/snapshot/snapshot_43.
 2023-07-03 16:21:33 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 44 to 44, cost 0 ms.
+2023-07-03 17:25:15 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.JRaftServiceFactory - com.alipay.sofa.jraft.core.DefaultJRaftServiceFactory] loading.
+2023-07-03 17:25:15 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.JRaftServiceFactory - com.alipay.sofa.jraft.core.DefaultJRaftServiceFactory] loading.
+2023-07-03 17:25:15 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.JRaftServiceFactory - com.alipay.sofa.jraft.core.DefaultJRaftServiceFactory] loading.
+2023-07-03 17:25:15 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.rpc.RaftRpcFactory - com.alipay.sofa.jraft.rpc.impl.BoltRaftRpcFactory] loading.
+2023-07-03 17:25:15 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.JRaftServiceFactory - com.alipay.sofa.jraft.core.DefaultJRaftServiceFactory] loading.
+2023-07-03 17:25:15 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.rpc.RaftRpcFactory - com.alipay.sofa.jraft.rpc.impl.BoltRaftRpcFactory] loading.
+2023-07-03 17:25:15 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.rpc.RaftRpcFactory - com.alipay.sofa.jraft.rpc.impl.BoltRaftRpcFactory] loading.
+2023-07-03 17:25:16 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.JRaftServiceFactory - com.alipay.sofa.jraft.core.DefaultJRaftServiceFactory] loading.
+2023-07-03 17:25:16 [main] INFO  log:30 - Sofa-Middleware-Log SLF4J : Actual binding is of type [ com.alipay.remoting Log4j2 ]
+2023-07-03 17:25:16 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.rpc.RaftRpcFactory - com.alipay.sofa.jraft.rpc.impl.BoltRaftRpcFactory] loading.
+2023-07-03 17:25:16 [main] INFO  log:30 - Sofa-Middleware-Log SLF4J : Actual binding is of type [ com.alipay.remoting Log4j2 ]
+2023-07-03 17:25:16 [main] INFO  log:30 - Sofa-Middleware-Log SLF4J : Actual binding is of type [ com.alipay.remoting Log4j2 ]
+2023-07-03 17:25:16 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.JRaftServiceFactory - com.alipay.sofa.jraft.core.DefaultJRaftServiceFactory] loading.
+2023-07-03 17:25:16 [main] INFO  log:30 - Sofa-Middleware-Log SLF4J : Actual binding is of type [ com.alipay.remoting Log4j2 ]
+2023-07-03 17:25:16 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.rpc.RaftRpcFactory - com.alipay.sofa.jraft.rpc.impl.BoltRaftRpcFactory] loading.
+2023-07-03 17:25:16 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.rpc.RaftRpcFactory - com.alipay.sofa.jraft.rpc.impl.BoltRaftRpcFactory] loading.
+2023-07-03 17:25:16 [main] INFO  log:30 - Sofa-Middleware-Log SLF4J : Actual binding is of type [ com.alipay.remoting Log4j2 ]
+2023-07-03 17:25:16 [main] INFO  log:30 - Sofa-Middleware-Log SLF4J : Actual binding is of type [ com.alipay.remoting Log4j2 ]
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeDescribeSignalHandler] loading.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeDescribeSignalHandler] loading.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeMetricsSignalHandler] loading.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.ThreadPoolMetricsSignalHandler] loading.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVDescribeSignalHandler] loading.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVMetricsSignalHandler] loading.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.timer.RaftTimerFactory - com.alipay.sofa.jraft.util.timer.DefaultRaftTimerFactory] loading.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeMetricsSignalHandler] loading.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.ThreadPoolMetricsSignalHandler] loading.
+2023-07-03 17:25:17 [main] INFO  NodeImpl:556 - The number of active nodes increment to 1.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVDescribeSignalHandler] loading.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVMetricsSignalHandler] loading.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.timer.RaftTimerFactory - com.alipay.sofa.jraft.util.timer.DefaultRaftTimerFactory] loading.
+2023-07-03 17:25:17 [main] INFO  NodeImpl:556 - The number of active nodes increment to 1.
+2023-07-03 17:25:17 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeDescribeSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.ThreadPoolMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVDescribeSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.timer.RaftTimerFactory - com.alipay.sofa.jraft.util.timer.DefaultRaftTimerFactory] loading.
+2023-07-03 17:25:18 [main] INFO  NodeImpl:556 - The number of active nodes increment to 1.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeDescribeSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.ThreadPoolMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVDescribeSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.timer.RaftTimerFactory - com.alipay.sofa.jraft.util.timer.DefaultRaftTimerFactory] loading.
+2023-07-03 17:25:18 [main] INFO  NodeImpl:556 - The number of active nodes increment to 1.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeDescribeSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.ThreadPoolMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVDescribeSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.timer.RaftTimerFactory - com.alipay.sofa.jraft.util.timer.DefaultRaftTimerFactory] loading.
+2023-07-03 17:25:18 [main] INFO  NodeImpl:556 - The number of active nodes increment to 1.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeDescribeSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.NodeMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.ThreadPoolMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVDescribeSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.JRaftSignalHandler - com.alipay.sofa.jraft.rhea.RheaKVMetricsSignalHandler] loading.
+2023-07-03 17:25:18 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.util.timer.RaftTimerFactory - com.alipay.sofa.jraft.util.timer.DefaultRaftTimerFactory] loading.
+2023-07-03 17:25:18 [main] INFO  NodeImpl:556 - The number of active nodes increment to 1.
+2023-07-03 17:25:19 [JRaft-Group-Default-Executor-0] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 0 to 44, cost 1 ms.
+2023-07-03 17:25:19 [JRaft-Group-Default-Executor-0] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 0 to 44, cost 5 ms.
+2023-07-03 17:25:19 [main] INFO  FSMCallerImpl:215 - Starts FSMCaller successfully.
+2023-07-03 17:25:19 [main] INFO  FSMCallerImpl:215 - Starts FSMCaller successfully.
+2023-07-03 17:25:19 [JRaft-Group-Default-Executor-0] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 0 to 44, cost 0 ms.
+2023-07-03 17:25:19 [main] INFO  SnapshotExecutorImpl:268 - Loading snapshot, meta=last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+.
+2023-07-03 17:25:19 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:79 - onConfigurationCommitted: 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086.
+2023-07-03 17:25:19 [JRaft-FSMCaller-Disruptor-0] INFO  SnapshotExecutorImpl:487 - Node <cluster/127.0.0.1:8083> onSnapshotLoadDone, last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+
+2023-07-03 17:25:19 [main] INFO  NodeImpl:725 - Node <cluster/127.0.0.1:8083> target priority value has changed from: 0, to: -1.
+2023-07-03 17:25:19 [main] INFO  FSMCallerImpl:215 - Starts FSMCaller successfully.
+2023-07-03 17:25:19 [main] INFO  SnapshotExecutorImpl:268 - Loading snapshot, meta=last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+.
+2023-07-03 17:25:19 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:79 - onConfigurationCommitted: 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086.
+2023-07-03 17:25:19 [JRaft-FSMCaller-Disruptor-0] INFO  SnapshotExecutorImpl:487 - Node <cluster/127.0.0.1:8084> onSnapshotLoadDone, last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+
+2023-07-03 17:25:19 [main] INFO  NodeImpl:725 - Node <cluster/127.0.0.1:8084> target priority value has changed from: 0, to: -1.
+2023-07-03 17:25:19 [JRaft-Group-Default-Executor-0] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 0 to 44, cost 38 ms.
+2023-07-03 17:25:19 [main] INFO  FSMCallerImpl:215 - Starts FSMCaller successfully.
+2023-07-03 17:25:19 [JRaft-Group-Default-Executor-0] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 0 to 44, cost 1 ms.
+2023-07-03 17:25:19 [main] INFO  SnapshotExecutorImpl:268 - Loading snapshot, meta=last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+.
+2023-07-03 17:25:19 [main] INFO  FSMCallerImpl:215 - Starts FSMCaller successfully.
+2023-07-03 17:25:19 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:79 - onConfigurationCommitted: 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086.
+2023-07-03 17:25:19 [JRaft-FSMCaller-Disruptor-0] INFO  SnapshotExecutorImpl:487 - Node <cluster/127.0.0.1:8081> onSnapshotLoadDone, last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+
+2023-07-03 17:25:19 [main] INFO  NodeImpl:725 - Node <cluster/127.0.0.1:8081> target priority value has changed from: 0, to: -1.
+2023-07-03 17:25:19 [main] INFO  SnapshotExecutorImpl:268 - Loading snapshot, meta=last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+.
+2023-07-03 17:25:19 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:79 - onConfigurationCommitted: 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086.
+2023-07-03 17:25:19 [JRaft-FSMCaller-Disruptor-0] INFO  SnapshotExecutorImpl:487 - Node <cluster/127.0.0.1:8085> onSnapshotLoadDone, last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+
+2023-07-03 17:25:20 [main] INFO  NodeImpl:725 - Node <cluster/127.0.0.1:8085> target priority value has changed from: 0, to: -1.
+2023-07-03 17:25:20 [main] INFO  SnapshotExecutorImpl:268 - Loading snapshot, meta=last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+.
+2023-07-03 17:25:20 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:79 - onConfigurationCommitted: 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086.
+2023-07-03 17:25:20 [JRaft-FSMCaller-Disruptor-0] INFO  SnapshotExecutorImpl:487 - Node <cluster/127.0.0.1:8082> onSnapshotLoadDone, last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+
+2023-07-03 17:25:20 [main] INFO  NodeImpl:725 - Node <cluster/127.0.0.1:8082> target priority value has changed from: 0, to: -1.
+2023-07-03 17:25:20 [main] INFO  NodeImpl:1090 - Node <cluster/127.0.0.1:8084> init, term=22, lastLogId=LogId [index=44, term=22], conf=127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086, oldConf=.
+2023-07-03 17:25:20 [main] INFO  NodeImpl:1090 - Node <cluster/127.0.0.1:8083> init, term=22, lastLogId=LogId [index=44, term=22], conf=127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086, oldConf=.
+2023-07-03 17:25:20 [main] INFO  NodeImpl:1090 - Node <cluster/127.0.0.1:8081> init, term=22, lastLogId=LogId [index=44, term=22], conf=127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086, oldConf=.
+2023-07-03 17:25:20 [main] INFO  NodeImpl:1090 - Node <cluster/127.0.0.1:8085> init, term=22, lastLogId=LogId [index=44, term=22], conf=127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086, oldConf=.
+2023-07-03 17:25:20 [main] INFO  NodeImpl:1090 - Node <cluster/127.0.0.1:8082> init, term=22, lastLogId=LogId [index=44, term=22], conf=127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086, oldConf=.
+2023-07-03 17:25:20 [main] INFO  RaftGroupService:136 - Start the RaftGroupService successfully.
+2023-07-03 17:25:20 [main] INFO  RaftGroupService:136 - Start the RaftGroupService successfully.
+2023-07-03 17:25:20 [JRaft-Group-Default-Executor-0] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 0 to 44, cost 0 ms.
+2023-07-03 17:25:20 [main] INFO  RaftGroupService:136 - Start the RaftGroupService successfully.
+2023-07-03 17:25:20 [main] INFO  FSMCallerImpl:215 - Starts FSMCaller successfully.
+2023-07-03 17:25:20 [main] INFO  RaftGroupService:136 - Start the RaftGroupService successfully.
+2023-07-03 17:25:20 [main] INFO  RaftGroupService:136 - Start the RaftGroupService successfully.
+2023-07-03 17:25:20 [main] INFO  SnapshotExecutorImpl:268 - Loading snapshot, meta=last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+.
+2023-07-03 17:25:20 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:79 - onConfigurationCommitted: 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086.
+2023-07-03 17:25:20 [JRaft-FSMCaller-Disruptor-0] INFO  SnapshotExecutorImpl:487 - Node <cluster/127.0.0.1:8086> onSnapshotLoadDone, last_included_index: 44
+last_included_term: 22
+peers: "127.0.0.1:8081"
+peers: "127.0.0.1:8082"
+peers: "127.0.0.1:8083"
+peers: "127.0.0.1:8084"
+peers: "127.0.0.1:8085"
+peers: "127.0.0.1:8086"
+
+2023-07-03 17:25:20 [main] INFO  NodeImpl:725 - Node <cluster/127.0.0.1:8086> target priority value has changed from: 0, to: -1.
+2023-07-03 17:25:20 [main] INFO  NodeImpl:1090 - Node <cluster/127.0.0.1:8086> init, term=22, lastLogId=LogId [index=44, term=22], conf=127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086, oldConf=.
+2023-07-03 17:25:20 [main] INFO  RaftGroupService:136 - Start the RaftGroupService successfully.
+2023-07-03 17:25:21 [JRaft-ElectionTimer-<cluster/127.0.0.1:8084>0] INFO  NodeImpl:2667 - Node <cluster/127.0.0.1:8084> term 22 start preVote.
+2023-07-03 17:25:21 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8086 is connected
+2023-07-03 17:25:21 [JRaft-ElectionTimer-<cluster/127.0.0.1:8081>0] INFO  NodeImpl:2667 - Node <cluster/127.0.0.1:8081> term 22 start preVote.
+2023-07-03 17:25:21 [JRaft-ElectionTimer-<cluster/127.0.0.1:8083>0] INFO  NodeImpl:2667 - Node <cluster/127.0.0.1:8083> term 22 start preVote.
+2023-07-03 17:25:21 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8086 is connected
+2023-07-03 17:25:21 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8086 is connected
+2023-07-03 17:25:21 [Bolt-default-executor-6-thread-3] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8086> received PreVoteRequest from 127.0.0.1:8084, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:21 [JRaft-ElectionTimer-<cluster/127.0.0.1:8085>0] INFO  NodeImpl:2667 - Node <cluster/127.0.0.1:8085> term 22 start preVote.
+2023-07-03 17:25:21 [JRaft-ElectionTimer-<cluster/127.0.0.1:8086>0] INFO  NodeImpl:2667 - Node <cluster/127.0.0.1:8086> term 22 start preVote.
+2023-07-03 17:25:21 [JRaft-ElectionTimer-<cluster/127.0.0.1:8082>0] INFO  NodeImpl:2667 - Node <cluster/127.0.0.1:8082> term 22 start preVote.
+2023-07-03 17:25:21 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8086 is connected
+2023-07-03 17:25:21 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8085 is connected
+2023-07-03 17:25:21 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8086 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8085 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8084 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8083 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8085 is connected
+2023-07-03 17:25:22 [JRaft-RPC-Processor-0] INFO  NodeImpl:2621 - Node <cluster/127.0.0.1:8084> received PreVoteResponse from 127.0.0.1:8086, term=22, granted=true.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-6] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8084> received PreVoteRequest from 127.0.0.1:8083, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-8] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8084> received PreVoteRequest from 127.0.0.1:8081, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-11] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8084> received PreVoteRequest from 127.0.0.1:8086, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-13] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8084> received PreVoteRequest from 127.0.0.1:8085, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8083 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8082 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8081 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8082 is connected
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-8] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8081> received PreVoteRequest from 127.0.0.1:8084, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-4] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8083> received PreVoteRequest from 127.0.0.1:8084, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-10] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8081> received PreVoteRequest from 127.0.0.1:8083, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8085 is connected
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-8] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8083> received PreVoteRequest from 127.0.0.1:8081, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-10] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8083> received PreVoteRequest from 127.0.0.1:8086, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8084 is connected
+2023-07-03 17:25:22 [JRaft-RPC-Processor-1] INFO  NodeImpl:2621 - Node <cluster/127.0.0.1:8084> received PreVoteResponse from 127.0.0.1:8081, term=22, granted=true.
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8082 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8081 is connected
+2023-07-03 17:25:22 [JRaft-RPC-Processor-2] INFO  NodeImpl:2621 - Node <cluster/127.0.0.1:8084> received PreVoteResponse from 127.0.0.1:8083, term=22, granted=true.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-13] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8083> received PreVoteRequest from 127.0.0.1:8085, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-2] INFO  NodeImpl:1133 - Node <cluster/127.0.0.1:8084> start vote and grant vote self, term=22.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-16] INFO  NodeImpl:1782 - Node <cluster/127.0.0.1:8083> received RequestVoteRequest from 127.0.0.1:8084, term=23, currTerm=22.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-0] INFO  NodeImpl:2621 - Node <cluster/127.0.0.1:8081> received PreVoteResponse from 127.0.0.1:8084, term=22, granted=true.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-12] INFO  NodeImpl:1782 - Node <cluster/127.0.0.1:8081> received RequestVoteRequest from 127.0.0.1:8084, term=23, currTerm=22.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-2] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver4/raft_meta, term=23, votedFor=127.0.0.1:8084, cost time=54 ms
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-16] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver3/raft_meta, term=23, votedFor=0.0.0.0:0, cost time=73 ms
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-5] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8086> received PreVoteRequest from 127.0.0.1:8083, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-6] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8086> received PreVoteRequest from 127.0.0.1:8081, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8084 is connected
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-9] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8086> received PreVoteRequest from 127.0.0.1:8085, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-12] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8086> received PreVoteRequest from 127.0.0.1:8082, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-0] INFO  NodeImpl:2621 - Node <cluster/127.0.0.1:8086> received PreVoteResponse from 127.0.0.1:8083, term=22, granted=true.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-1] INFO  NodeImpl:2621 - Node <cluster/127.0.0.1:8086> received PreVoteResponse from 127.0.0.1:8084, term=22, granted=true.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-17] INFO  NodeImpl:1782 - Node <cluster/127.0.0.1:8086> received RequestVoteRequest from 127.0.0.1:8084, term=23, currTerm=22.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-18] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8084> received PreVoteRequest from 127.0.0.1:8082, term=23, currTerm=23, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-2] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8085> received PreVoteRequest from 127.0.0.1:8084, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-4] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8085> received PreVoteRequest from 127.0.0.1:8083, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-6] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8085> received PreVoteRequest from 127.0.0.1:8081, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-9] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8085> received PreVoteRequest from 127.0.0.1:8086, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-0] INFO  NodeImpl:2621 - Node <cluster/127.0.0.1:8085> received PreVoteResponse from 127.0.0.1:8084, term=22, granted=true.
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8084 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8083 is connected
+2023-07-03 17:25:22 [JRaft-RPC-Processor-1] INFO  NodeImpl:2621 - Node <cluster/127.0.0.1:8085> received PreVoteResponse from 127.0.0.1:8083, term=22, granted=true.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-15] INFO  NodeImpl:1782 - Node <cluster/127.0.0.1:8085> received RequestVoteRequest from 127.0.0.1:8084, term=23, currTerm=22.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-12] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver1/raft_meta, term=23, votedFor=0.0.0.0:0, cost time=99 ms
+2023-07-03 17:25:22 [JRaft-RPC-Processor-3] WARN  NodeImpl:2605 - Node <cluster/127.0.0.1:8084> received invalid PreVoteResponse from 127.0.0.1:8085, state not in STATE_FOLLOWER but STATE_CANDIDATE.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-16] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver3/raft_meta, term=23, votedFor=127.0.0.1:8084, cost time=74 ms
+2023-07-03 17:25:22 [JRaft-RPC-Processor-0] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8083> received invalid PreVoteResponse from 127.0.0.1:8084, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8085 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8084 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8083 is connected
+2023-07-03 17:25:22 [JRaft-RPC-Processor-1] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8083> received invalid PreVoteResponse from 127.0.0.1:8081, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8081 is connected
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-4] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8082> received PreVoteRequest from 127.0.0.1:8084, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-2] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8083> received invalid PreVoteResponse from 127.0.0.1:8086, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-5] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8082> received PreVoteRequest from 127.0.0.1:8083, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-3] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8083> received invalid PreVoteResponse from 127.0.0.1:8085, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-8] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8082> received PreVoteRequest from 127.0.0.1:8081, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-9] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8082> received PreVoteRequest from 127.0.0.1:8086, term=23, currTerm=22, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-19] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8083> received PreVoteRequest from 127.0.0.1:8082, term=23, currTerm=23, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-11] INFO  NodeImpl:1782 - Node <cluster/127.0.0.1:8082> received RequestVoteRequest from 127.0.0.1:8084, term=23, currTerm=22.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-4] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8083> received invalid PreVoteResponse from 127.0.0.1:8082, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-17] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver6/raft_meta, term=23, votedFor=0.0.0.0:0, cost time=79 ms
+2023-07-03 17:25:22 [JRaft-RPC-Processor-4] WARN  NodeImpl:2605 - Node <cluster/127.0.0.1:8084> received invalid PreVoteResponse from 127.0.0.1:8082, state not in STATE_FOLLOWER but STATE_CANDIDATE.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-15] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver5/raft_meta, term=23, votedFor=0.0.0.0:0, cost time=70 ms
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-12] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver1/raft_meta, term=23, votedFor=127.0.0.1:8084, cost time=69 ms
+2023-07-03 17:25:22 [JRaft-RPC-Processor-1] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8081> received invalid PreVoteResponse from 127.0.0.1:8083, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-14] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8081> received PreVoteRequest from 127.0.0.1:8086, term=23, currTerm=23, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-2] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8081> received invalid PreVoteResponse from 127.0.0.1:8086, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-18] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8081> received PreVoteRequest from 127.0.0.1:8085, term=23, currTerm=23, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-3] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8081> received invalid PreVoteResponse from 127.0.0.1:8085, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-1] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8081> received PreVoteRequest from 127.0.0.1:8082, term=23, currTerm=23, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-4] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8081> received invalid PreVoteResponse from 127.0.0.1:8082, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-11] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver2/raft_meta, term=23, votedFor=0.0.0.0:0, cost time=61 ms
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-17] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver6/raft_meta, term=23, votedFor=127.0.0.1:8084, cost time=72 ms
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8083 is connected
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8082 is connected
+2023-07-03 17:25:22 [JRaft-RPC-Processor-2] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8086> received invalid PreVoteResponse from 127.0.0.1:8085, term=22, currTerm=23.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-3] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8086> received invalid PreVoteResponse from 127.0.0.1:8082, term=22, currTerm=23.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-4] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8086> received invalid PreVoteResponse from 127.0.0.1:8081, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8081 is connected
+2023-07-03 17:25:22 [JRaft-RPC-Processor-7] INFO  NodeImpl:1230 - Node <cluster/127.0.0.1:8084> become leader of group, term=23, conf=127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086, oldConf=.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-7] INFO  Replicator:912 - Replicator=Replicator [state=Created, statInfo=<running=null, firstLogIndex=0, lastLogIncluded=0, lastLogIndex=0, lastTermIncluded=0>, peerId=127.0.0.1:8086, waitId=-1, type=Follower]@127.0.0.1:8086 is started
+2023-07-03 17:25:22 [JRaft-RPC-Processor-7] INFO  Replicator:912 - Replicator=Replicator [state=Created, statInfo=<running=null, firstLogIndex=0, lastLogIncluded=0, lastLogIndex=0, lastTermIncluded=0>, peerId=127.0.0.1:8085, waitId=-1, type=Follower]@127.0.0.1:8085 is started
+2023-07-03 17:25:22 [Rpc-netty-server-worker-1-thread-1] WARN  BoltRaftRpcFactory:82 - JRaft SET bolt.rpc.dispatch-msg-list-in-default-executor to be false for replicator pipeline optimistic.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-7] INFO  Replicator:912 - Replicator=Replicator [state=Created, statInfo=<running=null, firstLogIndex=0, lastLogIncluded=0, lastLogIndex=0, lastTermIncluded=0>, peerId=127.0.0.1:8083, waitId=-1, type=Follower]@127.0.0.1:8083 is started
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-15] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver5/raft_meta, term=23, votedFor=127.0.0.1:8084, cost time=72 ms
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-16] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8085> received PreVoteRequest from 127.0.0.1:8082, term=23, currTerm=23, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [Rpc-netty-server-worker-1-thread-1] WARN  BoltRaftRpcFactory:82 - JRaft SET bolt.rpc.dispatch-msg-list-in-default-executor to be false for replicator pipeline optimistic.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-2] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8085> received invalid PreVoteResponse from 127.0.0.1:8086, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8082 is connected
+2023-07-03 17:25:22 [JRaft-RPC-Processor-3] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8085> received invalid PreVoteResponse from 127.0.0.1:8081, term=22, currTerm=23.
+2023-07-03 17:25:22 [Bolt-conn-event-executor-5-thread-1] INFO  ClientServiceConnectionEventProcessor:50 - Peer 127.0.0.1:8081 is connected
+2023-07-03 17:25:22 [JRaft-RPC-Processor-7] INFO  Replicator:912 - Replicator=Replicator [state=Created, statInfo=<running=null, firstLogIndex=0, lastLogIncluded=0, lastLogIndex=0, lastTermIncluded=0>, peerId=127.0.0.1:8082, waitId=-1, type=Follower]@127.0.0.1:8082 is started
+2023-07-03 17:25:22 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:89 - onStartFollowing: LeaderChangeContext [leaderId=127.0.0.1:8084, term=23, status=Status[ENEWLEADER<10011>: Follower receives message from new leader with the same term.]].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-7] INFO  Replicator:912 - Replicator=Replicator [state=Created, statInfo=<running=null, firstLogIndex=0, lastLogIncluded=0, lastLogIndex=0, lastTermIncluded=0>, peerId=127.0.0.1:8081, waitId=-1, type=Follower]@127.0.0.1:8081 is started
+2023-07-03 17:25:22 [Rpc-netty-server-worker-1-thread-1] WARN  BoltRaftRpcFactory:82 - JRaft SET bolt.rpc.dispatch-msg-list-in-default-executor to be false for replicator pipeline optimistic.
+2023-07-03 17:25:22 [Rpc-netty-server-worker-1-thread-1] WARN  BoltRaftRpcFactory:82 - JRaft SET bolt.rpc.dispatch-msg-list-in-default-executor to be false for replicator pipeline optimistic.
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-11] INFO  LocalRaftMetaStorage:132 - Save raft meta, path=chunkserver2/raft_meta, term=23, votedFor=127.0.0.1:8084, cost time=73 ms
+2023-07-03 17:25:22 [Bolt-default-executor-6-thread-14] INFO  NodeImpl:1711 - Node <cluster/127.0.0.1:8082> received PreVoteRequest from 127.0.0.1:8085, term=23, currTerm=23, granted=true, requestLastLogId=LogId [index=44, term=22], lastLogId=LogId [index=44, term=22].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-0] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8082> received invalid PreVoteResponse from 127.0.0.1:8086, term=22, currTerm=23.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-1] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8082> received invalid PreVoteResponse from 127.0.0.1:8084, term=22, currTerm=23.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-4] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8085> received invalid PreVoteResponse from 127.0.0.1:8082, term=22, currTerm=23.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-2] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8082> received invalid PreVoteResponse from 127.0.0.1:8083, term=22, currTerm=23.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-3] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8082> received invalid PreVoteResponse from 127.0.0.1:8081, term=22, currTerm=23.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-4] WARN  NodeImpl:2610 - Node <cluster/127.0.0.1:8082> received invalid PreVoteResponse from 127.0.0.1:8085, term=22, currTerm=23.
+2023-07-03 17:25:22 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:89 - onStartFollowing: LeaderChangeContext [leaderId=127.0.0.1:8084, term=23, status=Status[ENEWLEADER<10011>: Follower receives message from new leader with the same term.]].
+2023-07-03 17:25:22 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:89 - onStartFollowing: LeaderChangeContext [leaderId=127.0.0.1:8084, term=23, status=Status[ENEWLEADER<10011>: Follower receives message from new leader with the same term.]].
+2023-07-03 17:25:22 [Append-Entries-Thread-Send0] INFO  Recyclers:52 - -Djraft.recyclers.maxCapacityPerThread: 4096.
+2023-07-03 17:25:22 [Rpc-netty-server-worker-1-thread-2] WARN  BoltRaftRpcFactory:82 - JRaft SET bolt.rpc.dispatch-msg-list-in-default-executor to be false for replicator pipeline optimistic.
+2023-07-03 17:25:22 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:89 - onStartFollowing: LeaderChangeContext [leaderId=127.0.0.1:8084, term=23, status=Status[ENEWLEADER<10011>: Follower receives message from new leader with the same term.]].
+2023-07-03 17:25:22 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:89 - onStartFollowing: LeaderChangeContext [leaderId=127.0.0.1:8084, term=23, status=Status[ENEWLEADER<10011>: Follower receives message from new leader with the same term.]].
+2023-07-03 17:25:22 [JRaft-RPC-Processor-8] WARN  NodeImpl:2543 - Node <cluster/127.0.0.1:8084> received invalid RequestVoteResponse from 127.0.0.1:8085, state not in STATE_CANDIDATE but STATE_LEADER.
+2023-07-03 17:25:22 [cluster/PeerPair[127.0.0.1:8082 -> 127.0.0.1:8084]-AppendEntriesThread0] INFO  Recyclers:52 - -Djraft.recyclers.maxCapacityPerThread: 4096.
+2023-07-03 17:25:22 [cluster/PeerPair[127.0.0.1:8085 -> 127.0.0.1:8084]-AppendEntriesThread0] INFO  Recyclers:52 - -Djraft.recyclers.maxCapacityPerThread: 4096.
+2023-07-03 17:25:22 [cluster/PeerPair[127.0.0.1:8083 -> 127.0.0.1:8084]-AppendEntriesThread0] INFO  Recyclers:52 - -Djraft.recyclers.maxCapacityPerThread: 4096.
+2023-07-03 17:25:22 [cluster/PeerPair[127.0.0.1:8086 -> 127.0.0.1:8084]-AppendEntriesThread0] INFO  Recyclers:52 - -Djraft.recyclers.maxCapacityPerThread: 4096.
+2023-07-03 17:25:22 [JRaft-RPC-Processor-9] WARN  NodeImpl:2543 - Node <cluster/127.0.0.1:8084> received invalid RequestVoteResponse from 127.0.0.1:8082, state not in STATE_CANDIDATE but STATE_LEADER.
+2023-07-03 17:25:22 [cluster/PeerPair[127.0.0.1:8081 -> 127.0.0.1:8084]-AppendEntriesThread0] INFO  Recyclers:52 - -Djraft.recyclers.maxCapacityPerThread: 4096.
+2023-07-03 17:25:22 [JRaft-FSMCaller-Disruptor-0] INFO  StateMachineAdapter:62 - onLeaderStart: term=23.
+2023-07-03 17:25:36 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver5/snapshot/snapshot_45.
+2023-07-03 17:25:36 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:255 - Renaming chunkserver5/snapshot/temp to chunkserver5/snapshot/snapshot_45.
+2023-07-03 17:25:36 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver5/snapshot/snapshot_44.
+2023-07-03 17:25:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 44 to 45, cost 1 ms.
+2023-07-03 17:25:38 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver3/snapshot/snapshot_45.
+2023-07-03 17:25:38 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:255 - Renaming chunkserver3/snapshot/temp to chunkserver3/snapshot/snapshot_45.
+2023-07-03 17:25:38 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver3/snapshot/snapshot_44.
+2023-07-03 17:25:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 44 to 45, cost 0 ms.
+2023-07-03 17:25:39 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver6/snapshot/snapshot_45.
+2023-07-03 17:25:39 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:255 - Renaming chunkserver6/snapshot/temp to chunkserver6/snapshot/snapshot_45.
+2023-07-03 17:25:39 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver6/snapshot/snapshot_44.
+2023-07-03 17:25:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 44 to 45, cost 0 ms.
+2023-07-03 17:25:42 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver1/snapshot/snapshot_45.
+2023-07-03 17:25:42 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:255 - Renaming chunkserver1/snapshot/temp to chunkserver1/snapshot/snapshot_45.
+2023-07-03 17:25:42 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver1/snapshot/snapshot_44.
+2023-07-03 17:25:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 44 to 45, cost 20 ms.
+2023-07-03 17:25:46 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver2/snapshot/snapshot_45.
+2023-07-03 17:25:46 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:255 - Renaming chunkserver2/snapshot/temp to chunkserver2/snapshot/snapshot_45.
+2023-07-03 17:25:46 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver2/snapshot/snapshot_44.
+2023-07-03 17:25:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 44 to 45, cost 0 ms.
+2023-07-03 17:25:49 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver4/snapshot/snapshot_45.
+2023-07-03 17:25:49 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:255 - Renaming chunkserver4/snapshot/temp to chunkserver4/snapshot/snapshot_45.
+2023-07-03 17:25:49 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver4/snapshot/snapshot_44.
+2023-07-03 17:25:49 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 44 to 45, cost 0 ms.
+2023-07-03 17:26:01 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.rpc.RaftRpcFactory - com.alipay.sofa.jraft.rpc.impl.BoltRaftRpcFactory] loading.
+2023-07-03 17:26:01 [main] INFO  log:30 - Sofa-Middleware-Log SLF4J : Actual binding is of type [ com.alipay.remoting Log4j2 ]
+2023-07-03 17:26:06 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver5/snapshot/snapshot_46.
+2023-07-03 17:26:06 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver5/snapshot/temp to chunkserver5/snapshot/snapshot_46.
+2023-07-03 17:26:06 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver5/snapshot/snapshot_45.
+2023-07-03 17:26:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 45 to 46, cost 0 ms.
+2023-07-03 17:26:07 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:42050
+2023-07-03 17:26:07 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:49512
+2023-07-03 17:26:07 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:33248
+2023-07-03 17:26:07 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:37752
+2023-07-03 17:26:07 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:55846
+2023-07-03 17:26:07 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:49846
+2023-07-03 17:26:08 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver3/snapshot/snapshot_46.
+2023-07-03 17:26:08 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver3/snapshot/temp to chunkserver3/snapshot/snapshot_46.
+2023-07-03 17:26:08 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver3/snapshot/snapshot_45.
+2023-07-03 17:26:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 45 to 46, cost 0 ms.
+2023-07-03 17:26:09 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver6/snapshot/snapshot_46.
+2023-07-03 17:26:09 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver6/snapshot/temp to chunkserver6/snapshot/snapshot_46.
+2023-07-03 17:26:09 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver6/snapshot/snapshot_45.
+2023-07-03 17:26:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 45 to 46, cost 0 ms.
+2023-07-03 17:26:12 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver1/snapshot/snapshot_46.
+2023-07-03 17:26:12 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver1/snapshot/temp to chunkserver1/snapshot/snapshot_46.
+2023-07-03 17:26:12 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver1/snapshot/snapshot_45.
+2023-07-03 17:26:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 45 to 46, cost 0 ms.
+2023-07-03 17:26:16 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver2/snapshot/snapshot_46.
+2023-07-03 17:26:16 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver2/snapshot/temp to chunkserver2/snapshot/snapshot_46.
+2023-07-03 17:26:16 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver2/snapshot/snapshot_45.
+2023-07-03 17:26:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 45 to 46, cost 0 ms.
+2023-07-03 17:26:19 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver4/snapshot/snapshot_46.
+2023-07-03 17:26:19 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:255 - Renaming chunkserver4/snapshot/temp to chunkserver4/snapshot/snapshot_46.
+2023-07-03 17:26:19 [JRaft-Group-Default-Executor-2] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver4/snapshot/snapshot_45.
+2023-07-03 17:26:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 45 to 46, cost 0 ms.
+2023-07-03 17:26:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 46 to 47, cost 0 ms.
+2023-07-03 17:26:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 46 to 47, cost 0 ms.
+2023-07-03 17:26:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 46 to 47, cost 0 ms.
+2023-07-03 17:26:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 46 to 47, cost 0 ms.
+2023-07-03 17:26:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 46 to 47, cost 0 ms.
+2023-07-03 17:26:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 46 to 47, cost 1 ms.
+2023-07-03 17:27:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:27:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:27:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:27:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:27:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:27:19 [JRaft-Group-Default-Executor-1] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:27:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:27:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:27:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:27:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:27:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:27:49 [JRaft-Group-Default-Executor-1] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:28:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:28:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:28:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:28:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:28:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:28:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:28:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:28:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:28:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:28:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:28:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:28:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:29:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:29:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:30:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:30:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:30:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:30:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:30:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:30:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:30:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:30:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:30:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:30:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:30:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:30:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:31:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:31:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:31:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:31:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:31:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:31:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:31:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:31:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:31:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:31:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:31:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:31:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:32:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:33:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:33:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:34:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:34:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:34:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:34:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:34:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:34:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:34:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:34:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:34:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:34:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:34:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:34:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:35:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:35:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:35:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:35:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:35:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:35:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:35:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:35:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:35:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:35:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:35:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:35:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:36:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:36:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:36:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:36:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:36:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:36:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:36:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:36:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:36:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:36:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:36:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:36:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:37:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:38:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:39:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:39:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:40:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:40:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:40:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:40:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:40:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:40:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:40:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:40:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:40:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:40:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:40:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:40:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:41:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:41:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:42:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:42:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:42:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:42:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:42:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:42:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:42:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:42:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:42:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:42:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:42:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:42:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:43:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:19 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:49 [JRaft-Group-Default-Executor-2] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:43:50 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.rpc.RaftRpcFactory - com.alipay.sofa.jraft.rpc.impl.BoltRaftRpcFactory] loading.
+2023-07-03 17:43:51 [main] INFO  log:30 - Sofa-Middleware-Log SLF4J : Actual binding is of type [ com.alipay.remoting Log4j2 ]
+2023-07-03 17:43:57 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:36548
+2023-07-03 17:43:57 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:55098
+2023-07-03 17:43:57 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:48714
+2023-07-03 17:43:57 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:49682
+2023-07-03 17:43:57 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:59290
+2023-07-03 17:43:57 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:57932
+2023-07-03 17:44:06 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver5/snapshot/snapshot_47.
+2023-07-03 17:44:06 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver5/snapshot/temp to chunkserver5/snapshot/snapshot_47.
+2023-07-03 17:44:06 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver5/snapshot/snapshot_46.
+2023-07-03 17:44:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 47, cost 1 ms.
+2023-07-03 17:44:08 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver3/snapshot/snapshot_47.
+2023-07-03 17:44:08 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver3/snapshot/temp to chunkserver3/snapshot/snapshot_47.
+2023-07-03 17:44:08 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver3/snapshot/snapshot_46.
+2023-07-03 17:44:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:44:09 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver6/snapshot/snapshot_47.
+2023-07-03 17:44:09 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver6/snapshot/temp to chunkserver6/snapshot/snapshot_47.
+2023-07-03 17:44:09 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver6/snapshot/snapshot_46.
+2023-07-03 17:44:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:44:12 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver1/snapshot/snapshot_47.
+2023-07-03 17:44:12 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver1/snapshot/temp to chunkserver1/snapshot/snapshot_47.
+2023-07-03 17:44:12 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver1/snapshot/snapshot_46.
+2023-07-03 17:44:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:44:16 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver2/snapshot/snapshot_47.
+2023-07-03 17:44:16 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver2/snapshot/temp to chunkserver2/snapshot/snapshot_47.
+2023-07-03 17:44:16 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver2/snapshot/snapshot_46.
+2023-07-03 17:44:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:44:19 [JRaft-Group-Default-Executor-5] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver4/snapshot/snapshot_47.
+2023-07-03 17:44:19 [JRaft-Group-Default-Executor-5] INFO  LocalSnapshotStorage:255 - Renaming chunkserver4/snapshot/temp to chunkserver4/snapshot/snapshot_47.
+2023-07-03 17:44:19 [JRaft-Group-Default-Executor-5] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver4/snapshot/snapshot_46.
+2023-07-03 17:44:19 [JRaft-Group-Default-Executor-5] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 47, cost 0 ms.
+2023-07-03 17:44:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 47 to 48, cost 0 ms.
+2023-07-03 17:44:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 47 to 48, cost 0 ms.
+2023-07-03 17:44:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 47 to 48, cost 0 ms.
+2023-07-03 17:44:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 47 to 48, cost 1 ms.
+2023-07-03 17:44:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 47 to 48, cost 0 ms.
+2023-07-03 17:44:49 [JRaft-Group-Default-Executor-5] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 47 to 48, cost 0 ms.
+2023-07-03 17:45:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:45:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:45:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:45:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:45:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:45:19 [JRaft-Group-Default-Executor-0] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:45:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:45:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:45:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:45:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:45:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:45:49 [JRaft-Group-Default-Executor-5] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:46:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:46:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:46:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:46:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:46:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:46:19 [JRaft-Group-Default-Executor-5] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:46:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:46:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:46:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:46:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:46:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:46:49 [JRaft-Group-Default-Executor-5] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:47:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:47:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:47:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:47:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:47:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:47:19 [JRaft-Group-Default-Executor-5] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:47:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:47:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:47:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:47:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:47:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:47:49 [JRaft-Group-Default-Executor-5] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:48:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:48:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:48:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:48:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:48:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:48:19 [JRaft-Group-Default-Executor-5] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:48:22 [main] INFO  JRaftServiceLoader:275 - SPI service [com.alipay.sofa.jraft.rpc.RaftRpcFactory - com.alipay.sofa.jraft.rpc.impl.BoltRaftRpcFactory] loading.
+2023-07-03 17:48:23 [main] INFO  log:30 - Sofa-Middleware-Log SLF4J : Actual binding is of type [ com.alipay.remoting Log4j2 ]
+2023-07-03 17:48:29 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:58510
+2023-07-03 17:48:29 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:40356
+2023-07-03 17:48:29 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:46126
+2023-07-03 17:48:29 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:52526
+2023-07-03 17:48:29 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:45814
+2023-07-03 17:48:29 [Bolt-conn-event-executor-10-thread-1] INFO  RpcRequestProcessor:514 - Connection disconnected: 127.0.0.1:51364
+2023-07-03 17:48:36 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver5/snapshot/snapshot_48.
+2023-07-03 17:48:36 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver5/snapshot/temp to chunkserver5/snapshot/snapshot_48.
+2023-07-03 17:48:36 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver5/snapshot/snapshot_47.
+2023-07-03 17:48:36 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:48:38 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver3/snapshot/snapshot_48.
+2023-07-03 17:48:38 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver3/snapshot/temp to chunkserver3/snapshot/snapshot_48.
+2023-07-03 17:48:38 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver3/snapshot/snapshot_47.
+2023-07-03 17:48:38 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:48:39 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver6/snapshot/snapshot_48.
+2023-07-03 17:48:39 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver6/snapshot/temp to chunkserver6/snapshot/snapshot_48.
+2023-07-03 17:48:39 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver6/snapshot/snapshot_47.
+2023-07-03 17:48:39 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:48:42 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver1/snapshot/snapshot_48.
+2023-07-03 17:48:42 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver1/snapshot/temp to chunkserver1/snapshot/snapshot_48.
+2023-07-03 17:48:42 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver1/snapshot/snapshot_47.
+2023-07-03 17:48:42 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:48:46 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver2/snapshot/snapshot_48.
+2023-07-03 17:48:46 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:255 - Renaming chunkserver2/snapshot/temp to chunkserver2/snapshot/snapshot_48.
+2023-07-03 17:48:46 [JRaft-Group-Default-Executor-3] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver2/snapshot/snapshot_47.
+2023-07-03 17:48:46 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 48 to 48, cost 1 ms.
+2023-07-03 17:48:49 [JRaft-Group-Default-Executor-6] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver4/snapshot/snapshot_48.
+2023-07-03 17:48:49 [JRaft-Group-Default-Executor-6] INFO  LocalSnapshotStorage:255 - Renaming chunkserver4/snapshot/temp to chunkserver4/snapshot/snapshot_48.
+2023-07-03 17:48:49 [JRaft-Group-Default-Executor-6] INFO  LocalSnapshotStorage:188 - Deleting snapshot chunkserver4/snapshot/snapshot_47.
+2023-07-03 17:48:49 [JRaft-Group-Default-Executor-6] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 48 to 48, cost 0 ms.
+2023-07-03 17:49:06 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver5/log from log index 48 to 49, cost 0 ms.
+2023-07-03 17:49:08 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver3/log from log index 48 to 49, cost 0 ms.
+2023-07-03 17:49:09 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver6/log from log index 48 to 49, cost 0 ms.
+2023-07-03 17:49:12 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver1/log from log index 48 to 49, cost 1 ms.
+2023-07-03 17:49:16 [JRaft-Group-Default-Executor-3] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver2/log from log index 48 to 49, cost 0 ms.
+2023-07-03 17:49:19 [JRaft-Group-Default-Executor-6] INFO  RocksDBLogStorage:613 - Truncated prefix logs in data path: chunkserver4/log from log index 48 to 49, cost 0 ms.

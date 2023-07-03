@@ -30,6 +30,8 @@ import com.alipay.sofa.jraft.rpc.InvokeCallback;
 import com.alipay.sofa.jraft.rpc.impl.cli.CliClientServiceImpl;
 import com.google.protobuf.ByteString;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.InaccessibleObjectException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -112,8 +114,18 @@ public class Client {
         byte[] fileDataRead = read(cliClientService, "read", filePath, fileData.length, groupId);
 
         // check data read correctly
-        if (fileDataRead != null && Arrays.equals(fileData, fileDataRead))
+        if (fileDataRead != null && Arrays.equals(fileData, fileDataRead)) {
             System.out.println("[Client-Cluster] Create and Read a new file succeeded!!!!");
+            String clientDiskPath = "./ClientClusterCommTestFiles/FilesRead/test.txt";
+            try (FileOutputStream fos = new FileOutputStream(clientDiskPath)) {
+            fos.write(fileDataRead); // Write the byte data to the file
+                            // System.out.println("Byte data to store is " + new String(shards[serverIdx]));
+                            // System.out.println("Byte data stored in " + serverDiskPath + " successfully.");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+        }
+            
         else {
             System.out.println("[Client-Cluster] Create and Read a new file failed?????");
             System.out.println(new String(fileData) + "\n\n\n\n\n");
