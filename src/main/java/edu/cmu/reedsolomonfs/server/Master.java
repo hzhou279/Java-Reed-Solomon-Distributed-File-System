@@ -46,10 +46,6 @@ public class Master extends ClientMasterServiceImplBase {
         server.awaitTermination();
     }
 
-
-
-
-
     public List<Node> getMetadata(String filePath) {
         return metadata.get(filePath);
     }

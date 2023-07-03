@@ -55,6 +55,8 @@ public class Chunkserver {
     private int                 serverIdx;
     private ManagedChannel channel;
 
+    // line 88 to line 99 follows server setting example in SOFAJaft documentation
+    // https://www.sofastack.tech/en/projects/sofa-jraft/jraft-user-guide/
     public Chunkserver(final String dataPath, final String groupId, final PeerId serverId,
                          final NodeOptions nodeOptions, int serverIdx) throws IOException {
         // init raft data path, it contains log,meta,snapshot
@@ -98,8 +100,9 @@ public class Chunkserver {
         this.node = this.raftGroupService.start();
     }
 
+    // heartbeat routine 
     private class heartbeatThread extends Thread {
-        
+        //TODO Add Retry Mechanism 
         private ManagedChannel channel;
         private RpcServer rpcServer;
 
@@ -114,7 +117,7 @@ public class Chunkserver {
                 HeartbeatRequest hb = HeartbeatRequest.newBuilder().setServerTag(rpcServer.toString()).build();
                 stub.heartBeat(hb);
                 try {
-                    sleep(5000);
+                    sleep(5000); // heartbeat interval
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -155,6 +158,8 @@ public class Chunkserver {
         return builder.build();
     }
 
+    // the following main function used the raft server example code provided in SOFAJRaft documentation 
+    // https://www.sofastack.tech/en/projects/sofa-jraft/jraft-user-guide/
     public static void main(final String[] args) throws IOException {
         if (args.length != 5) {
             System.out
