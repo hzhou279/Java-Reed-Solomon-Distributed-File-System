@@ -28,6 +28,7 @@ import edu.cmu.reedsolomonfs.server.rpc.ChunkserverGrpcHelper;
 import com.alipay.sofa.jraft.option.CliOptions;
 import com.alipay.sofa.jraft.rpc.InvokeCallback;
 import com.alipay.sofa.jraft.rpc.impl.cli.CliClientServiceImpl;
+import com.google.common.primitives.Bytes;
 import com.google.protobuf.ByteString;
 
 import java.io.FileOutputStream;
@@ -106,12 +107,20 @@ public class Client {
         // Make a create request
         String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
         byte[] fileData = Files.readAllBytes(Path.of(filePath));
-        create(cliClientService, filePath, fileData, groupId);
+        create(cliClientService, "test.txt", fileData, groupId);
 
+        System.out.println(filePath + " created successfully!!!!");
         // // sleep for 5s to wait for the data to be replicated to the follower
         Thread.sleep(5000);
 
-        byte[] fileDataRead = read(cliClientService, "read", filePath, fileData.length, groupId);
+        System.out.println("Going to read the file!!!!");
+
+        byte[] fileDataRead = read(cliClientService, "read", "test.txt", fileData.length, groupId);
+
+        System.out.println("File read successfully!!!!");
+
+        // write fileDataRead to a file
+        Files.write(Path.of("./ClientClusterCommTestFiles/Files/testRead.txt"), fileDataRead);
 
         // check data read correctly
         if (fileDataRead != null && Arrays.equals(fileData, fileDataRead)) {
@@ -127,9 +136,9 @@ public class Client {
         }
             
         else {
-            System.out.println("[Client-Cluster] Create and Read a new file failed?????");
-            System.out.println(new String(fileData) + "\n\n\n\n\n");
-            System.out.println(new String(fileDataRead));
+            System.out.println("Client-Cluster Create and Read a new file failed?????");
+            // System.out.println(new String(fileData) + "\n\n\n\n\n");
+            // System.out.println(new String(fileDataRead));
         }
             
 
@@ -167,6 +176,7 @@ public class Client {
         int byteCntInShards = 0;
         byte[][] shards = new byte[ConfigurationVariables.TOTAL_SHARD_COUNT][];
         boolean[] shardsPresent = new boolean[ConfigurationVariables.TOTAL_SHARD_COUNT];
+        
 
         for (PeerId peer : conf) {
             System.out.println("peer:" + peer.getEndpoint());
@@ -175,16 +185,42 @@ public class Client {
             ValueResponse response = (ValueResponse) cliClientService.getRpcClient().invokeSync(peer.getEndpoint(),
                     request, 15000);
 
-            // System.out.println("Chunk Data:" + response.getChunkData());
+            System.out.println("Chunk Data:" + response.getChunkDataMapMap());
+            System.out.println("Chunk Data Size:" + response.getChunkDataMapMap().size());
 
-            if (response.getChunkData() != null && response.getChunkData().size() != 0) {
+            // save the chunk data in a map
+            Map<String, ByteString> chunkDataMap = new HashMap<>();
+            chunkDataMap.putAll(response.getChunkDataMapMap());
+
+            // get the sorted map key
+            Object[] sortedKeys = chunkDataMap.keySet().toArray();
+            // sort the map key by the int of substring from last index of ('-')
+            Arrays.sort(sortedKeys, (o1, o2) -> {
+                int o1Idx = ((String) o1).lastIndexOf('-');
+                int o2Idx = ((String) o2).lastIndexOf('-');
+                return Integer.valueOf(((String) o1).substring(o1Idx + 1)).compareTo(
+                        Integer.valueOf(((String) o2).substring(o2Idx + 1)));
+            });
+
+            // concate the sorted map value by key to byte[]
+            byte[] shardBytes = new byte[0];
+            for (Object key : sortedKeys) {
+                System.out.println("key:" + key);
+                shardBytes = Bytes.concat(shardBytes, chunkDataMap.get(key).toByteArray());
+            }
+
+            // System.out.println("shardBytes:" + new String(shardBytes));
+            System.out.println("shardBytes Size:" + shardBytes.length);
+
+            if (response.getChunkDataMapMap() != null && response.getChunkDataMapMap().size() != 0) {
                 shardsPresent[serverCnt] = true;
-                shards[serverCnt] = response.getChunkData().toByteArray();
+                shards[serverCnt] = shardBytes;
                 byteCntInShards = shards[serverCnt].length;
             }
 
             serverCnt++;
         }
+
 
         if (byteCntInShards == 0) throw new IllegalArgumentException("There is not enough data to decode");
         for (int i = 0; i < ConfigurationVariables.TOTAL_SHARD_COUNT; i++) {
@@ -228,7 +264,7 @@ public class Client {
 
     public static void create(final CliClientServiceImpl cliClientService, String filePath, byte[] fileData,
             final String groupId) throws RemotingException, InterruptedException {
-        final int n = 1000;
+        final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
         final long start = System.currentTimeMillis();
 

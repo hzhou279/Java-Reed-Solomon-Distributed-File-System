@@ -19,6 +19,8 @@ package edu.cmu.reedsolomonfs.server.rpc;
 import com.alipay.sofa.jraft.Status;
 
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
+import edu.cmu.reedsolomonfs.datatype.FileMetadata;
+import edu.cmu.reedsolomonfs.datatype.FileMetadataHelper;
 import edu.cmu.reedsolomonfs.server.ChunkserverClosure;
 import edu.cmu.reedsolomonfs.server.ChunkserverService;
 import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
@@ -75,6 +77,22 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
             }
         };
 
+        // WriteFlag can be "create", "append", "overwrite", and "delete"
+        String writeFlag = request.getWriteFlag();
+        int fileSize = request.getFileSize();
+        String filePath = request.getFilePath();
+        // switch (writeFlag) {
+        //     case "create":
+        //         FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath, fileSize);
+        //         byte[][] shards = new byte[request.getPayloadCount()][];
+        //         for (int i = 0; i < request.getPayloadCount(); i++)
+        //             shards[i] = request.getPayload(i).toByteArray();
+        //         this.counterService.write(shards, metadata, closure);
+        //         break;
+        //     case "append":
+        //         break;
+        // }
+        FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath, fileSize);
         byte[][] shards = new byte[request.getPayloadCount()][];
 
         writeFlag = request.getWriteFlag();
@@ -89,7 +107,7 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
 
         for (int i = 0; i < request.getPayloadCount(); i++)
             shards[i] = request.getPayload(i).toByteArray();
-        this.counterService.write(shards, closure);
+        this.counterService.write(shards, metadata, closure);
     }
 
     @Override

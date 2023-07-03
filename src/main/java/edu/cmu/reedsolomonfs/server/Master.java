@@ -72,7 +72,7 @@ public class Master extends ClientMasterServiceImplBase {
             GRPCNode grpcNode = GRPCNode.newBuilder()
                 .setChunkIdx(node.getChunkIdx())
                 .setServerId(node.getServerId())
-                .setIsData(node.isData())
+                .setIsData(node.getIsData())
                 .build();
             grpcNodes.add(grpcNode);
         } 

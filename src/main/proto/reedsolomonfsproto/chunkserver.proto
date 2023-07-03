@@ -23,4 +23,5 @@ message ValueResponse {
   optional string redirect = 3;
   optional string errorMsg = 4;
   optional bytes chunkData = 5;
+  optional map<string, bytes> chunkDataMap = 6;
 }

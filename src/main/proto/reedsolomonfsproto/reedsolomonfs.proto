@@ -52,18 +52,22 @@ message WriteResponse {
     bool isSuccessful = 2;
 }
 
+message UpdateMetadataRequest {
+    string filePath = 1;
+    
+}
 
 service ClientMasterService {
     rpc GetToken(TokenRequest) returns (TokenResponse);
 }
 
-service ClientChunkServerService {
-    rpc Read(ReadRequest) returns (ReadResponse);
-}
+// service ClientChunkserverService {
+//     rpc Read(ReadRequest) returns (ReadResponse);
+// }
 
-service ClientZooKeeperService {
-    rpc Write(WriteRequest) returns (WriteResponse);
-}
+// service ChunkserverMasterService {
+//     rpc UpdateMetadata()
+// }
 
 // service ChunkServerMasterService {
 //     rpc AckServerRecovery() returns ();

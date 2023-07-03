@@ -1,4 +1,16 @@
 #!/bin/bash
+handle_sigint() {
+    echo "Caught SIGINT, executing additional code..."
+    # Your additional code here
+    ./terminateChunkserver.sh
+    exit 1
+}
+
+# Set up the trap
+trap 'handle_sigint' SIGINT
+
+./terminateChunkserver.sh
+
 
 command1="/usr/bin/env /home/vscode/.vscode-remote/extensions/redhat.java-1.20.0-linux-x64/jre/17.0.7-linux-x86_64/bin/java @/tmp/cp_6yhsvqz4vybfj8mpr34hss8w.argfile edu.cmu.reedsolomonfs.server.Chunkserver chunkserver1 cluster 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086 0"
 
