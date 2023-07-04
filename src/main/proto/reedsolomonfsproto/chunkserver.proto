@@ -1,0 +1,27 @@
+syntax = "proto2";
+
+package edu.cmu.reedsolomonfs.server;
+
+option java_outer_classname = "ChunkserverOutter";
+
+message GetValueRequest {
+  repeated bool readOnlySafe = 1;
+}
+
+message IncrementAndGetRequest {
+  required int64 delta = 1;
+}
+
+message SetBytesRequest {
+  required bytes value = 1;
+}
+
+message ValueResponse {
+  required int64 value = 1;
+  
+  required bool success = 2;
+  optional string redirect = 3;
+  optional string errorMsg = 4;
+  optional bytes chunkData = 5;
+  map<string, bytes> chunkDataMap = 6;
+}
