@@ -11,19 +11,19 @@ message TokenResponse {
     bool isHealthy = 1;
     string token = 2;
     repeated string ips = 3;
-    Metadata metadata = 4;
+    GRPCMetadata metadata = 4;
     int32 fileSize = 5;
 }
 
-message Node {
+message GRPCNode {
     int32 chunkIdx = 1; 
     int32 serverId = 2;
     bool isData = 3;
 }
 
-message Metadata {
-    int32 fileSize = 1;
-    repeated Node nodes = 2;
+message GRPCMetadata {
+    string filePath = 1;
+    repeated GRPCNode nodes = 2;
 }
 
 message ReadRequest {
@@ -42,8 +42,9 @@ message WriteRequest {
     string filePath = 2;
     int32 fileSize = 3;
     int32 appendAt = 4;
-    bytes payload = 5;
+    repeated bytes payload = 5;
     string writeFlag = 6;
+    int32 lastChunkIdx = 7;
 }
 
 message WriteResponse {
@@ -51,18 +52,22 @@ message WriteResponse {
     bool isSuccessful = 2;
 }
 
+message UpdateMetadataRequest {
+    string filePath = 1;
+    
+}
 
 service ClientMasterService {
     rpc GetToken(TokenRequest) returns (TokenResponse);
 }
 
-service ClientChunkServerService {
-    rpc Read(ReadRequest) returns (ReadResponse);
-}
+// service ClientChunkserverService {
+//     rpc Read(ReadRequest) returns (ReadResponse);
+// }
 
-service ClientZooKeeperService {
-    rpc Write(WriteRequest) returns (WriteResponse);
-}
+// service ChunkserverMasterService {
+//     rpc UpdateMetadata()
+// }
 
 // service ChunkServerMasterService {
 //     rpc AckServerRecovery() returns ();

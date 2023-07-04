@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package edu.cmu.reedsolomonfs.server;
+option java_outer_classname = "MasterserverOutter";
+
+service MasterService {
+  rpc HeartBeat(HeartbeatRequest) returns (HeartbeatResponse) {}
+  rpc WriteSuccess(ackMasterWriteSuccessRequest) returns (ackMasterWriteSuccessRequestResponse) {}
+}
+
+message HeartbeatRequest {
+  string serverTag = 1;
+}
+
+message HeartbeatResponse {
+  bool receive = 1;
+}
+
+message ackMasterWriteSuccessRequest {
+  string fileName = 1;
+  int64 appendAt = 2;
+  int64 fileSize = 3;
+  string writeFlag = 4;
+}
+
+message ackMasterWriteSuccessRequestResponse {
+  bool success = 1;
+}
