@@ -114,7 +114,7 @@ public class ChunkserverServiceImpl implements ChunkserverService {
     public void read(String filePath, final ChunkserverClosure closure) {
         System.out.println("read filePath: " + filePath);
         Map<String, byte[]> fileData = this.counterServer.getFsm().readFromServerDisk(filePath);
-        System.out.println("fileData: " + fileData);
+        // System.out.println("fileData: " + fileData);
         closure.successWithRead(fileData);
         closure.run(Status.OK());
         return;
@@ -122,6 +122,7 @@ public class ChunkserverServiceImpl implements ChunkserverService {
 
     private void applyOperation(final ChunkserverOperation op, final ChunkserverClosure closure) {
         if (!isLeader()) {
+            System.out.print("Not leader.");
             handlerNotLeaderError(closure);
             return;
         }
@@ -133,6 +134,7 @@ public class ChunkserverServiceImpl implements ChunkserverService {
             task.setDone(closure);
             this.counterServer.getNode().apply(task);
         } catch (CodecException e) {
+            System.out.println("CodecException");
             String errorMsg = "Fail to encode CounterOperation";
             LOG.error(errorMsg, e);
             closure.failure(errorMsg, StringUtils.EMPTY);

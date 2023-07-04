@@ -167,14 +167,14 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
     public Map<String, byte[]> readFromServerDisk(String filePath) {
         // get chunks file path from storedFileNameToChunks
         List<String> chunkFilePaths = storedFileNameToChunks.get(filePath);
-        System.out.println("chunkFilePaths is " + chunkFilePaths);
+        // System.out.println("chunkFilePaths is " + chunkFilePaths);
         // read chunks from disk
         Map<String, byte[]> chunks = new HashMap<String, byte[]>();
         for (int i = 0; i < chunkFilePaths.size(); i++) {
             String chunkFilePath = serverDiskPath + chunkFilePaths.get(i);
             try {
                 byte[] chunk = Files.readAllBytes(Paths.get(chunkFilePath));
-                System.out.println("Byte data read from " + chunkFilePath + " is " + new String(chunk));
+                // System.out.println("Byte data read from " + chunkFilePath + " is " + new String(chunk));
                 chunks.put(chunkFilePaths.get(i), chunk);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -210,6 +210,10 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                     continue;
                 }
             }
+            // print out closure
+            if (closure != null) {
+                LOG.info("closure={} at logIndex={}", closure, iter.getIndex());
+            }
             if (counterOperation != null) {
                 switch (counterOperation.getOp()) {
                     case GET:
@@ -241,9 +245,9 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                                 fos.write(chunks[i]); // Write the byte data to the file
                                 String fileNameWithSubDir = chunkFilePaths.get(i);
                                 updateStoredFileNameToChunks(fileNameWithSubDir);
-                                printStoredFileNameToChunks();
-                                System.out.println("Byte data to store is " + new String(chunks[i]));
-                                System.out.println("Byte data stored in " + chunkFilePath + " successfully.");
+                                // printStoredFileNameToChunks();
+                                // System.out.println("Byte data to store is " + new String(chunks[i]));
+                                // System.out.println("Byte data stored in " + chunkFilePath + " successfully.");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

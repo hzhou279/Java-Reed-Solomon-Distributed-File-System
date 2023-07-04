@@ -16,6 +16,10 @@
  */
 package edu.cmu.reedsolomonfs.server.rpc;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
 import com.alipay.sofa.jraft.Status;
 
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
@@ -58,9 +62,27 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
     @Override
     public void handleRequest(final RpcContext rpcCtx, final WriteRequest request) {
         
+        writeFlag = request.getWriteFlag();
+        appendAt = request.getAppendAt();
+        filePath = request.getFilePath();
+        fileSize = request.getFileSize();
+        System.out.printf("writeFlag: %s \n", writeFlag);
+        System.out.printf("appendAt: %d \n", appendAt);
+        System.out.printf("filePath: %s \n", filePath);
+        System.out.printf("fileSize: %d \n", fileSize);
+
         final ChunkserverClosure closure = new ChunkserverClosure() {
             @Override
             public void run(Status status) {
+                System.out.printf("WriteRequestProcessor: run \n");
+                // redirect the print log to file
+                // PrintStream out = null;
+                // try {
+                //     out = new PrintStream(new FileOutputStream("./output.txt"));
+                // } catch (FileNotFoundException e) {
+                //     e.printStackTrace();
+                // }
+                // System.setOut(out);
                 // send success to master 
                 MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(masterChannel);
                 ackMasterWriteSuccessRequest ack = ackMasterWriteSuccessRequest.newBuilder()
@@ -78,9 +100,6 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
         };
 
         // WriteFlag can be "create", "append", "overwrite", and "delete"
-        String writeFlag = request.getWriteFlag();
-        int fileSize = request.getFileSize();
-        String filePath = request.getFilePath();
         // switch (writeFlag) {
         //     case "create":
         //         FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath, fileSize);
@@ -95,14 +114,7 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
         FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath, fileSize);
         byte[][] shards = new byte[request.getPayloadCount()][];
 
-        writeFlag = request.getWriteFlag();
-        appendAt = request.getAppendAt();
-        filePath = request.getFilePath();
-        fileSize = request.getFileSize();
-        System.out.printf("writeFlag: %s \n", writeFlag);
-        System.out.printf("appendAt: %d \n", appendAt);
-        System.out.printf("filePath: %s \n", filePath);
-        System.out.printf("fileSize: %d \n", fileSize);
+        
 
 
         for (int i = 0; i < request.getPayloadCount(); i++)
