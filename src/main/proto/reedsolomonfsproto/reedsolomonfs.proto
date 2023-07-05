@@ -57,8 +57,20 @@ message UpdateMetadataRequest {
     
 }
 
+message RecoveryReadRequest {
+    string filePath = 1;
+}
+
+message RecoveryReadResponse {
+    bytes chunkFileData = 1;
+}
+
 service ClientMasterService {
     rpc GetToken(TokenRequest) returns (TokenResponse);
+}
+
+service RecoveryService {
+    rpc RecoveryRead(RecoveryReadRequest) returns (RecoveryReadResponse) {}
 }
 
 // service ClientChunkserverService {

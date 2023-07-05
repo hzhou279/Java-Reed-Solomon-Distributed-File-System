@@ -6,13 +6,17 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import edu.cmu.reedsolomonfs.client.RecoveryServiceGrpc;
 import edu.cmu.reedsolomonfs.client.ClientMasterServiceGrpc.ClientMasterServiceImplBase;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.GRPCMetadata;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
 import edu.cmu.reedsolomonfs.datatype.Node;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.GRPCNode;
-
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadRequest;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadResponse;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
@@ -35,15 +39,39 @@ public class Master extends ClientMasterServiceImplBase {
                 .addService(new MasterImpl())
                 .build()
                 .start();
-        
+
         metadata = new HashMap<>();
 
         // Generate secret key for master signing JWTs
         generateSecretKey();
 
-    
+        // Create a gRPC channel to connect to the chunkserver
+        ManagedChannel recoveryChannel = ManagedChannelBuilder.forAddress("localhost", 49152)
+                .usePlaintext() // For simplicity, using plaintext communication
+                .build();
+
+        // Create a client stub using the generated MyServiceGrpc class
+        // MyServiceGrpc.MyServiceBlockingStub stub = MyServiceGrpc.newBlockingStub(channel);
+        RecoveryServiceGrpc.RecoveryServiceBlockingStub stub = RecoveryServiceGrpc.newBlockingStub(recoveryChannel);
+
+        // send recovery request
+        String missingFilePath = "???";
+        sendRecoveryRequest(stub, missingFilePath);
+        
+
         // FileInputStream fileInputStream = new FileInputStream("./as");
         server.awaitTermination();
+
+        // Shutdown the recovery channel
+        recoveryChannel.shutdown();
+    }
+
+    // Implement the client functionality
+    private static void sendRecoveryRequest(RecoveryServiceGrpc.RecoveryServiceBlockingStub stub, String filePath) {
+        // Perform RPC calls using the stub
+        RecoveryReadRequest request = RecoveryReadRequest.newBuilder().setFilePath(filePath).build();
+        RecoveryReadResponse response = stub.recoveryRead(request);
+        System.out.println("Response from server: " + response.getChunkFileData());
     }
 
     public List<Node> getMetadata(String filePath) {
@@ -70,12 +98,12 @@ public class Master extends ClientMasterServiceImplBase {
         List<Node> nodes = getMetadata(request.getFilePath());
         for (Node node : nodes) {
             GRPCNode grpcNode = GRPCNode.newBuilder()
-                .setChunkIdx(node.getChunkIdx())
-                .setServerId(node.getServerId())
-                .setIsData(node.getIsData())
-                .build();
+                    .setChunkIdx(node.getChunkIdx())
+                    .setServerId(node.getServerId())
+                    .setIsData(node.getIsData())
+                    .build();
             grpcNodes.add(grpcNode);
-        } 
+        }
 
         GRPCMetadata data = GRPCMetadata.newBuilder()
                 .setFilePath(request.getFilePath())

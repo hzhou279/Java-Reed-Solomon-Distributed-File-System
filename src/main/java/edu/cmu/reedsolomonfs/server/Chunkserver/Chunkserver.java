@@ -28,6 +28,7 @@ import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ChunkserverGrpcHelper;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.GetValueRequestProcessor;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.IncrementAndGetRequestProcessor;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ReadRequestProcessor;
+import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.RecoveryServiceImpl;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.SetBytesValueRequestProcessor;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.WriteRequestProcessor;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse;
@@ -37,6 +38,8 @@ import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
 
 import com.alipay.sofa.jraft.option.NodeOptions;
 import com.alipay.sofa.jraft.rpc.RaftRpcServerFactory;
@@ -130,6 +133,22 @@ public class Chunkserver {
                 }
             }
         }
+    }
+
+
+    // // Implement the server functionality
+    private static void runRecoveryServer(int serverIdx, String diskPath) throws IOException, InterruptedException {
+        // Create a gRPC server using ServerBuilder
+        Server server = ServerBuilder.forPort(49152)
+            .addService(new RecoveryServiceImpl(serverIdx, diskPath)) // Implement your server methods in this service
+            .build();
+        
+        // Start the server
+        server.start();
+        System.out.println("Server started on port " + 49152);
+        
+        // Block the main thread to keep the server running
+        server.awaitTermination();
     }
 
 
