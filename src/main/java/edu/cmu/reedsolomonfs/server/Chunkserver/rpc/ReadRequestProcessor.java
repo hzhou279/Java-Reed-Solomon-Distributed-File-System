@@ -14,47 +14,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.cmu.reedsolomonfs.server.rpc;
+package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 
 import com.alipay.sofa.jraft.Status;
 
-import edu.cmu.reedsolomonfs.server.ChunkserverOutter.SetBytesRequest;
-import edu.cmu.reedsolomonfs.server.ChunkserverClosure;
-import edu.cmu.reedsolomonfs.server.ChunkserverService;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
+import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverClosure;
+import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverService;
 
 import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
 /**
- * SetBytesValueRequest processor.
+ * GetBytesValueRequest processor.
  *
  * @author boyan (boyan@alibaba-inc.com)
  *
- * 2018-Apr-09 5:43:57 PM
+ *         2018-Apr-09 5:48:33 PM
  */
-public class SetBytesValueRequestProcessor implements RpcProcessor<SetBytesRequest> {
+public class ReadRequestProcessor implements RpcProcessor<ReadRequest> {
 
     private final ChunkserverService counterService;
 
-    public SetBytesValueRequestProcessor(ChunkserverService counterService) {
+    public ReadRequestProcessor(ChunkserverService counterService) {
         super();
         this.counterService = counterService;
     }
 
     @Override
-    public void handleRequest(final RpcContext rpcCtx, final SetBytesRequest request) {
+    public void handleRequest(final RpcContext rpcCtx, final ReadRequest request) {
+        // log to see if the request is handled in the same thread
+        System.out.println("ReadRequestProcessor thread: " + Thread.currentThread().getName());
+
         final ChunkserverClosure closure = new ChunkserverClosure() {
             @Override
             public void run(Status status) {
                 rpcCtx.sendResponse(getValueResponse());
             }
         };
-
-        this.counterService.setBytesValue(request.getValue().toByteArray(), closure);
+        // log to see if the request is handled in the same thread
+        System.out.println("ReadRequestProcessor thread2: " + Thread.currentThread().getName());
+        String filePath = request.getFilePath();
+        this.counterService.read(filePath, closure);
     }
 
     @Override
     public String interest() {
-        return SetBytesRequest.class.getName();
+        return ReadRequest.class.getName();
     }
 }

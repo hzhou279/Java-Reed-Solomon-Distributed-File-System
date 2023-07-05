@@ -1,4 +1,4 @@
-package edu.cmu.reedsolomonfs.server;
+package edu.cmu.reedsolomonfs.server.Master;
 
 import java.io.IOException;
 import java.security.SecureRandom;

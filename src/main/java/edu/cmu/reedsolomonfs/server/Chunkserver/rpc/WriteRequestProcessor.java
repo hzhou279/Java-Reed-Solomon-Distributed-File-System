@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.cmu.reedsolomonfs.server.rpc;
+package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -25,10 +25,10 @@ import com.alipay.sofa.jraft.Status;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
 import edu.cmu.reedsolomonfs.datatype.FileMetadataHelper;
-import edu.cmu.reedsolomonfs.server.ChunkserverClosure;
-import edu.cmu.reedsolomonfs.server.ChunkserverService;
 import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter;
+import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverClosure;
+import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverService;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;

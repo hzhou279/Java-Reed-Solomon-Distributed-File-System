@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.cmu.reedsolomonfs.server.rpc;
+package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 
 import com.alipay.sofa.jraft.rpc.RpcServer;
 import com.alipay.sofa.jraft.util.RpcFactoryHelper;

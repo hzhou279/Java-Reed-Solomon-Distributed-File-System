@@ -14,21 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.cmu.reedsolomonfs.server;
+package edu.cmu.reedsolomonfs.server.Chunkserver;
 
 import com.alipay.sofa.jraft.Node;
 import com.alipay.sofa.jraft.RaftGroupService;
 import com.alipay.sofa.jraft.conf.Configuration;
 import com.alipay.sofa.jraft.entity.PeerId;
+
+import edu.cmu.reedsolomonfs.server.ChunkserverOutter;
+import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter;
+import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ChunkserverGrpcHelper;
+import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.GetValueRequestProcessor;
+import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.IncrementAndGetRequestProcessor;
+import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ReadRequestProcessor;
+import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.SetBytesValueRequestProcessor;
+import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.WriteRequestProcessor;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse;
+import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse.Builder;
+import edu.cmu.reedsolomonfs.server.MasterServiceGrpc.MasterServiceBlockingStub;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
-import edu.cmu.reedsolomonfs.server.rpc.ChunkserverGrpcHelper;
-import edu.cmu.reedsolomonfs.server.rpc.GetValueRequestProcessor;
-import edu.cmu.reedsolomonfs.server.rpc.IncrementAndGetRequestProcessor;
-import edu.cmu.reedsolomonfs.server.rpc.ReadRequestProcessor;
-import edu.cmu.reedsolomonfs.server.rpc.SetBytesValueRequestProcessor;
-import edu.cmu.reedsolomonfs.server.rpc.WriteRequestProcessor;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 

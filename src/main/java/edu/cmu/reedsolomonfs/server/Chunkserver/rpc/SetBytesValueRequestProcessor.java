@@ -14,34 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.cmu.reedsolomonfs.server.rpc;
+package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 
 import com.alipay.sofa.jraft.Status;
-import com.alipay.sofa.jraft.rpc.RpcContext;
-import edu.cmu.reedsolomonfs.server.ChunkserverOutter.GetValueRequest;
-import edu.cmu.reedsolomonfs.server.ChunkserverClosure;
-import edu.cmu.reedsolomonfs.server.ChunkserverService;
 
+import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverClosure;
+import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverService;
+import edu.cmu.reedsolomonfs.server.ChunkserverOutter.SetBytesRequest;
+
+import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
 /**
- * GetValueRequest processor.
+ * SetBytesValueRequest processor.
  *
  * @author boyan (boyan@alibaba-inc.com)
  *
- * 2018-Apr-09 5:48:33 PM
+ * 2018-Apr-09 5:43:57 PM
  */
-public class GetValueRequestProcessor implements RpcProcessor<GetValueRequest> {
+public class SetBytesValueRequestProcessor implements RpcProcessor<SetBytesRequest> {
 
     private final ChunkserverService counterService;
 
-    public GetValueRequestProcessor(ChunkserverService counterService) {
+    public SetBytesValueRequestProcessor(ChunkserverService counterService) {
         super();
         this.counterService = counterService;
     }
 
     @Override
-    public void handleRequest(final RpcContext rpcCtx, final GetValueRequest request) {
+    public void handleRequest(final RpcContext rpcCtx, final SetBytesRequest request) {
         final ChunkserverClosure closure = new ChunkserverClosure() {
             @Override
             public void run(Status status) {
@@ -49,11 +50,11 @@ public class GetValueRequestProcessor implements RpcProcessor<GetValueRequest> {
             }
         };
 
-        this.counterService.get(request.getReadOnlySafe(0), closure);
+        this.counterService.setBytesValue(request.getValue().toByteArray(), closure);
     }
 
     @Override
     public String interest() {
-        return GetValueRequest.class.getName();
+        return SetBytesRequest.class.getName();
     }
 }

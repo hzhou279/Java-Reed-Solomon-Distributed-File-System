@@ -1,5 +1,8 @@
-package edu.cmu.reedsolomonfs.server;
+package edu.cmu.reedsolomonfs.server.Master;
 
+import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter;
+import edu.cmu.reedsolomonfs.server.MasterServiceGrpc.MasterServiceImplBase;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatResponse;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;

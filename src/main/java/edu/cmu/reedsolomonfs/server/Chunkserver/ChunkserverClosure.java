@@ -14,14 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.cmu.reedsolomonfs.server;
+package edu.cmu.reedsolomonfs.server.Chunkserver;
 
 import java.util.Map;
 
 import com.alipay.sofa.jraft.Closure;
 import com.google.protobuf.ByteString;
 
+import edu.cmu.reedsolomonfs.server.ChunkserverOutter;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse;
+import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse.Builder;
 
 /**
  * @author likun (saimu.msm@antfin.com)

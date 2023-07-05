@@ -20,10 +20,11 @@ import com.alipay.sofa.jraft.RouteTable;
 import com.alipay.sofa.jraft.conf.Configuration;
 import com.alipay.sofa.jraft.entity.PeerId;
 import com.alipay.sofa.jraft.error.RemotingException;
+
+import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ChunkserverGrpcHelper;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.IncrementAndGetRequest;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.SetBytesRequest;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse;
-import edu.cmu.reedsolomonfs.server.rpc.ChunkserverGrpcHelper;
 
 import com.alipay.sofa.jraft.option.CliOptions;
 import com.alipay.sofa.jraft.rpc.InvokeCallback;
@@ -45,7 +46,7 @@ import java.util.concurrent.TimeoutException;
 
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
-import edu.cmu.reedsolomonfs.ConfigurationVariables;
+import edu.cmu.reedsolomonfs.ConfigVariables;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
@@ -174,8 +175,8 @@ public class Client {
 
         int serverCnt = 0;
         int byteCntInShards = 0;
-        byte[][] shards = new byte[ConfigurationVariables.TOTAL_SHARD_COUNT][];
-        boolean[] shardsPresent = new boolean[ConfigurationVariables.TOTAL_SHARD_COUNT];
+        byte[][] shards = new byte[ConfigVariables.TOTAL_SHARD_COUNT][];
+        boolean[] shardsPresent = new boolean[ConfigVariables.TOTAL_SHARD_COUNT];
         
 
         for (PeerId peer : conf) {
@@ -223,7 +224,7 @@ public class Client {
 
 
         if (byteCntInShards == 0) throw new IllegalArgumentException("There is not enough data to decode");
-        for (int i = 0; i < ConfigurationVariables.TOTAL_SHARD_COUNT; i++) {
+        for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
             if (shards[i] == null) shards[i] = new byte[byteCntInShards];
             // System.out.println("shard " + i + " size is " + shards[i].length);
         }

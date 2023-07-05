@@ -1,6 +1,6 @@
 package edu.cmu.reedsolomonfs.datatype;
 
-import edu.cmu.reedsolomonfs.ConfigurationVariables;
+import edu.cmu.reedsolomonfs.ConfigVariables;
 
 public class NodeHelper {
 
@@ -10,11 +10,11 @@ public class NodeHelper {
      * @return
      */
     public static byte[][] splitShardToChunks(byte[] shard) {
-        int chunkCnt = shard.length / ConfigurationVariables.BLOCK_SIZE;
-        byte[][] chunks = new byte[chunkCnt][ConfigurationVariables.BLOCK_SIZE];
+        int chunkCnt = shard.length / ConfigVariables.BLOCK_SIZE;
+        byte[][] chunks = new byte[chunkCnt][ConfigVariables.BLOCK_SIZE];
         int idxInShard = 0;
         for (int i = 0; i < chunkCnt; i++) {
-            for (int j = 0; j < ConfigurationVariables.BLOCK_SIZE; j++)
+            for (int j = 0; j < ConfigVariables.BLOCK_SIZE; j++)
                 chunks[i][j] = shard[idxInShard++];
         }
         return chunks;
