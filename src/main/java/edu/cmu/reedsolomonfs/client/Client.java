@@ -109,10 +109,10 @@ public class Client {
         String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
         byte[] fileData = Files.readAllBytes(Path.of(filePath));
 
-        // create(cliClientService, "test.txt", fileData, groupId);
-        // System.out.println(filePath + " created successfully!!!!");
-        // // // sleep for 7s to wait for the data to be replicated to the follower
-        // Thread.sleep(7000);
+        create(cliClientService, "test.txt", fileData, groupId);
+        System.out.println(filePath + " created successfully!!!!");
+        // // sleep for 7s to wait for the data to be replicated to the follower
+        Thread.sleep(7000);
 
         System.out.println("Going to read the file!!!!");
 

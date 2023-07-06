@@ -66,7 +66,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                             needToRecover = true;
                         } else {
                             chunkserversPresent[entry.getKey()] = true;
-                            oldHeartbeat.put(entry.getKey(), entry.getValue());
+                            oldHeartbeat.put(entry.getKey(), currHeartbeat.get(entry.getKey()));
                             System.out.println("Chunkserver " + entry.getKey() + " pass timeout check");
                         }
                     }
@@ -80,8 +80,9 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                             e.printStackTrace();
                         }
                         needToRecover = false;
+                        break;
                     }
-                    break;
+                    
                 }
                 try {
                     Thread.sleep(checkInterval);
