@@ -82,7 +82,7 @@ public class Chunkserver {
         channel = ManagedChannelBuilder.forAddress("localhost", 8080)
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
-        heartbeatThread hbt = new heartbeatThread(channel, rpcServer);
+        heartbeatThread hbt = new heartbeatThread(channel, rpcServer, serverIdx);
         hbt.start();
         ChunkserverService counterService = new ChunkserverServiceImpl(this);
         rpcServer.registerProcessor(new GetValueRequestProcessor(counterService));
@@ -115,16 +115,18 @@ public class Chunkserver {
         // TODO Add Retry Mechanism
         private ManagedChannel channel;
         private RpcServer rpcServer;
+        private int serverIdx;
 
-        public heartbeatThread(ManagedChannel channel, RpcServer rpcServer) {
+        public heartbeatThread(ManagedChannel channel, RpcServer rpcServer, int serverIdx) {
             this.channel = channel;
             this.rpcServer = rpcServer;
+            this.serverIdx = serverIdx;
         }
 
         public void run() {
             while (true) {
                 MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(channel);
-                HeartbeatRequest hb = HeartbeatRequest.newBuilder().setServerTag(rpcServer.toString()).build();
+                HeartbeatRequest hb = HeartbeatRequest.newBuilder().setServerTag(String.valueOf(serverIdx)).build();
                 stub.heartBeat(hb);
                 try {
                     sleep(5000); // heartbeat interval
