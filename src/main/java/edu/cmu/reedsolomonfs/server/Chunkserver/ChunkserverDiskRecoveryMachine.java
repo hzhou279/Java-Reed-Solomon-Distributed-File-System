@@ -26,7 +26,10 @@ public class ChunkserverDiskRecoveryMachine {
             throw new IllegalArgumentException("Number of bytes in different chunkserver disks mismatch");
         chunkserverDiskByteCnt = chunkserverDiskData.length;
         chunkserverDisksData[serverIdx] = new byte[chunkserverDiskByteCnt];
-        System.arraycopy(chunkserverDisksData[serverIdx], 0, chunkserverDiskData, 0, chunkserverDiskByteCnt);
+        // System.arraycopy(chunkserverDisksData[serverIdx], 0, chunkserverDiskData, 0, chunkserverDiskByteCnt);
+        // for (int i = 0; i < chunkserverDiskByteCnt; i++)
+        //     chunkserverDisksData[serverIdx][i] = chunkserverDiskData[i];
+        System.arraycopy(chunkserverDiskData, 0, chunkserverDisksData[serverIdx], 0, chunkserverDiskByteCnt);
         chunkserverDiskPresent[serverIdx] = true;
         chunkserverDiskPresentCnt++;
     }
@@ -34,8 +37,13 @@ public class ChunkserverDiskRecoveryMachine {
     public void recoverChunkserverDiskData() throws IllegalArgumentException {
         if (chunkserverDiskPresentCnt < ConfigVariables.DATA_SHARD_COUNT)
             throw new IllegalArgumentException("There is not enough disk data to perform the recovery");
+        else if (chunkserverDiskByteCnt == 0)
+            throw new IllegalArgumentException("There is no data to recover");
         else if (chunkserverDiskPresentCnt == ConfigVariables.TOTAL_SHARD_COUNT)
             return;
+        for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++)
+            if (!chunkserverDiskPresent[i])
+                chunkserverDisksData[i] = new byte[chunkserverDiskByteCnt];
         reedSolomon.decodeMissing(chunkserverDisksData, chunkserverDiskPresent, 0, chunkserverDiskByteCnt);
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++)
             if (!chunkserverDiskPresent[i])

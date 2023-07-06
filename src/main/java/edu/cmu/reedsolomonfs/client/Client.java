@@ -108,11 +108,11 @@ public class Client {
         // Make a create request
         String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
         byte[] fileData = Files.readAllBytes(Path.of(filePath));
-        create(cliClientService, "test.txt", fileData, groupId);
 
-        System.out.println(filePath + " created successfully!!!!");
-        // // sleep for 5s to wait for the data to be replicated to the follower
-        Thread.sleep(5000);
+        // create(cliClientService, "test.txt", fileData, groupId);
+        // System.out.println(filePath + " created successfully!!!!");
+        // // // sleep for 7s to wait for the data to be replicated to the follower
+        // Thread.sleep(7000);
 
         System.out.println("Going to read the file!!!!");
 
@@ -126,22 +126,20 @@ public class Client {
         // check data read correctly
         if (fileDataRead != null && Arrays.equals(fileData, fileDataRead)) {
             System.out.println("[Client-Cluster] Create and Read a new file succeeded!!!!");
-            String clientDiskPath = "./ClientClusterCommTestFiles/FilesRead/test.txt";
-            try (FileOutputStream fos = new FileOutputStream(clientDiskPath)) {
-            fos.write(fileDataRead); // Write the byte data to the file
-                            // System.out.println("Byte data to store is " + new String(shards[serverIdx]));
-                            // System.out.println("Byte data stored in " + serverDiskPath + " successfully.");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-        }
-            
-        else {
+        } else {
             System.out.println("Client-Cluster Create and Read a new file failed?????");
             // System.out.println(new String(fileData) + "\n\n\n\n\n");
             // System.out.println(new String(fileDataRead));
         }
-            
+        String clientDiskPath = "./ClientClusterCommTestFiles/FilesRead/test.txt";
+        try (FileOutputStream fos = new FileOutputStream(clientDiskPath)) {
+            fos.write(fileDataRead); // Write the byte data to the file
+            // System.out.println("Byte data to store is " + new String(shards[serverIdx]));
+            // System.out.println("Byte data stored in " + serverDiskPath + "
+            // successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Shutdown the channel to the master
         channel.shutdown();
@@ -150,7 +148,8 @@ public class Client {
         System.exit(0);
     }
 
-    public static byte[] read(final CliClientServiceImpl cliClientService, String operationType, String filePath, int fileSize,
+    public static byte[] read(final CliClientServiceImpl cliClientService, String operationType, String filePath,
+            int fileSize,
             final String groupId) throws RemotingException, InterruptedException {
 
         if (operationType.equals("read"))
@@ -177,7 +176,6 @@ public class Client {
         int byteCntInShards = 0;
         byte[][] shards = new byte[ConfigVariables.TOTAL_SHARD_COUNT][];
         boolean[] shardsPresent = new boolean[ConfigVariables.TOTAL_SHARD_COUNT];
-        
 
         for (PeerId peer : conf) {
             System.out.println("peer:" + peer.getEndpoint());
@@ -222,10 +220,11 @@ public class Client {
             serverCnt++;
         }
 
-
-        if (byteCntInShards == 0) throw new IllegalArgumentException("There is not enough data to decode");
+        if (byteCntInShards == 0)
+            throw new IllegalArgumentException("There is not enough data to decode");
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
-            if (shards[i] == null) shards[i] = new byte[byteCntInShards];
+            if (shards[i] == null)
+                shards[i] = new byte[byteCntInShards];
             // System.out.println("shard " + i + " size is " + shards[i].length);
         }
 
