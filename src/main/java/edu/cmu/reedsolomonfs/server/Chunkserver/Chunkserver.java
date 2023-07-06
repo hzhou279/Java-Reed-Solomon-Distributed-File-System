@@ -149,7 +149,7 @@ public class Chunkserver {
 
                 // Start the server
                 server.start();
-                System.out.println("Server started on port " + (18000 + serverIdx));
+                System.out.println("Server starteds on port " + (18000 + serverIdx));
 
                 // Block the server thread to keep the server running
                 server.awaitTermination();

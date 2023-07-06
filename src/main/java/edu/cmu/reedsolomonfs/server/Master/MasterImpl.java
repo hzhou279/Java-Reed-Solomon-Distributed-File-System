@@ -9,6 +9,7 @@ import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequ
 import io.grpc.stub.StreamObserver;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,6 +23,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     static final long checkInterval = 7000;
     static boolean[] chunkserversPresent;
     static boolean needToRecover;
+    private Map<String, Map<Integer, List<String>>> fileVersions;
+
 
     public MasterImpl() {
         storageActivated = false;
@@ -31,7 +34,16 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         needToRecover = false;
 
         Thread hbc = new heartbeatChecker();
+        fileVersions = new ConcurrentHashMap<>();
         hbc.start();
+    }
+
+    public void addFileVersion(String filename, int version, List<String> chunkFileNames) {
+        // Retrieve the map for the given filename, creating and inserting an empty one if none exists
+        Map<Integer, List<String>> versionMap = fileVersions.computeIfAbsent(filename, k -> new ConcurrentHashMap<>());
+    
+        // Add the version and its chunk file names to the map
+        versionMap.put(version, chunkFileNames);
     }
 
     // heartbeat routine
