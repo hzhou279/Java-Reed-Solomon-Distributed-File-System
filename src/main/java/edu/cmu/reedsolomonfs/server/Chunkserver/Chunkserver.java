@@ -53,30 +53,31 @@ import java.io.IOException;
  * Counter server that keeps a counter value in a raft group.
  *
  * @author boyan (boyan@alibaba-inc.com)
- * <p>
- * 2018-Apr-09 4:51:02 PM
+ *         <p>
+ *         2018-Apr-09 4:51:02 PM
  */
 public class Chunkserver {
 
-    private RaftGroupService    raftGroupService;
-    private Node                node;
+    private RaftGroupService raftGroupService;
+    private Node node;
     private ChunkserverStateMachine fsm;
-    private int                 serverIdx;
+    private int serverIdx;
     private ManagedChannel channel;
 
     // line 88 to line 99 follows server setting example in SOFAJaft documentation
     // https://www.sofastack.tech/en/projects/sofa-jraft/jraft-user-guide/
     public Chunkserver(final String dataPath, final String groupId, final PeerId serverId,
-                         final NodeOptions nodeOptions, int serverIdx) throws IOException {
+            final NodeOptions nodeOptions, int serverIdx) throws IOException {
         // init raft data path, it contains log,meta,snapshot
         FileUtils.forceMkdir(new File(dataPath));
 
-        // here use same RPC server for raft and business. It also can be seperated generally
+        // here use same RPC server for raft and business. It also can be seperated
+        // generally
         final RpcServer rpcServer = RaftRpcServerFactory.createRaftRpcServer(serverId.getEndpoint());
         // GrpcServer need init marshaller
         ChunkserverGrpcHelper.initGRpc();
         ChunkserverGrpcHelper.setRpcServer(rpcServer);
-        
+
         // register business processor
         channel = ManagedChannelBuilder.forAddress("localhost", 8080)
                 .usePlaintext() // Use insecure connection, for testing only
@@ -109,9 +110,9 @@ public class Chunkserver {
         this.node = this.raftGroupService.start();
     }
 
-    // heartbeat routine 
+    // heartbeat routine
     private class heartbeatThread extends Thread {
-        //TODO Add Retry Mechanism 
+        // TODO Add Retry Mechanism
         private ManagedChannel channel;
         private RpcServer rpcServer;
 
@@ -135,23 +136,29 @@ public class Chunkserver {
         }
     }
 
+    private static void startRecoveryServer(int serverIdx, String diskPath) throws Exception {
+        // Create a new thread for running the server
+        Thread recoveryServerThread = new Thread(() -> {
+            try {
+                // Create a gRPC server using ServerBuilder
+                Server server = ServerBuilder.forPort(18000 + serverIdx)
+                        .addService(new RecoveryServiceImpl(serverIdx, diskPath)) // Add your service implementation
+                        .build();
 
-    // // Implement the server functionality
-    private static void runRecoveryServer(int serverIdx, String diskPath) throws IOException, InterruptedException {
-        // Create a gRPC server using ServerBuilder
-        Server server = ServerBuilder.forPort(49152)
-            .addService(new RecoveryServiceImpl(serverIdx, diskPath)) // Implement your server methods in this service
-            .build();
-        
-        // Start the server
-        server.start();
-        System.out.println("Server started on port " + 49152);
-        
-        // Block the main thread to keep the server running
-        server.awaitTermination();
+                // Start the server
+                server.start();
+                System.out.println("Server started on port " + (18000 + serverIdx));
+
+                // Block the server thread to keep the server running
+                server.awaitTermination();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Start the server thread
+        recoveryServerThread.start();
     }
-
-
 
     public int getServerIdx() {
         return this.serverIdx;
@@ -183,14 +190,17 @@ public class Chunkserver {
         return builder.build();
     }
 
-    // the following main function used the raft server example code provided in SOFAJRaft documentation 
+    // the following main function used the raft server example code provided in
+    // SOFAJRaft documentation
     // https://www.sofastack.tech/en/projects/sofa-jraft/jraft-user-guide/
-    public static void main(final String[] args) throws IOException {
+    public static void main(final String[] args) throws NumberFormatException, Exception {
         if (args.length != 5) {
             System.out
-                .println("Usage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf} {serverIdx}");
+                    .println(
+                            "Usage : java com.alipay.sofa.jraft.example.counter.CounterServer {dataPath} {groupId} {serverId} {initConf} {serverIdx}");
             System.out
-                .println("Example: java com.alipay.sofa.jraft.example.counter.CounterServer /tmp/server1 counter 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083 0");
+                    .println(
+                            "Example: java com.alipay.sofa.jraft.example.counter.CounterServer /tmp/server1 counter 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083 0");
             System.exit(1);
         }
         final String dataPath = args[0];
@@ -220,9 +230,15 @@ public class Chunkserver {
         nodeOptions.setInitialConf(initConf);
 
         // start raft server
-        final Chunkserver counterServer = new Chunkserver(dataPath, groupId, serverId, nodeOptions, Integer.parseInt(serverIdx));
+        final Chunkserver counterServer = new Chunkserver(dataPath, groupId, serverId, nodeOptions,
+                Integer.parseInt(serverIdx));
         System.out.println("Started counter server at port:"
-                           + counterServer.getNode().getNodeId().getPeerId().getPort());
+                + counterServer.getNode().getNodeId().getPeerId().getPort());
+
+        // start the recovery thread
+        String diskPath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + serverIdx + "/";
+        startRecoveryServer(Integer.parseInt(serverIdx), diskPath);
+
         // GrpcServer need block to prevent process exit
         ChunkserverGrpcHelper.blockUntilShutdown();
     }

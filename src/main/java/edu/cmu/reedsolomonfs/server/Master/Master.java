@@ -46,7 +46,7 @@ public class Master extends ClientMasterServiceImplBase {
         generateSecretKey();
 
         // Create a gRPC channel to connect to the chunkserver
-        ManagedChannel recoveryChannel = ManagedChannelBuilder.forAddress("localhost", 49152)
+        ManagedChannel recoveryChannel = ManagedChannelBuilder.forAddress("localhost", 18000)
                 .usePlaintext() // For simplicity, using plaintext communication
                 .build();
 
@@ -55,8 +55,8 @@ public class Master extends ClientMasterServiceImplBase {
         RecoveryServiceGrpc.RecoveryServiceBlockingStub stub = RecoveryServiceGrpc.newBlockingStub(recoveryChannel);
 
         // send recovery request
-        String missingFilePath = "???";
-        sendRecoveryRequest(stub, missingFilePath);
+        // String missingFilePath = "test.txt.0-0";
+        // sendRecoveryRequest(stub, missingFilePath);
         
 
         // FileInputStream fileInputStream = new FileInputStream("./as");
@@ -66,7 +66,7 @@ public class Master extends ClientMasterServiceImplBase {
         recoveryChannel.shutdown();
     }
 
-    // Implement the client functionality
+    // Master request chunk file data from cluster
     private static void sendRecoveryRequest(RecoveryServiceGrpc.RecoveryServiceBlockingStub stub, String filePath) {
         // Perform RPC calls using the stub
         RecoveryReadRequest request = RecoveryReadRequest.newBuilder().setFilePath(filePath).build();
