@@ -48,6 +48,8 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Counter server that keeps a counter value in a raft group.
@@ -78,12 +80,6 @@ public class Chunkserver {
         ChunkserverGrpcHelper.initGRpc();
         ChunkserverGrpcHelper.setRpcServer(rpcServer);
 
-        // register business processor
-        channel = ManagedChannelBuilder.forAddress("localhost", 8080)
-                .usePlaintext() // Use insecure connection, for testing only
-                .build();
-        heartbeatThread hbt = new heartbeatThread(channel, rpcServer, serverIdx);
-        hbt.start();
         ChunkserverService counterService = new ChunkserverServiceImpl(this);
         rpcServer.registerProcessor(new GetValueRequestProcessor(counterService));
         rpcServer.registerProcessor(new IncrementAndGetRequestProcessor(counterService));
@@ -108,6 +104,13 @@ public class Chunkserver {
         this.raftGroupService = new RaftGroupService(groupId, serverId, nodeOptions, rpcServer);
         // start raft node
         this.node = this.raftGroupService.start();
+
+        // register business processor
+        channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+                .usePlaintext() // Use insecure connection, for testing only
+                .build();
+        heartbeatThread hbt = new heartbeatThread(channel, rpcServer, serverIdx);
+        hbt.start();
     }
 
     // heartbeat routine
@@ -126,7 +129,22 @@ public class Chunkserver {
         public void run() {
             while (true) {
                 MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(channel);
-                HeartbeatRequest hb = HeartbeatRequest.newBuilder().setServerTag(String.valueOf(serverIdx)).build();
+                Map<String, List<String>> fileNameChunks = fsm.getStoredFileNameToChunks();
+                // System.out.println("fileNameChunks: " + fileNameChunks);
+                // convert fileNameChunks string to ChunkFileNames protobuf
+                Map<String, HeartbeatRequest.ChunkFileNames> fileNameChunksMap = new java.util.HashMap<String, HeartbeatRequest.ChunkFileNames>();
+                for (String fileName : fileNameChunks.keySet()) {
+                    List<String> chunks = fileNameChunks.get(fileName);
+                    HeartbeatRequest.ChunkFileNames.Builder chunkFileNamesBuilder = HeartbeatRequest.ChunkFileNames
+                            .newBuilder();
+                    for (String chunk : chunks) {
+                        chunkFileNamesBuilder.addFileName(chunk);
+                    }
+                    fileNameChunksMap.put(fileName, chunkFileNamesBuilder.build());
+                }
+                // System.out.println("fileNameChunksMap: " + fileNameChunksMap);
+
+                HeartbeatRequest hb = HeartbeatRequest.newBuilder().setServerTag(String.valueOf(serverIdx)).putAllChunkFileNames(fileNameChunksMap).build();
                 stub.heartBeat(hb);
                 try {
                     sleep(5000); // heartbeat interval

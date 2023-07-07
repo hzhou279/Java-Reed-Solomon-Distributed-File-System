@@ -11,7 +11,7 @@ trap 'handle_sigint' SIGINT
 
 ./terminateChunkserver.sh
 
-mvn compile -X
+mvn clean compile -X
 
 command1=("mvn" "exec:java" "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver" "-Dexec.args=chunkserver1 cluster 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086 0")
 command2=("mvn" "exec:java" "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver" "-Dexec.args=chunkserver2 cluster 127.0.0.1:8082 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086 1")
