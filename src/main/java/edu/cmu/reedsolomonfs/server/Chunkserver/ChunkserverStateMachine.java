@@ -148,6 +148,10 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
             System.out.println("File: " + entry.getKey() + ", Chunks: " + entry.getValue());
         }
     }
+    
+    public Map<String, List<String>> getStoredFileNameToChunks() {
+        return storedFileNameToChunks;
+    }
 
     /**
      * Returns current value.
