@@ -67,9 +67,12 @@ public class Client {
     // this.cliClientService = cliClientService;
     // }
     static ClientCLI cli = new ClientCLI();
+    public ManagedChannel channel;
+    public CliClientServiceImpl cliClientService;
+    public String groupId;
+    public String confStr;
 
-    public static void main(final String[] args) throws Exception {
-        
+    public Client(final String[] args) throws Exception {
         if (args.length != 2) {
             System.out.println("Usage : java com.alipay.sofa.jraft.example.counter.CounterClient {groupId} {conf}");
             System.out
@@ -77,18 +80,18 @@ public class Client {
                             "Example: java com.alipay.sofa.jraft.example.counter.CounterClient counter 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
             System.exit(1);
         }
-        final String groupId = args[0];
-        final String confStr = args[1];
+        groupId = args[0];
+        confStr = args[1];
         ChunkserverGrpcHelper.initGRpc();
 
         final Configuration conf = new Configuration();
         if (!conf.parse(confStr)) {
             throw new IllegalArgumentException("Fail to parse conf:" + confStr);
         }
-
+        System.out.println(groupId + "????");
         RouteTable.getInstance().updateConfiguration(groupId, conf);
 
-        final CliClientServiceImpl cliClientService = new CliClientServiceImpl();
+        cliClientService = new CliClientServiceImpl();
         cliClientService.init(new CliOptions());
 
         if (!RouteTable.getInstance().refreshLeader(cliClientService, groupId, 1000).isOk()) {
@@ -101,19 +104,18 @@ public class Client {
         System.out.println("Configuration is " + RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
 
         // Create a channel to connect to the master
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+        channel = ManagedChannelBuilder.forAddress("localhost", 8080)
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
+    }
 
-        cli.run();
-        
+    public void test(final String[] args) throws Exception {
         // Cache file metadata
         Map<String, FileMetadata> cache = new HashMap<>();
 
         // Make a create request
         String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
         byte[] fileData = Files.readAllBytes(Path.of(filePath));
-
         create(cliClientService, "test.txt", fileData, groupId);
         System.out.println(filePath + " created successfully!!!!");
         // // sleep for 7s to wait for the data to be replicated to the follower
@@ -268,7 +270,7 @@ public class Client {
 
     }
 
-    public static void create(final CliClientServiceImpl cliClientService, String filePath, byte[] fileData,
+    public void create(final CliClientServiceImpl cliClientService, String filePath, byte[] fileData,
             final String groupId) throws RemotingException, InterruptedException {
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);

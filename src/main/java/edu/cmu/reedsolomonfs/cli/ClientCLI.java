@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -14,6 +16,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import edu.cmu.reedsolomonfs.cli.DirectoryTree.Node;
+import edu.cmu.reedsolomonfs.client.Client;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,8 +31,11 @@ public class ClientCLI implements KeyListener{
     static Map<String, LinkedList<Integer>> metaData;
     static DirectoryTree tree = new DirectoryTree();
     static Node root;
+    static Client client;
 
-    public void run() throws ParseException {
+    public static void main(final String[] args) throws Exception{
+        client = new Client(args);
+
         Scanner scanner = new Scanner(System.in);
         CommandLineParser parser = new DefaultParser();
         Options options = new Options();
@@ -101,6 +107,10 @@ public class ClientCLI implements KeyListener{
                 System.out.println("REMOVE FILE");
             } else if (words[0].equals("mkdir")) {
                 System.out.println("MAKE DIRECTORY");
+            } else if (words[0].equals("create")) {
+                String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
+                byte[] fileData = Files.readAllBytes(Path.of(filePath));
+                client.create(client.cliClientService, words[1], fileData, client.groupId);
             } else {
                 System.out.println("Invalid Command");
             }
@@ -108,6 +118,7 @@ public class ClientCLI implements KeyListener{
 
         scanner.close();
         System.out.println("CLI application exited.");
+        client.test(args);
     }
 
     public String[] findStringsStartingWith(String[] array, char[] startChars) {
