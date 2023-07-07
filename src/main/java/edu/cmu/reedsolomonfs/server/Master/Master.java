@@ -22,6 +22,7 @@ import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverDiskRecoveryMachine;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.GRPCNode;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadRequest;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadResponse;
+import io.grpc.BindableService;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Server;
@@ -47,10 +48,12 @@ public class Master extends ClientMasterServiceImplBase {
     private static RecoveryServiceGrpc.RecoveryServiceBlockingStub[] stubs;
     private static boolean[] recoveryConnectionEstablished;
     private static int[] recoveryPorts = { 18000, 18001, 18002, 18003, 18004, 18005 };
+    private static MasterImpl masterImpl;
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        masterImpl = new MasterImpl();
         Server server = ServerBuilder.forPort(8080)
-                .addService(new MasterImpl())
+                .addService(masterImpl)
                 .build()
                 .start();
 
@@ -220,7 +223,7 @@ public class Master extends ClientMasterServiceImplBase {
 
         // Get nodes of current file
         List<GRPCNode> grpcNodes = new ArrayList<>();
-        List<Node> nodes = getMetadata(request.getFilePath());
+        List<Node> nodes = masterImpl.getMetadata(request.getFilePath());
         for (Node node : nodes) {
             GRPCNode grpcNode = GRPCNode.newBuilder()
                     .setChunkIdx(node.getChunkIdx())

@@ -3,9 +3,12 @@ package edu.cmu.reedsolomonfs.server.Master;
 import edu.cmu.reedsolomonfs.ConfigVariables;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverDiskRecoveryMachine;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest.ChunkFileNames;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatResponse;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequestResponse;
+import edu.cmu.reedsolomonfs.datatype.Node;
+
 import io.grpc.stub.StreamObserver;
 
 import java.io.FileInputStream;
@@ -17,9 +20,12 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.impl.LogKitLogger;
+
+import com.google.common.collect.Sets;
 
 public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.MasterServiceImplBase {
 
@@ -32,7 +38,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     private Map<String, Map<Integer, List<String>>> fileVersions;
     private Map<String, Integer> latestFileVersion;
     private Map<String, Long> latestChunkIndex;
-    private Map<Integer, Map<String, List<String>>> chunkServerChunkFileNames;
+    private Map<Integer, Map<String, Set<String>>> chunkServerChunkFileNames;
+    private static Map<String, List<Node>> metadata;
 
     static String fileVersionsFileName = "fileVersions";
 
@@ -48,11 +55,15 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         latestFileVersion = new ConcurrentHashMap<>();
         latestChunkIndex = new ConcurrentHashMap<>();
         chunkServerChunkFileNames = new ConcurrentHashMap<>();
+        metadata = new HashMap<>();
         // load from file if exists
         try {
             loadFromFile(fileVersionsFileName);
             System.out.println("fileVersions: " + fileVersions);
             System.out.println("latestFileVersion: " + latestFileVersion);
+            System.out.println("latestChunkIndex: " + latestChunkIndex);
+            System.out.println("storedChunkFileNames: " + chunkServerChunkFileNames);
+            System.out.println("metadata: " + metadata);
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -113,10 +124,17 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         for (int idx = 0; idx < chunkCnt; idx++) {
             String chunkFileName = newChunkFileNames.get(idx);
             int shardIdx = idx % ConfigVariables.DATA_SHARD_COUNT;
-            Map<String, List<String>> shardMap = chunkServerChunkFileNames.computeIfAbsent(shardIdx, k -> new ConcurrentHashMap<>());
-            List<String> chunkFileNames = shardMap.computeIfAbsent(filename, k -> new java.util.LinkedList<>());
+            Map<String, Set<String>> shardMap = chunkServerChunkFileNames.computeIfAbsent(shardIdx, k -> new ConcurrentHashMap<>());
+            Set<String> chunkFileNames = shardMap.computeIfAbsent(filename, k -> Sets.newConcurrentHashSet());
             chunkFileNames.add(chunkFileName);
             chunkServerChunkFileNames.put(shardIdx, shardMap);
+            // update metadata
+            List<Node> nodes = metadata.getOrDefault(filename, new java.util.LinkedList<>());
+            // extract chunkIdx from chunkFileName, ex: 9 from test.txt.0-9
+            int chunkIdx = Integer.parseInt(chunkFileName.substring(chunkFileName.lastIndexOf('.') + 1));
+            Node n = new Node(chunkIdx, shardIdx, false, ConfigVariables.BLOCK_SIZE);
+            nodes.add(n);
+            metadata.put(filename, nodes);
         }
 
         // print out the file versions map and the latest file version map
@@ -124,6 +142,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         System.out.println("latestFileVersion: " + latestFileVersion);
         System.out.println("latestChunkIndex: " + latestChunkIndex);
         System.out.println("storedChunkFileNames: " + chunkServerChunkFileNames);
+        System.out.println("metadata: " + metadata);
         try {
             saveToFile(fileVersionsFileName);
         } catch (IOException e) {
@@ -139,6 +158,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             oos.writeObject(latestFileVersion);
             oos.writeObject(latestChunkIndex);
             oos.writeObject(chunkServerChunkFileNames);
+            oos.writeObject(metadata);
         }
     }
 
@@ -149,7 +169,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             fileVersions = (Map<String, Map<Integer, List<String>>>) ois.readObject();
             latestFileVersion = (Map<String, Integer>) ois.readObject();
             latestChunkIndex = (Map<String, Long>) ois.readObject();
-            chunkServerChunkFileNames = (Map<Integer, Map<String, List<String>>>) ois.readObject();
+            chunkServerChunkFileNames = (Map<Integer, Map<String, Set<String>>>) ois.readObject();
+            metadata = (Map<String, List<Node>>) ois.readObject();
         }
     }
 
@@ -220,6 +241,24 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
             // System.out.println("request getChunkFileNamesMap: ");
             // System.out.println(request.getChunkFileNamesMap());
+            Map<String, ChunkFileNames> chunkFilesMap = request.getChunkFileNamesMap();
+            // TODO: recovery/delete chunk file if not exists
+            // TODO: check if the difference is expected or not
+            // compare and print out the difference of chunk file names map with chunkServerChunkFileNames
+            for (Map.Entry<String, ChunkFileNames> entry : chunkFilesMap.entrySet()) {
+                String filename = entry.getKey();
+                ChunkFileNames chunkFileNames = entry.getValue();
+                // convert chunkFileNames to a set
+                Set<String> chunkFileNamesSet = Sets.newConcurrentHashSet();
+                for (int i = 0; i < chunkFileNames.getFileNameCount(); i++) {
+                    chunkFileNamesSet.add(chunkFileNames.getFileName(i));
+                }
+                // print the difference between chunkFileNamesSet and chunkServerChunkFileNames
+                Set<String> diff = Sets.difference(chunkFileNamesSet, chunkServerChunkFileNames.getOrDefault(Integer.parseInt(serverTag), new ConcurrentHashMap<>()).getOrDefault(filename, Sets.newConcurrentHashSet()));
+                System.out.println("servertag: " + serverTag + " filename: " + filename + " diff: " + diff);
+            }
+            
+
             // storage activated
             if (!storageActivated) {
                 storageActivated = true;
@@ -242,6 +281,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             responseObserver.onError(e);
         }
     }
+    
 
     @Override
     public void writeSuccess(ackMasterWriteSuccessRequest request,
@@ -265,4 +305,19 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         }
     }
 
+    public List<Node> getMetadata(String filePath) {
+        return metadata.get(filePath);
+    }
+
+    public void addMetadata(String filePath, List<Node> nodes) {
+        metadata.put(filePath, nodes);
+    }
+
+    public void deleteMetadata(String filePath) {
+        metadata.remove(filePath);
+    }
+
+    public Map<String, List<Node>> getMetadata(){
+        return metadata;
+    }
 }
