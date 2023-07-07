@@ -11,7 +11,24 @@ trap 'handle_sigint' SIGINT
 
 ./terminateChunkserver.sh
 
-mvn clean compile -X
+# Parse the command line arguments
+while getopts "c" opt; do
+  case ${opt} in
+    c)
+      # If the -c flag is provided, set the run_compile flag to 1
+      run_compile=1
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" 1>&2
+      exit 1
+      ;;
+  esac
+done
+
+# If the run_compile flag is 1, then run the clean compile command
+if [ "$run_compile" -eq "1" ]; then
+    mvn clean compile -X
+fi
 
 command1=("mvn" "exec:java" "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver" "-Dexec.args=chunkserver1 cluster 127.0.0.1:8081 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086 0")
 command2=("mvn" "exec:java" "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver" "-Dexec.args=chunkserver2 cluster 127.0.0.1:8082 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086 1")

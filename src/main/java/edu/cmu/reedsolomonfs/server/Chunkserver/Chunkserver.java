@@ -79,6 +79,9 @@ public class Chunkserver {
         // GrpcServer need init marshaller
         ChunkserverGrpcHelper.initGRpc();
         ChunkserverGrpcHelper.setRpcServer(rpcServer);
+        channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+                .usePlaintext() // Use insecure connection, for testing only
+                .build();
 
         ChunkserverService counterService = new ChunkserverServiceImpl(this);
         rpcServer.registerProcessor(new GetValueRequestProcessor(counterService));
@@ -106,9 +109,6 @@ public class Chunkserver {
         this.node = this.raftGroupService.start();
 
         // register business processor
-        channel = ManagedChannelBuilder.forAddress("localhost", 8080)
-                .usePlaintext() // Use insecure connection, for testing only
-                .build();
         heartbeatThread hbt = new heartbeatThread(channel, rpcServer, serverIdx);
         hbt.start();
     }
@@ -119,6 +119,8 @@ public class Chunkserver {
         private ManagedChannel channel;
         private RpcServer rpcServer;
         private int serverIdx;
+                Map<String, List<String>> fileNameChunks = fsm.getStoredFileNameToChunks();
+
 
         public heartbeatThread(ManagedChannel channel, RpcServer rpcServer, int serverIdx) {
             this.channel = channel;
@@ -127,9 +129,10 @@ public class Chunkserver {
         }
 
         public void run() {
+            System.out.println("fileNameChunks: " + fileNameChunks);
             while (true) {
                 MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(channel);
-                Map<String, List<String>> fileNameChunks = fsm.getStoredFileNameToChunks();
+                fileNameChunks = fsm.getStoredFileNameToChunks();
                 // System.out.println("fileNameChunks: " + fileNameChunks);
                 // convert fileNameChunks string to ChunkFileNames protobuf
                 Map<String, HeartbeatRequest.ChunkFileNames> fileNameChunksMap = new java.util.HashMap<String, HeartbeatRequest.ChunkFileNames>();
