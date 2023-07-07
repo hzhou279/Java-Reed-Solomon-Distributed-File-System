@@ -31,6 +31,9 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     static boolean needToRecover;
     private Map<String, Map<Integer, List<String>>> fileVersions;
     private Map<String, Integer> latestFileVersion;
+    private Map<String, Long> latestChunkIndex;
+    private Map<Integer, Map<String, List<String>>> chunkServerChunkFileNames;
+
     static String fileVersionsFileName = "fileVersions";
 
     public MasterImpl() {
@@ -43,6 +46,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         Thread hbc = new heartbeatChecker();
         fileVersions = new ConcurrentHashMap<>();
         latestFileVersion = new ConcurrentHashMap<>();
+        latestChunkIndex = new ConcurrentHashMap<>();
+        chunkServerChunkFileNames = new ConcurrentHashMap<>();
         // load from file if exists
         try {
             loadFromFile(fileVersionsFileName);
@@ -67,47 +72,58 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         // construct the new chunk file names linked list from the file size, starting from the appendAt position
         // concate the new chunk file names linked list after the appendAt node in the latest version of the chunk file names linked list
         List<String> originalChunkFileNames;
-        if (appendAt == 0) {
-            originalChunkFileNames = new java.util.LinkedList<>();
-            int chunkCnt = (int) Math.ceil((double) fileSize / ConfigVariables.BLOCK_SIZE);
-            for (long i = 0; i < chunkCnt; i++) {
-                originalChunkFileNames.add(filename + "." + latestVersion + "." + i);
-            }
-        } else{
-            originalChunkFileNames = fileVersions.get(filename).get(latestVersion);
-            originalChunkFileNames = new java.util.LinkedList<>(originalChunkFileNames);
-            // construct the new chunk file names linked list from the file size
-            List<String> newChunkFileNames = new java.util.LinkedList<>();
-            int chunkCnt = (int) Math.ceil((double) fileSize / ConfigVariables.BLOCK_SIZE);
-            for (long i = appendAt; i < chunkCnt; i++) {
-                newChunkFileNames.add(filename + "." + newVersion + "." + i);
-            }
-
-
-            // find the appendAt node in the originalChunkFileNames linked list
-            int i = 0;
-            for (String chunkFileName : originalChunkFileNames) {
-                if (i == appendAt) {
-                    break;
-                }
-                i++;
-            }
-            
-            // concatenate the new chunk file names after the appendAt node
-            originalChunkFileNames.addAll(i, newChunkFileNames);
+        // 1. get the original chunk file names linked list from the file versions map
+        // if the file version is not found, create a new linked list
+        originalChunkFileNames = fileVersions.getOrDefault(filename, new ConcurrentHashMap<>()).getOrDefault(latestVersion, new java.util.LinkedList<>());
+        originalChunkFileNames = new java.util.LinkedList<>(originalChunkFileNames);
+        // 2. construct the new chunk file names linked list from the file size
+        List<String> newChunkFileNames = new java.util.LinkedList<>();
+        int chunkCnt = (int) Math.ceil((double) fileSize / ConfigVariables.BLOCK_SIZE);
+        long latestChunkIdx = latestChunkIndex.getOrDefault(filename, 0L);
+        // get the latest chunk file idx from the originalChunkFileNames linked list
+        for (long i = latestChunkIdx; i < chunkCnt; i++) {
+            newChunkFileNames.add(filename + "." + newVersion + "." + i);
         }
+        
+        // find the appendAt node in the originalChunkFileNames linked list
+        int i = 0;
+        for (String chunkFileName : originalChunkFileNames) {
+            if (i == appendAt) {
+                break;
+            }
+            i++;
+        }
+        // 3. concatenate the new chunk file names after the appendAt node
+        originalChunkFileNames.addAll(i, newChunkFileNames);
 
 
+        // 4. Update the file versions map and the latest file version map, latest chunk index map, and chunk server chunk file names map
         // Retrieve the map for the given filename, creating and inserting an empty one if none exists
         Map<Integer, List<String>> versionMap = fileVersions.computeIfAbsent(filename, k -> new ConcurrentHashMap<>());
-    
         // Add the version and its chunk file names to the map
         versionMap.put(newVersion, originalChunkFileNames);
         latestFileVersion.put(filename, newVersion);
+        latestChunkIdx += chunkCnt;
+        latestChunkIndex.put(filename, latestChunkIdx);
+
+        // Split the newChunkFileNames linked list into 6 shards 
+        // and store them separately in the chunkServerChunkFileNames map
+        chunkCnt = newChunkFileNames.size();
+        System.out.println("chunkCnt: " + chunkCnt);
+        for (int idx = 0; idx < chunkCnt; idx++) {
+            String chunkFileName = newChunkFileNames.get(idx);
+            int shardIdx = idx % ConfigVariables.DATA_SHARD_COUNT;
+            Map<String, List<String>> shardMap = chunkServerChunkFileNames.computeIfAbsent(shardIdx, k -> new ConcurrentHashMap<>());
+            List<String> chunkFileNames = shardMap.computeIfAbsent(filename, k -> new java.util.LinkedList<>());
+            chunkFileNames.add(chunkFileName);
+            chunkServerChunkFileNames.put(shardIdx, shardMap);
+        }
 
         // print out the file versions map and the latest file version map
         System.out.println("fileVersions: " + fileVersions);
         System.out.println("latestFileVersion: " + latestFileVersion);
+        System.out.println("latestChunkIndex: " + latestChunkIndex);
+        System.out.println("storedChunkFileNames: " + chunkServerChunkFileNames);
         try {
             saveToFile(fileVersionsFileName);
         } catch (IOException e) {
@@ -121,6 +137,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(fileVersions);
             oos.writeObject(latestFileVersion);
+            oos.writeObject(latestChunkIndex);
+            oos.writeObject(chunkServerChunkFileNames);
         }
     }
 
@@ -130,6 +148,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
             fileVersions = (Map<String, Map<Integer, List<String>>>) ois.readObject();
             latestFileVersion = (Map<String, Integer>) ois.readObject();
+            latestChunkIndex = (Map<String, Long>) ois.readObject();
+            chunkServerChunkFileNames = (Map<Integer, Map<String, List<String>>>) ois.readObject();
         }
     }
 
