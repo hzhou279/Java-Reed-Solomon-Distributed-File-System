@@ -46,6 +46,7 @@ import java.util.concurrent.TimeoutException;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
 import edu.cmu.reedsolomonfs.ConfigurationVariables;
+import edu.cmu.reedsolomonfs.cli.ClientCLI;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
@@ -64,8 +65,10 @@ public class Client {
     // this.confStr = confStr;
     // this.cliClientService = cliClientService;
     // }
+    static ClientCLI cli = new ClientCLI();
 
     public static void main(final String[] args) throws Exception {
+        
         if (args.length != 2) {
             System.out.println("Usage : java com.alipay.sofa.jraft.example.counter.CounterClient {groupId} {conf}");
             System.out
@@ -101,6 +104,8 @@ public class Client {
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
 
+        cli.run();
+        
         // Cache file metadata
         Map<String, FileMetadata> cache = new HashMap<>();
 
@@ -144,6 +149,7 @@ public class Client {
 
         // Shutdown the channel to the master
         channel.shutdown();
+        
 
         // Exit the client
         System.exit(0);

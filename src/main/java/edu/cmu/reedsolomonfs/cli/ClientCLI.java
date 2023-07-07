@@ -1,6 +1,10 @@
 package edu.cmu.reedsolomonfs.cli;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import org.apache.commons.cli.CommandLine;
@@ -9,6 +13,8 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import edu.cmu.reedsolomonfs.cli.DirectoryTree.Node;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -16,15 +22,35 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class ClientCLI implements KeyListener{
-    public static String localPath = "/path/to/some/directory";
+    public static String localPath = "/A";
     public static String[] lowerDirectory = {"direcory1", "directory2", "file1", "file2"};
     public static String[] upperDirectory;
+    static Map<String, LinkedList<Integer>> metaData;
+    static DirectoryTree tree = new DirectoryTree();
+    static Node root;
 
-    public static void main(String[] args) throws ParseException {
+    public void run() throws ParseException {
         Scanner scanner = new Scanner(System.in);
         CommandLineParser parser = new DefaultParser();
         Options options = new Options();
+        metaData = new HashMap<>();
+        
+        LinkedList<Integer> list1 = new LinkedList<>(Arrays.asList(1, 2, 3, 4));
+        LinkedList<Integer> list2 = new LinkedList<>(Arrays.asList(5, 6, 7));
+        LinkedList<Integer> list3 = new LinkedList<>(Arrays.asList(8, 9));
+        LinkedList<Integer> list4 = new LinkedList<>(Arrays.asList(8, 9, 10));
+        
+        metaData.put("A/B/C", list1);
+        metaData.put("A/E/M", list2);
+        metaData.put("A/E/Z", list3);
+        metaData.put("A/E/Z/D", list4);
 
+        for (String path : metaData.keySet()) {
+            tree.addPath(path);
+        }
+
+        root = tree.getRoot();
+        
         options.addOption("cd", "cd", false, "he type of ordering to use, default 'random'");
 
         while (true) {
@@ -46,7 +72,11 @@ public class ClientCLI implements KeyListener{
                     if (!path.isAbsolute()) {
                         System.out.println("The path is invalid");
                     } else {
-                        localPath = words[1];
+                        if (pathExists(words[1])) {
+                            localPath = words[1];
+                        } else {
+                            System.out.println("Path does not exist!");
+                        }      
                     }
             } else if (words[0].equals("cd") && words[1].equals("..")) {
                 Path path = Paths.get(localPath);
@@ -61,7 +91,9 @@ public class ClientCLI implements KeyListener{
             } else if (words[0].equals("pwd")) {
                 System.out.println(localPath);
             } else if (words[0].equals("ls")) {
-                for (String string : lowerDirectory) {
+                List<String> lsList = new ArrayList<>();
+                lsList = tree.listDirectory(localPath);
+                for (String string : lsList) {
                     System.out.print(string + " ");
                 }
                 System.out.println();
@@ -107,5 +139,21 @@ public class ClientCLI implements KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
+    }
+
+    public static boolean pathExists(String path) {
+        String[] dirs = path.split("/");
+        Node node = root;
+        for (int i = 0; i < dirs.length; i++) {
+            String dir = dirs[i];
+            if (dir.equals("")) {
+                dir = dirs[++i];
+            }
+            if (!node.children.containsKey(dir) && !dir.equals("")) {
+                return false;
+            }
+            node = node.children.get(dir);
+        }
+        return true;
     }
 }
