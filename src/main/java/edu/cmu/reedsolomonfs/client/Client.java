@@ -272,7 +272,11 @@ public class Client {
         encoder.encode();
         byte[][] shards = encoder.getShards();
 
-        WriteRequest request = packWriteRequest("touch", filePath, encoder.getFileSize(), 0, shards, "create",
+        // WriteRequest request = packWriteRequest("touch", filePath, encoder.getFileSize(), 0, shards, "create",
+        //         encoder.getLastChunkIdx());
+        
+        // Pass padded file size
+        WriteRequest request = packWriteRequest("touch", filePath, encoder.getPaddedFileSize(), 0, shards, "create",
                 encoder.getLastChunkIdx());
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
