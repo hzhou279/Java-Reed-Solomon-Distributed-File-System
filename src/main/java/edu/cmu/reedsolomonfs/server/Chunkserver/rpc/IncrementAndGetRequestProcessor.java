@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.cmu.reedsolomonfs.server.rpc;
+package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 
 import com.alipay.sofa.jraft.Status;
 
+import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverClosure;
+import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverService;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.IncrementAndGetRequest;
-import edu.cmu.reedsolomonfs.server.ChunkserverClosure;
-import edu.cmu.reedsolomonfs.server.ChunkserverService;
 
 import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;

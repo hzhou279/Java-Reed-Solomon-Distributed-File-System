@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.cmu.reedsolomonfs.server;
+package edu.cmu.reedsolomonfs.server.Chunkserver;
 
 import java.io.Serializable;
 

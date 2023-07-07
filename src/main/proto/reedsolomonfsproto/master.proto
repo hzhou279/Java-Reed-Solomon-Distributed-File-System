@@ -6,6 +6,7 @@ option java_outer_classname = "MasterserverOutter";
 service MasterService {
   rpc HeartBeat(HeartbeatRequest) returns (HeartbeatResponse) {}
   rpc WriteSuccess(ackMasterWriteSuccessRequest) returns (ackMasterWriteSuccessRequestResponse) {}
+//   rpc RecoveryRead(RecoveryReadRequest) returns (RecoveryReadResponse) {}
 }
 
 message HeartbeatRequest {
@@ -26,3 +27,4 @@ message ackMasterWriteSuccessRequest {
 message ackMasterWriteSuccessRequestResponse {
   bool success = 1;
 }
+

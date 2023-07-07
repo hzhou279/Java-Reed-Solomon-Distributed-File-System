@@ -3,7 +3,7 @@ package edu.cmu.reedsolomonfs.datatype;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.cmu.reedsolomonfs.ConfigurationVariables;
+import edu.cmu.reedsolomonfs.ConfigVariables;
 
 /**
  * Helper class to create and update FileMetadata
@@ -72,27 +72,27 @@ public class FileMetadataHelper {
     private static int createNodes(List<Node> nodes, int startChunkIdx, int fileSize) {
         // Calculate number of bytes of data and padding for the file
         // (exclude parity bytes)
-        int paddedFileSize = fileSize / ConfigurationVariables.FILE_SIZE_MULTIPLE
-                * ConfigurationVariables.FILE_SIZE_MULTIPLE + ConfigurationVariables.FILE_SIZE_MULTIPLE;
+        int paddedFileSize = fileSize / ConfigVariables.FILE_SIZE_MULTIPLE
+                * ConfigVariables.FILE_SIZE_MULTIPLE + ConfigVariables.FILE_SIZE_MULTIPLE;
 
         // Calculate the total number of nodes(chunks stored in chunkservers) of the new
         // file (include nodes for parity bytes)
-        int nodeCnt = paddedFileSize / ConfigurationVariables.BLOCK_SIZE / ConfigurationVariables.DATA_SHARD_COUNT
-                * ConfigurationVariables.TOTAL_SHARD_COUNT;
+        int nodeCnt = paddedFileSize / ConfigVariables.BLOCK_SIZE / ConfigVariables.DATA_SHARD_COUNT
+                * ConfigVariables.TOTAL_SHARD_COUNT;
 
         // Calculate the number of nodes that are full of file data (with no padding
         // bytes)
-        int fullDataNodeCnt = fileSize / ConfigurationVariables.BLOCK_SIZE;
+        int fullDataNodeCnt = fileSize / ConfigVariables.BLOCK_SIZE;
 
         // Create each node
         int chunkIdx = startChunkIdx;
         for (int serverIdx = 0; chunkIdx < nodeCnt; chunkIdx++, serverIdx++) {
 
             // Nodes stored in parity disks should also be considered
-            serverIdx %= ConfigurationVariables.TOTAL_SHARD_COUNT;
+            serverIdx %= ConfigVariables.TOTAL_SHARD_COUNT;
 
             // Parity disks are indexed after data disks
-            boolean isData = serverIdx >= ConfigurationVariables.DATA_SHARD_COUNT ? false : true;
+            boolean isData = serverIdx >= ConfigVariables.DATA_SHARD_COUNT ? false : true;
 
             // Calculate the number of data bytes written in this node (chunk)
             // If current node index is chunkIdx, we know there are chunkIdx number of node
@@ -103,9 +103,9 @@ public class FileMetadataHelper {
             // node is a node full of padding bytes, fileSize will be smaller than
             // chunkIdx * ConfigurationVariables.BLOCK_SIZE, which results in a negative
             // number.
-            int dataSize = ConfigurationVariables.BLOCK_SIZE;
+            int dataSize = ConfigVariables.BLOCK_SIZE;
             if (chunkIdx >= fullDataNodeCnt)
-                dataSize = Math.max(fileSize - chunkIdx * ConfigurationVariables.BLOCK_SIZE, 0);
+                dataSize = Math.max(fileSize - chunkIdx * ConfigVariables.BLOCK_SIZE, 0);
 
             Node node = new Node(chunkIdx, serverIdx, isData, dataSize);
             nodes.add(node);

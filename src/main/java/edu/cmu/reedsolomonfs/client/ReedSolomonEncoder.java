@@ -7,12 +7,12 @@ import java.nio.file.Path;
 import java.util.Arrays;
 
 import edu.cmu.reedsolomon.ReedSolomon;
-import edu.cmu.reedsolomonfs.ConfigurationVariables;
+import edu.cmu.reedsolomonfs.ConfigVariables;
 
 // read data from a file and calculate its parity
 public class ReedSolomonEncoder {
     
-    private static final ReedSolomon REED_SOLOMON = ReedSolomon.create(ConfigurationVariables.DATA_SHARD_COUNT, ConfigurationVariables.PARITY_SHARD_COUNT);
+    private static final ReedSolomon REED_SOLOMON = ReedSolomon.create(ConfigVariables.DATA_SHARD_COUNT, ConfigVariables.PARITY_SHARD_COUNT);
 
     private String filePath;
     private byte[] fileData;
@@ -35,7 +35,7 @@ public class ReedSolomonEncoder {
     }
 
     public void store() {
-        for (int i = 0; i < ConfigurationVariables.TOTAL_SHARD_COUNT; i++) {
+        for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
             try (FileOutputStream fos = new FileOutputStream(diskPaths[i])) {
                 fos.write(shards[i]); // Write the byte data to the file
                 System.out.println("Byte data stored in disk successfully.");
@@ -52,17 +52,17 @@ public class ReedSolomonEncoder {
     }
 
     private byte[][] splitFileToShards(byte[] fileData) {
-        byte[][] shards = new byte[ConfigurationVariables.TOTAL_SHARD_COUNT][fileData.length / ConfigurationVariables.DATA_SHARD_COUNT];
-        int blockCnt = fileData.length / ConfigurationVariables.BLOCK_SIZE;
+        byte[][] shards = new byte[ConfigVariables.TOTAL_SHARD_COUNT][fileData.length / ConfigVariables.DATA_SHARD_COUNT];
+        int blockCnt = fileData.length / ConfigVariables.BLOCK_SIZE;
         // System.out.println("file size is: " + this.fileSize);
         // System.out.println("padded file size is: " + fileData.length);
         // System.out.println("blockCnt: " + blockCnt);
         for (int blockIdx = 0; blockIdx < blockCnt; blockIdx++) {
-            int byteIdxInFile = blockIdx * ConfigurationVariables.BLOCK_SIZE;
-            int shardIdx = blockIdx % ConfigurationVariables.DATA_SHARD_COUNT;
+            int byteIdxInFile = blockIdx * ConfigVariables.BLOCK_SIZE;
+            int shardIdx = blockIdx % ConfigVariables.DATA_SHARD_COUNT;
             // int byteIdxInShard = blockIdx / ConfigurationVariables.BLOCK_SIZE * ConfigurationVariables.BLOCK_SIZE;
-            int byteIdxInShard = blockIdx / ConfigurationVariables.DATA_SHARD_COUNT * ConfigurationVariables.BLOCK_SIZE;
-            for (int i = 0; i < ConfigurationVariables.BLOCK_SIZE; i++, byteIdxInFile++, byteIdxInShard++)
+            int byteIdxInShard = blockIdx / ConfigVariables.DATA_SHARD_COUNT * ConfigVariables.BLOCK_SIZE;
+            for (int i = 0; i < ConfigVariables.BLOCK_SIZE; i++, byteIdxInFile++, byteIdxInShard++)
                 shards[shardIdx][byteIdxInShard] = fileData[byteIdxInFile];
         }
         lastChunkIdx = blockCnt - 1;
@@ -70,8 +70,8 @@ public class ReedSolomonEncoder {
     }
 
     private byte[] pad(byte[] fileData) {
-        if (fileData.length % ConfigurationVariables.FILE_SIZE_MULTIPLE == 0) return fileData;
-        int paddedfileSize = fileData.length / ConfigurationVariables.FILE_SIZE_MULTIPLE * ConfigurationVariables.FILE_SIZE_MULTIPLE + ConfigurationVariables.FILE_SIZE_MULTIPLE;
+        if (fileData.length % ConfigVariables.FILE_SIZE_MULTIPLE == 0) return fileData;
+        int paddedfileSize = fileData.length / ConfigVariables.FILE_SIZE_MULTIPLE * ConfigVariables.FILE_SIZE_MULTIPLE + ConfigVariables.FILE_SIZE_MULTIPLE;
         byte[] paddedFileData = new byte[paddedfileSize];
         Arrays.fill(paddedFileData, (byte) 0);
         int startIndex = 0; // Starting index in destinationArray where sourceArray will be copied

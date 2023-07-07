@@ -1,6 +1,6 @@
 package edu.cmu.reedsolomonfs;
 
-public class ConfigurationVariables {
+public class ConfigVariables {
     public static final int MB = 1000000; // Mega number of bytes
     public static final int BLOCK_SIZE = 1000; // number of bytes in one block
     public static final int DATA_SHARD_COUNT = 4; // number of data disks in RSFS
