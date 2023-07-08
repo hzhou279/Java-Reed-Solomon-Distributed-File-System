@@ -11,6 +11,11 @@ service MasterService {
 
 message HeartbeatRequest {
   string serverTag = 1;
+  map<string, ChunkFileNames> chunkFileNames = 2;
+
+  message ChunkFileNames {
+    repeated string fileName = 1;
+  }
 }
 
 message HeartbeatResponse {

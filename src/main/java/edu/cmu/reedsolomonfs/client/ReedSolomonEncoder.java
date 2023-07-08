@@ -34,6 +34,10 @@ public class ReedSolomonEncoder {
         this.diskPaths = diskPaths;
     }
 
+    public int getPaddedFileSize() {
+        return paddedFileData.length;
+    }
+
     public void store() {
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
             try (FileOutputStream fos = new FileOutputStream(diskPaths[i])) {

@@ -272,8 +272,12 @@ public class Client {
         encoder.encode();
         byte[][] shards = encoder.getShards();
 
-        WriteRequest request = packWriteRequest("touch", filePath, encoder.getFileSize(), 0, shards, "create",
-                encoder.getLastChunkIdx());
+        // WriteRequest request = packWriteRequest("touch", filePath, encoder.getFileSize(), 0, shards, "create",
+        //         encoder.getLastChunkIdx());
+        
+        // Pass padded file size
+        WriteRequest request = packWriteRequest("touch", filePath, encoder.getPaddedFileSize(), 0, shards, "create",
+                encoder.getLastChunkIdx(), encoder.getFileSize());
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
         // latch.await();
@@ -281,7 +285,7 @@ public class Client {
     }
 
     private static WriteRequest packWriteRequest(String operationType, String filePath, int fileSize, int appendAt,
-            byte[][] shards, String writeFlag, int lastChunkIdx) {
+            byte[][] shards, String writeFlag, int lastChunkIdx, int originalFileSize) {
         WriteRequest.Builder requestBuilder = WriteRequest.newBuilder();
 
         for (byte[] shard : shards) {
@@ -295,6 +299,7 @@ public class Client {
         requestBuilder.setAppendAt(appendAt);
         requestBuilder.setWriteFlag(writeFlag);
         requestBuilder.setLastChunkIdx(lastChunkIdx);
+        requestBuilder.setOriginalFileSize(originalFileSize);
 
         return requestBuilder.build();
     }
