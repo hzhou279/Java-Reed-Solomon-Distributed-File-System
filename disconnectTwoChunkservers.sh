@@ -1,38 +1,34 @@
-# 
-
 #!/bin/bash
 
-# Define the ports
-port1="8083"
-port2="8084"
+# Generate random numbers between 0 and 5
+random_number1=$((RANDOM % 6))
+# Generate the second random number and check for equality with num1
+while true; do
+  random_number2=$((RANDOM % 6))
+  if [[ $random_number2 != $random_number1 ]]; then
+    break
+  fi
+done
 
-# Find the process IDs (PIDs) associated with the first port
-pids1=$(lsof -i :$port1 -t)
+# Add random numbers to 8081
+port_number1=$((random_number1 + 8081))
+port_number2=$((random_number2 + 8081))
 
-# Find the process IDs (PIDs) associated with the second port
-pids2=$(lsof -i :$port2 -t)
+echo "Port number 1: $port_number1"
+echo "Port number 2: $port_number2"
 
-# Merge the process IDs
-pids="$pids1"$'\n'"$pids2"
+# Add random numbers to 8081 to obtain folder names
+folder_name1="chunkserver-$((random_number1))"
+folder_name2="chunkserver-$((random_number2))"
 
-# Check if there are any running processes
-if [ -z "$pids" ]; then
-  echo "No processes found running on ports $port1 and $port2."
-  exit 1
-fi
+# Define the folder paths
+folder_path1="./ClientClusterCommTestFiles/Disks/$folder_name1"
+folder_path2="./ClientClusterCommTestFiles/Disks/$folder_name2"
 
-# Terminate the processes
-echo "Terminating processes running on ports $port1 and $port2..."
-echo "$pids" | xargs kill
+# Delete folders
+rm -r "$folder_path1"
+rm -r "$folder_path2"
 
-# Wait for the processes to terminate
-sleep 2
-
-# Check if the processes have been terminated successfully
-running_pids=$(lsof -i :$port1 -i :$port2 -t)
-
-if [ -z "$running_pids" ]; then
-  echo "Processes terminated successfully."
-else
-  echo "Failed to terminate processes."
-fi
+# Terminate processes using fuser
+fuser -k "$port_number1/tcp"
+fuser -k "$port_number2/tcp"

@@ -96,6 +96,38 @@ public class Master extends ClientMasterServiceImplBase {
         return response.getChunkFileData().toByteArray();
     }
 
+    private static void relaunchOfflineChunkserver(int serverIdx) {
+        // Create a new thread to re launch one offline chunkserver
+        Thread launchThread = new Thread(() -> {
+            try {
+                // Specify the Maven command
+                String[] mvnCommand = {
+                        "mvn",
+                        "exec:java",
+                        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver",
+                        "-Dexec.args=chunkserver" + (serverIdx + 1) + " cluster 127.0.0.1:808" + (serverIdx + 1) + " 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086 " + serverIdx
+                };
+
+                // Build the process
+                ProcessBuilder pb = new ProcessBuilder(mvnCommand);
+                pb.redirectErrorStream(true);
+
+                // Start the process
+                Process process = pb.start();
+
+                // Wait for the process to complete
+                int exitCode = process.waitFor();
+
+                System.out.println("Relaunched chunkserver completed with exit code: " + exitCode);
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Start the thread to launch the additional process
+        launchThread.start();
+    }
+
     public static void recoverOfflineChunkserver(boolean[] chunkserverPresent) throws IllegalArgumentException {
         System.out.println("line 97 Master");
         String[] chunkFilePathsInOneServer = null;
@@ -157,7 +189,8 @@ public class Master extends ClientMasterServiceImplBase {
 
             for (Integer offlineServerIdx : offlineServerIndices) {
                 byte[] recoveredChunkData = recoveryMachine.retrieveRecoveredDiskData(offlineServerIdx);
-                String recoveredChunkFilePath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + offlineServerIdx + "/" + filePath + "-" + (chunkGroupStartIdx + offlineServerIdx);
+                String recoveredChunkFilePath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + offlineServerIdx
+                        + "/" + filePath + "-" + (chunkGroupStartIdx + offlineServerIdx);
                 try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
                     fos.write(recoveredChunkData); // Write the recovereed data to the recovered file path
                 } catch (IOException e) {
@@ -165,6 +198,11 @@ public class Master extends ClientMasterServiceImplBase {
                 }
             }
 
+        }
+
+        for (Integer offlineServerIdx : offlineServerIndices) {
+            System.out.println("Relaunch offline chunkserver" + offlineServerIdx);
+            relaunchOfflineChunkserver(offlineServerIdx);
         }
     }
 
