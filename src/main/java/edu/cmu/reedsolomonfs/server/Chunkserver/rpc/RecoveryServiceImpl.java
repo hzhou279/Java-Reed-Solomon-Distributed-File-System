@@ -1,5 +1,6 @@
 package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,9 +8,14 @@ import java.nio.file.Paths;
 
 import com.google.protobuf.ByteString;
 
-import edu.cmu.reedsolomonfs.client.RecoveryServiceGrpc.RecoveryServiceImplBase;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadRequest;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadResponse;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryReadRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryReadResponse;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryWriteRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryWriteResponse;
+import edu.cmu.reedsolomonfs.server.RecoveryServiceGrpc.RecoveryServiceImplBase;
+// import edu.cmu.reedsolomonfs.client.RecoveryServiceGrpc.RecoveryServiceImplBase;
+// import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadRequest;
+// import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadResponse;
 import io.grpc.stub.StreamObserver;
 
 public class RecoveryServiceImpl extends RecoveryServiceImplBase {
@@ -25,27 +31,48 @@ public class RecoveryServiceImpl extends RecoveryServiceImplBase {
     @Override
     public void recoveryRead(RecoveryReadRequest request,
             StreamObserver<RecoveryReadResponse> responseObserver) {
-        String filePath = request.getFilePath();
+        String chunkFilePath = request.getChunkFilePath();
 
         try {
-            System.out.println("reach 29 in recoveryservice impl");
-            Path path = Paths.get(diskPath, filePath);
+            Path path = Paths.get(diskPath, chunkFilePath);
             byte[] fileContent = Files.readAllBytes(path);
-            // byte[] fileContent = new byte[]{1,1,1};
-            // String content = new String(fileContent);
-            // System.out.println(content);
 
             // Prepare the recovery response with the disk path
             RecoveryReadResponse response = RecoveryReadResponse.newBuilder()
-                .setChunkFileData(ByteString.copyFrom(fileContent))
-                .build();
+                    .setChunkFileData(ByteString.copyFrom(fileContent))
+                    .build();
 
-            // Send the response back to the mask
+            // Send the response back to the Master
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (IOException e) {
             System.err.println("An error occurred while reading the file: " + e.getMessage());
         }
 
+    }
+
+    @Override
+    public void recoveryWrite(RecoveryWriteRequest request,
+            StreamObserver<RecoveryWriteResponse> responseObserver) {
+        String recoveredChunkFilePath = diskPath + request.getChunkFilePath();
+        byte[] recoveredChunkFileData = request.getChunkFileData().toByteArray();
+
+        // Prepare the recovery response with the disk path
+        RecoveryWriteResponse response = RecoveryWriteResponse.newBuilder()
+                .setRecoveryWriteSuccess(false)
+                .build();
+
+        try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
+            fos.write(recoveredChunkFileData); // Write the recovered data to the recovered file path
+            response = RecoveryWriteResponse.newBuilder()
+                    .setRecoveryWriteSuccess(true)
+                    .build();
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing the file: " + e.getMessage());
+        }
+
+        // Send the response back to the Master
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 }

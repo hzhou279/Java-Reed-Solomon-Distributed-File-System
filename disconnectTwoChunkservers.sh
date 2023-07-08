@@ -14,8 +14,8 @@ done
 port_number1=$((random_number1 + 8081))
 port_number2=$((random_number2 + 8081))
 
-echo "Port number 1: $port_number1"
-echo "Port number 2: $port_number2"
+echo "Chunkserver-$random_number1 is now offline. Its port number is: $port_number1"
+echo "Chunkserver-$random_number2 is now offline. Its port number is: $port_number2"
 
 # Add random numbers to 8081 to obtain folder names
 folder_name1="chunkserver-$((random_number1))"

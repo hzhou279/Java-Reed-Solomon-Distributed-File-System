@@ -33,3 +33,25 @@ message ackMasterWriteSuccessRequestResponse {
   bool success = 1;
 }
 
+message RecoveryReadRequest {
+    string chunkFilePath = 1;
+}
+
+message RecoveryReadResponse {
+    bytes chunkFileData = 1;
+}
+
+message RecoveryWriteRequest {
+    string chunkFilePath = 1;
+    bytes chunkFileData = 2;
+}
+
+message RecoveryWriteResponse {
+    bool recoveryWriteSuccess = 1;
+}
+
+service RecoveryService {
+    rpc RecoveryRead(RecoveryReadRequest) returns (RecoveryReadResponse) {}
+    rpc RecoveryWrite(RecoveryWriteRequest) returns (RecoveryWriteResponse) {}
+}
+
