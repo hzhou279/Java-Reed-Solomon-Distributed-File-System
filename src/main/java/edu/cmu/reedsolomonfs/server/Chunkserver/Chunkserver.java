@@ -48,6 +48,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
 
@@ -217,6 +218,7 @@ public class Chunkserver {
     // SOFAJRaft documentation
     // https://www.sofastack.tech/en/projects/sofa-jraft/jraft-user-guide/
     public static void main(final String[] args) throws NumberFormatException, Exception {
+        System.setErr(new PrintStream("/dev/null"));
         if (args.length != 5) {
             System.out
                     .println(

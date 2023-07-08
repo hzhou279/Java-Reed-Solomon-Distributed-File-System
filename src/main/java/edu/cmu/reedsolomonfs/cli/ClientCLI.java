@@ -1,4 +1,5 @@
 package edu.cmu.reedsolomonfs.cli;
+
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
@@ -23,29 +24,35 @@ import java.nio.file.Paths;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 
-public class ClientCLI implements KeyListener{
+public class ClientCLI implements KeyListener {
     public static String localPath = "/A";
-    public static String[] lowerDirectory = {"direcory1", "directory2", "file1", "file2"};
+    public static String[] lowerDirectory = { "direcory1", "directory2", "file1", "file2" };
     public static String[] upperDirectory;
     static Map<String, LinkedList<Integer>> metaData;
     static DirectoryTree tree = new DirectoryTree();
     static Node root;
     static Client client;
 
-    public static void main(final String[] args) throws Exception{
+    public static void main(final String[] args) throws Exception {
+        // System.setErr(new PrintStream("./log/err.txt"));
+        // /dev/null is a null device that discards any data that is written to it
+        System.setErr(new PrintStream("/dev/null"));
         client = new Client(args);
 
         Scanner scanner = new Scanner(System.in);
         CommandLineParser parser = new DefaultParser();
         Options options = new Options();
         metaData = new HashMap<>();
-        
+
         LinkedList<Integer> list1 = new LinkedList<>(Arrays.asList(1, 2, 3, 4));
         LinkedList<Integer> list2 = new LinkedList<>(Arrays.asList(5, 6, 7));
         LinkedList<Integer> list3 = new LinkedList<>(Arrays.asList(8, 9));
         LinkedList<Integer> list4 = new LinkedList<>(Arrays.asList(8, 9, 10));
-        
+
         metaData.put("A/B/C", list1);
         metaData.put("A/E/M", list2);
         metaData.put("A/E/Z", list3);
@@ -56,7 +63,7 @@ public class ClientCLI implements KeyListener{
         }
 
         root = tree.getRoot();
-        
+
         options.addOption("cd", "cd", false, "he type of ordering to use, default 'random'");
 
         while (true) {
@@ -68,22 +75,22 @@ public class ClientCLI implements KeyListener{
             }
 
             String[] words = input.split(" ");
-            
+
             CommandLine line = parser.parse(options, words);
 
             if (line.hasOption("cd")) {
                 System.out.println("change directory");
             } else if (words[0].equals("cd") && !words[1].equals("..")) {
-                    Path path = Paths.get(words[1]);
-                    if (!path.isAbsolute()) {
-                        System.out.println("The path is invalid");
+                Path path = Paths.get(words[1]);
+                if (!path.isAbsolute()) {
+                    System.out.println("The path is invalid");
+                } else {
+                    if (pathExists(words[1])) {
+                        localPath = words[1];
                     } else {
-                        if (pathExists(words[1])) {
-                            localPath = words[1];
-                        } else {
-                            System.out.println("Path does not exist!");
-                        }      
+                        System.out.println("Path does not exist!");
                     }
+                }
             } else if (words[0].equals("cd") && words[1].equals("..")) {
                 Path path = Paths.get(localPath);
                 Path parentPath = path.getParent();
@@ -108,9 +115,33 @@ public class ClientCLI implements KeyListener{
             } else if (words[0].equals("mkdir")) {
                 System.out.println("MAKE DIRECTORY");
             } else if (words[0].equals("create")) {
-                String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
-                byte[] fileData = Files.readAllBytes(Path.of(filePath));
-                client.create(client.cliClientService, words[1], fileData, client.groupId);
+                // String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
+                // byte[] fileData = Files.readAllBytes(Path.of(filePath));
+                // client.create(client.cliClientService, words[1], fileData, client.groupId);
+                String clientFileDirectory = "./ClientClusterCommTestFiles/Files/";
+                String newFileName = words[1];
+                try {
+                    ProcessBuilder processBuilder = new ProcessBuilder("vim",
+                            clientFileDirectory + newFileName);
+                    Process process = processBuilder.inheritIO().start();
+                    process.waitFor();
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                Path newFilePath = Paths.get(clientFileDirectory, newFileName);
+
+                if (Files.exists(newFilePath)) {
+                    try {
+                        byte[] fileData = Files.readAllBytes(newFilePath);
+                        client.create(client.cliClientService, newFileName, fileData, client.groupId);
+                    } catch (IOException e) {
+                        System.err.println("Error reading file: " + e.getMessage());
+                    }
+                } else {
+                    System.out.println("There is nothing to create");
+                }
+
             } else {
                 System.out.println("Invalid Command");
             }
@@ -123,7 +154,7 @@ public class ClientCLI implements KeyListener{
 
     public String[] findStringsStartingWith(String[] array, char[] startChars) {
         List<String> result = new ArrayList<>();
-    
+
         for (String str : array) {
             char firstChar = str.charAt(0);
             for (char startChar : startChars) {
@@ -133,7 +164,7 @@ public class ClientCLI implements KeyListener{
                 }
             }
         }
-    
+
         return result.toArray(new String[0]);
     }
 

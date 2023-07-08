@@ -3,6 +3,7 @@ package edu.cmu.reedsolomonfs.server.Master;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -49,6 +50,7 @@ public class Master extends ClientMasterServiceImplBase {
     private static int[] recoveryPorts = { 18000, 18001, 18002, 18003, 18004, 18005 };
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        System.setErr(new PrintStream("/dev/null"));
         Server server = ServerBuilder.forPort(8080)
                 .addService(new MasterImpl())
                 .build()

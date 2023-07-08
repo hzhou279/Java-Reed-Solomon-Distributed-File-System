@@ -274,7 +274,7 @@ public class Client {
             final String groupId) throws RemotingException, InterruptedException {
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
-        final long start = System.currentTimeMillis();
+        // final long start = System.currentTimeMillis();
 
         ReedSolomonEncoder encoder = new ReedSolomonEncoder(fileData);
         encoder.encode();
@@ -285,7 +285,7 @@ public class Client {
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
         // latch.await();
-        System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start) + " mssssssss.");
+        // System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start) + " mssssssss.");
     }
 
     private static WriteRequest packWriteRequest(String operationType, String filePath, int fileSize, int appendAt,
@@ -318,7 +318,7 @@ public class Client {
                 public void complete(Object result, Throwable err) {
                     if (err == null) {
                         latch.countDown();
-                        System.out.println("write request result:" + result);
+                        // System.out.println("write request result:" + result);
                     } else {
                         err.printStackTrace();
                         latch.countDown();
