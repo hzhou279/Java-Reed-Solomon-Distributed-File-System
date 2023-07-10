@@ -12,10 +12,12 @@ import edu.cmu.reedsolomonfs.datatype.Node;
 import io.grpc.stub.StreamObserver;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -92,6 +94,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     private Map<String, List<Node>> metadata;
 
     String fileVersionsFileName = "fileVersions";
+    String outputLogFile = "master_output.log";
 
     private ManagedChannel[] recoveryChannels;
     private RecoveryServiceGrpc.RecoveryServiceBlockingStub[] stubs;
@@ -117,6 +120,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         latestChunkIndex = new ConcurrentHashMap<>();
         chunkServerChunkFileNames = new ConcurrentHashMap<>();
         metadata = new HashMap<>();
+        redirectSystemOutToFile();
+
         // load from file if exists
         try {
             loadFromFile(fileVersionsFileName);
@@ -428,9 +433,11 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         if (!recoveryConnectionEstablished[serverIdx])
             initRecoveryChannelsAndStubs(serverIdx);
         // Perform RPC calls using the stub
+        System.out.println("makeRecoveryWriteRequest: " + filePath);
         RecoveryWriteRequest request = RecoveryWriteRequest.newBuilder().setChunkFilePath(filePath)
                 .setChunkFileData(ByteString.copyFrom(chunkFileData)).build();
         RecoveryWriteResponse response = stubs[serverIdx].recoveryWrite(request);
+        System.out.println("Response from server: " + response.getRecoveryWriteSuccess());
         return response.getRecoveryWriteSuccess();
     }
 
@@ -478,16 +485,20 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             System.out.println("chunkserverpresent[" + i + "] = " + chunkserverPresent[i]);
             if (!chunkserverPresent[i]) {
                 offlineServerIndices.add(i);
-                if (offlineServerIndices.size() > ConfigVariables.PARITY_SHARD_COUNT)
+                if (offlineServerIndices.size() > ConfigVariables.PARITY_SHARD_COUNT){
+                    System.out.println("The number of offline chunkservers exceed the maximum number to recover");
                     throw new IllegalArgumentException(
                             "The number of offline chunkservers exceed the maximum number to recover");
+                }
                 continue;
             }
             // For temperary test only, retrieve all chunk file paths from one server
             // In normal case, Master should know all chunk file paths in any existing
             // chunkserver
-            if (chunkFilePathsInOneServer == null)
+            if (chunkFilePathsInOneServer == null){
                 chunkFilePathsInOneServer = getChunkserverChunkFilePaths(i);
+                System.out.println("chunkFilePathsInOneServer: " + Arrays.toString(chunkFilePathsInOneServer));
+            }
         }
 
         System.out.println("line 115 Master");
@@ -534,9 +545,12 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                     e2.printStackTrace();
                 }
             }
+            System.out.print("offline server " + offlineServerIdx + " is relaunched");
             initRecoveryChannelsAndStubs(offlineServerIdx);
         }
 
+        // print the chunkFilePathsInOneServer
+        System.out.println("chunkFilePathsInOneServer: " + Arrays.toString(chunkFilePathsInOneServer));
         for (String chunkFilePath : chunkFilePathsInOneServer) {
             int lastIndex = chunkFilePath.lastIndexOf("-"); // Get the index of the last dash sign
             if (lastIndex == -1 || lastIndex >= chunkFilePath.length() - 1)
@@ -580,8 +594,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                 // }
                 // }
 
-                // boolean writeSuccess = makeRecoveryWriteRequest(filePath, recoveredChunkData, offlineServerIdx);
-                // System.out.println("writeSuccess ? : " + writeSuccess);
+                boolean writeSuccess = makeRecoveryWriteRequest(filePath + "-" + (chunkGroupStartIdx + offlineServerIdx), recoveredChunkData, offlineServerIdx);
+                System.out.println("writeSuccess ? : " + writeSuccess);
                 // while (!writeSuccess) {
                 // try {
                 // writeSuccess = makeRecoveryWriteRequest(filePath, recoveredChunkData,
@@ -599,11 +613,11 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                 // "Recovered " + recoveredChunkFilePath + " in chunkserver-" + offlineServerIdx
                 // + " failed");
                 // }
-                try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
-                    fos.write(recoveredChunkData); // Write the recovered data to the recovered file path
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                // try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
+                    // fos.write(recoveredChunkData); // Write the recovered data to the recovered file path
+                // } catch (IOException e) {
+                    // e.printStackTrace();
+                // }
             }
 
         }
@@ -642,4 +656,21 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         }
         return null;
     }
+
+    public void redirectSystemOutToFile() {
+        try {
+            // Create a new file output stream for the desired file
+            FileOutputStream fileOutputStream = new FileOutputStream(outputLogFile);
+
+            // Create a new print stream that writes to the file output stream
+            PrintStream printStream = new PrintStream(fileOutputStream);
+
+            // Redirect System.out to the print stream
+            System.setOut(printStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
