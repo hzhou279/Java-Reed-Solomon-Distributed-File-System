@@ -514,17 +514,17 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         }
 
         // try {
-        //     latch.await();
+        // latch.await();
         // } catch (InterruptedException e) {
         // }
 
         // try {
-        //     // wait for offline chunkservers to relaunch
-        //     Thread.sleep(10000);
+        // // wait for offline chunkservers to relaunch
+        // Thread.sleep(10000);
         // } catch (InterruptedException e) {
-        //     e.printStackTrace();
+        // e.printStackTrace();
         // }
-        
+
         for (int offlineServerIdx : offlineServerIndices) {
             while (!serverStatus.get(offlineServerIdx)) {
                 try {
@@ -564,44 +564,46 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
             for (Integer offlineServerIdx : offlineServerIndices) {
                 byte[] recoveredChunkData = recoveryMachine.retrieveRecoveredDiskData(offlineServerIdx);
-                // String recoveredChunkFilePath =
-                // "./ClientClusterCommTestFiles/Disks/chunkserver-" + offlineServerIdx
-                // + "/" + filePath + "-" + (chunkGroupStartIdx + offlineServerIdx);
-                String recoveredChunkFilePath = filePath + "-" + (chunkGroupStartIdx + offlineServerIdx);
-                System.out.println("Server Status: " + " ID " + offlineServerIdx + "," + serverStatus.get(offlineServerIdx));
-                while (!serverStatus.get(offlineServerIdx)) {
-                    try {
-                        // wait for offline chunkservers to relaunch
-                        
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e2) {
-                        e2.printStackTrace();
-                    }
-                }
-                
-                boolean writeSuccess = makeRecoveryWriteRequest(filePath, recoveredChunkData, offlineServerIdx);
-                System.out.println("writeSuccess ? : " + writeSuccess); 
+                String recoveredChunkFilePath =
+                "./ClientClusterCommTestFiles/Disks/chunkserver-" + offlineServerIdx
+                + "/" + filePath + "-" + (chunkGroupStartIdx + offlineServerIdx);
+                // String recoveredChunkFilePath = filePath + "-" + (chunkGroupStartIdx + offlineServerIdx);
+                System.out.println(
+                        "Server Status: " + " ID " + offlineServerIdx + "," + serverStatus.get(offlineServerIdx));
+                // while (!serverStatus.get(offlineServerIdx)) {
+                // try {
+                // // wait for offline chunkservers to relaunch
+
+                // Thread.sleep(5000);
+                // } catch (InterruptedException e2) {
+                // e2.printStackTrace();
+                // }
+                // }
+
+                // boolean writeSuccess = makeRecoveryWriteRequest(filePath, recoveredChunkData, offlineServerIdx);
+                // System.out.println("writeSuccess ? : " + writeSuccess);
                 // while (!writeSuccess) {
-                //     try {
-                //         writeSuccess = makeRecoveryWriteRequest(filePath, recoveredChunkData, offlineServerIdx);
-                //     } catch (StatusRuntimeException e1) {
-                //         writeSuccess = false;
-                //         try {
-                //             // wait for offline chunkservers to relaunch
-                //             Thread.sleep(5000);
-                //         } catch (InterruptedException e2) {
-                //             e2.printStackTrace();
-                //         }
-                //     }
-                //     System.out.println(
-                //             "Recovered " + recoveredChunkFilePath + " in chunkserver-" + offlineServerIdx + " failed");
+                // try {
+                // writeSuccess = makeRecoveryWriteRequest(filePath, recoveredChunkData,
+                // offlineServerIdx);
+                // } catch (StatusRuntimeException e1) {
+                // writeSuccess = false;
+                // try {
+                // // wait for offline chunkservers to relaunch
+                // Thread.sleep(5000);
+                // } catch (InterruptedException e2) {
+                // e2.printStackTrace();
                 // }
-                // try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
-                // fos.write(recoveredChunkData); // Write the recovered data to the recovered
-                // file path
-                // } catch (IOException e) {
-                // e.printStackTrace();
                 // }
+                // System.out.println(
+                // "Recovered " + recoveredChunkFilePath + " in chunkserver-" + offlineServerIdx
+                // + " failed");
+                // }
+                try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
+                    fos.write(recoveredChunkData); // Write the recovered data to the recovered file path
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
