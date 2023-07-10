@@ -54,8 +54,14 @@ public class RecoveryServiceImpl extends RecoveryServiceImplBase {
     @Override
     public void recoveryWrite(RecoveryWriteRequest request,
             StreamObserver<RecoveryWriteResponse> responseObserver) {
+        
         String recoveredChunkFilePath = diskPath + request.getChunkFilePath();
         byte[] recoveredChunkFileData = request.getChunkFileData().toByteArray();
+        try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
+            fos.write(recoveredChunkFilePath.getBytes()); // Write the recovered data to the recovered file path
+            } catch (IOException e) {
+            System.err.println("An error occurred while writing the file: " + e.getMessage());
+        }
 
         // Prepare the recovery response with the disk path
         RecoveryWriteResponse response = RecoveryWriteResponse.newBuilder()
