@@ -134,7 +134,10 @@ public class ClientCLI implements KeyListener {
                 if (Files.exists(newFilePath)) {
                     try {
                         byte[] fileData = Files.readAllBytes(newFilePath);
-                        client.create(client.cliClientService, newFileName, fileData, client.groupId);
+                        String wholePath = localPath + "/" + words[1];
+                        System.out.println(wholePath);
+                        client.create(client.cliClientService, wholePath, fileData, client.groupId);
+                        tree.addPath(wholePath);
                     } catch (IOException e) {
                         System.err.println("Error reading file: " + e.getMessage());
                     }
@@ -142,6 +145,18 @@ public class ClientCLI implements KeyListener {
                     System.out.println("There is nothing to create");
                 }
 
+                // String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
+                // client.create(client.cliClientService, wholePath, fileData, client.groupId);
+                System.out.println("!!!!!!");
+            } else if (words[0].equals("read")) {
+                client.test(args);
+                System.out.println(words[1]);
+                byte[] fileDataRead = client.read(client.cliClientService, "read", words[1], 724, client.groupId);
+
+                System.out.println("File read successfully!!!!");
+        
+                // write fileDataRead to a file
+                Files.write(Path.of("./ClientClusterCommTestFiles/FilesRead/testRead1.txt"), fileDataRead);
             } else {
                 System.out.println("Invalid Command");
             }
