@@ -11,7 +11,7 @@ message TokenResponse {
     bool isHealthy = 1;
     string token = 2;
     repeated string ips = 3;
-    GRPCMetadata metadata = 4;
+    repeated GRPCMetadata metadata = 4;
     int32 fileSize = 5;
 }
 

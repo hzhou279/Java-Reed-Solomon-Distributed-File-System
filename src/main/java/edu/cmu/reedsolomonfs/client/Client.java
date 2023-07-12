@@ -243,7 +243,7 @@ public class Client {
         return decoder.getFileData();
     }
 
-    public static TokenResponse requestToken(ManagedChannel channel, String requestType, String filePath) {
+    public TokenResponse requestToken(String requestType, String filePath) {
         // Create a stub for the service
         ClientMasterServiceGrpc.ClientMasterServiceBlockingStub stub = ClientMasterServiceGrpc.newBlockingStub(channel);
 

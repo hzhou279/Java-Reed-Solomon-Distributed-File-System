@@ -18,6 +18,9 @@ import org.apache.commons.cli.ParseException;
 
 import edu.cmu.reedsolomonfs.cli.DirectoryTree.Node;
 import edu.cmu.reedsolomonfs.client.Client;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.GRPCMetadata;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -57,6 +60,8 @@ public class ClientCLI implements KeyListener {
         metaData.put("A/E/M", list2);
         metaData.put("A/E/Z", list3);
         metaData.put("A/E/Z/D", list4);
+
+        TokenResponse tResponse = client.requestToken("read", "/A/B/C");
 
         for (String path : metaData.keySet()) {
             tree.addPath(path);
