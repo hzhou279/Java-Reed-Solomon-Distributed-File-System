@@ -84,7 +84,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     Map<Integer, Long> currHeartbeat;
     Map<Integer, Long> oldHeartbeat;
     Map<Integer, Boolean> serverStatus;
-    final long checkInterval = 7000;
+    final long checkInterval = 5000;
     boolean[] chunkserversPresent;
     boolean needToRecover;
     private Map<String, Map<Integer, List<String>>> fileVersions;
@@ -141,9 +141,9 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         hbc.start();
 
         // Shutdown the recovery channel
-        for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++)
-            if (recoveryConnectionEstablished[i])
-                recoveryChannels[i].shutdown();
+        // for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++)
+        //     if (recoveryConnectionEstablished[i])
+        //         recoveryChannels[i].shutdown();
     }
 
     public void addFileVersion(String filename, long fileSize, long appendAt, String writeFlag) {
@@ -257,22 +257,6 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             while (true) {
                 System.out.println("Checking last heartbeat");
                 if (storageActivated) {
-                    // for (Map.Entry<Integer, Long> entry : currHeartbeat.entrySet()) {
-                    // if (entry.getValue() == oldHeartbeat.get(entry.getKey())) {
-                    // // timeout
-                    // System.out.println("Chunkserver " + entry.getKey() + " heartbeat timeout");
-                    // chunkserversPresent[entry.getKey()] = false;
-                    // needToRecover = true;
-                    // } else
-                    // chunkserversPresent[entry.getKey()] = true;
-                    // if (needToRecover) {
-                    // Master.recoverOfflineChunkserver(chunkserversPresent);
-                    // needToRecover = false;
-                    // break;
-                    // }
-                    // oldHeartbeat.put(entry.getKey(), entry.getValue());
-                    // System.out.println("Pass timeout check");
-                    // }
                     for (Map.Entry<Integer, Long> entry : oldHeartbeat.entrySet()) {
                         if (!currHeartbeat.containsKey(entry.getKey())
                                 || entry.getValue() == currHeartbeat.get(entry.getKey())) {
@@ -289,17 +273,17 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                     }
                     if (needToRecover) {
                         System.out.println("line 74 in MasterImpl");
-                        recoverOfflineChunkserver(chunkserversPresent);
-                        try {
-                            Thread.sleep(checkInterval);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        recoverOfflineChunkserver();
+                        // try {
+                        //     Thread.sleep(checkInterval);
+                        // } catch (InterruptedException e) {
+                        //     e.printStackTrace();
+                        // }
                         needToRecover = false;
-                        for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
-                            oldHeartbeat.put(i, (long) 0);
-                        }
-                        Arrays.fill(chunkserversPresent, true);
+                        // for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
+                        //     oldHeartbeat.put(i, (long) 0);
+                        // }
+                        // Arrays.fill(chunkserversPresent, true);
                         // break;
                     }
 
@@ -423,9 +407,15 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             initRecoveryChannelsAndStubs(serverIdx);
         // Perform RPC calls using the stub
         RecoveryReadRequest request = RecoveryReadRequest.newBuilder().setChunkFilePath(filePath).build();
-        RecoveryReadResponse response = stubs[serverIdx].recoveryRead(request);
-        // System.out.println("Response from server: " + response.getChunkFileData());
-        return response.getChunkFileData().toByteArray();
+        try {
+            RecoveryReadResponse response = stubs[serverIdx].recoveryRead(request);
+            // System.out.println("Response from server: " + response.getChunkFileData());
+            return response.getChunkFileData().toByteArray();
+        } catch (StatusRuntimeException e) {
+            e.printStackTrace();
+            ;
+        }
+        return null;
     }
 
     // Master writes recovered chunk file data to recovered chunkservers
@@ -477,15 +467,15 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         launchThread.start();
     }
 
-    public void recoverOfflineChunkserver(boolean[] chunkserverPresent) throws IllegalArgumentException {
+    public void recoverOfflineChunkserver() throws IllegalArgumentException {
         System.out.println("line 97 Master");
         String[] chunkFilePathsInOneServer = null;
         List<Integer> offlineServerIndices = new ArrayList<>();
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
-            System.out.println("chunkserverpresent[" + i + "] = " + chunkserverPresent[i]);
-            if (!chunkserverPresent[i]) {
+            System.out.println("chunkserverpresent[" + i + "] = " + chunkserversPresent[i]);
+            if (!chunkserversPresent[i]) {
                 offlineServerIndices.add(i);
-                if (offlineServerIndices.size() > ConfigVariables.PARITY_SHARD_COUNT){
+                if (offlineServerIndices.size() > ConfigVariables.PARITY_SHARD_COUNT) {
                     System.out.println("The number of offline chunkservers exceed the maximum number to recover");
                     throw new IllegalArgumentException(
                             "The number of offline chunkservers exceed the maximum number to recover");
@@ -495,7 +485,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             // For temperary test only, retrieve all chunk file paths from one server
             // In normal case, Master should know all chunk file paths in any existing
             // chunkserver
-            if (chunkFilePathsInOneServer == null){
+            if (chunkFilePathsInOneServer == null) {
                 chunkFilePathsInOneServer = getChunkserverChunkFilePaths(i);
                 System.out.println("chunkFilePathsInOneServer: " + Arrays.toString(chunkFilePathsInOneServer));
             }
@@ -549,6 +539,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             initRecoveryChannelsAndStubs(offlineServerIdx);
         }
 
+        List<Integer> offlineServerIndicesDuringRecovery = new ArrayList<>();
+
         // print the chunkFilePathsInOneServer
         System.out.println("chunkFilePathsInOneServer: " + Arrays.toString(chunkFilePathsInOneServer));
         for (String chunkFilePath : chunkFilePathsInOneServer) {
@@ -564,12 +556,20 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             // chunkservers
 
             ChunkserverDiskRecoveryMachine recoveryMachine = new ChunkserverDiskRecoveryMachine();
-            for (int i = 0; i < chunkserverPresent.length; i++) {
-                if (!chunkserverPresent[i])
+            for (int i = 0; i < chunkserversPresent.length; i++) {
+                if (!chunkserversPresent[i])
                     continue;
                 // Create the new filename with the updated number
                 String curChunkFilePath = filePathWithDash + (chunkGroupStartIdx + i);
                 byte[] curChunkData = makeRecoveryReadRequest(curChunkFilePath, i);
+                if (curChunkData == null) {
+                    chunkserversPresent[i] = false;
+                    offlineServerIndicesDuringRecovery.add(i);
+                    if (offlineServerIndices.size() + offlineServerIndicesDuringRecovery.size() > 2)
+                        throw new IllegalArgumentException(
+                                "The number of offline chunkservers exceed the maximum number to recover");
+                    continue;
+                }
                 recoveryMachine.addChunkserverDisksData(i, curChunkData);
             }
 
@@ -578,10 +578,10 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
             for (Integer offlineServerIdx : offlineServerIndices) {
                 byte[] recoveredChunkData = recoveryMachine.retrieveRecoveredDiskData(offlineServerIdx);
-                String recoveredChunkFilePath =
-                "./ClientClusterCommTestFiles/Disks/chunkserver-" + offlineServerIdx
-                + "/" + filePath + "-" + (chunkGroupStartIdx + offlineServerIdx);
-                // String recoveredChunkFilePath = filePath + "-" + (chunkGroupStartIdx + offlineServerIdx);
+                String recoveredChunkFilePath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + offlineServerIdx
+                        + "/" + filePath + "-" + (chunkGroupStartIdx + offlineServerIdx);
+                // String recoveredChunkFilePath = filePath + "-" + (chunkGroupStartIdx +
+                // offlineServerIdx);
                 System.out.println(
                         "Server Status: " + " ID " + offlineServerIdx + "," + serverStatus.get(offlineServerIdx));
                 // while (!serverStatus.get(offlineServerIdx)) {
@@ -594,7 +594,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                 // }
                 // }
 
-                boolean writeSuccess = makeRecoveryWriteRequest(filePath + "-" + (chunkGroupStartIdx + offlineServerIdx), recoveredChunkData, offlineServerIdx);
+                boolean writeSuccess = makeRecoveryWriteRequest(
+                        filePath + "-" + (chunkGroupStartIdx + offlineServerIdx), recoveredChunkData, offlineServerIdx);
                 System.out.println("writeSuccess ? : " + writeSuccess);
                 // while (!writeSuccess) {
                 // try {
@@ -614,13 +615,19 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                 // + " failed");
                 // }
                 // try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
-                    // fos.write(recoveredChunkData); // Write the recovered data to the recovered file path
+                // fos.write(recoveredChunkData); // Write the recovered data to the recovered
+                // file path
                 // } catch (IOException e) {
-                    // e.printStackTrace();
+                // e.printStackTrace();
                 // }
             }
 
         }
+
+        for (int offlineServerIdx : offlineServerIndices) {
+            chunkserversPresent[offlineServerIdx] = true;
+        }
+        
     }
 
     /**
@@ -671,6 +678,5 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             e.printStackTrace();
         }
     }
-
 
 }

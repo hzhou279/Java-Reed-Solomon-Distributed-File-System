@@ -158,7 +158,7 @@ public class Chunkserver {
                 HeartbeatRequest hb = HeartbeatRequest.newBuilder().setServerTag(String.valueOf(serverIdx)).putAllChunkFileNames(fileNameChunksMap).build();
                 stub.heartBeat(hb);
                 try {
-                    sleep(5000); // heartbeat interval
+                    sleep(3000); // heartbeat interval
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
