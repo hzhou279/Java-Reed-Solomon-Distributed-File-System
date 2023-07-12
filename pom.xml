@@ -63,7 +63,7 @@
             <version>${log4j.version}</version>
         </dependency>
 
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -75,13 +75,15 @@
             <artifactId>commons-cli</artifactId>
             <version>1.5.0</version>
         </dependency>
-        <dependency>
+        <!-- <dependency> -->
+        <!-- BackBlaze Reed Solomon Erasure Coding -->
+        <!-- <dependency>
             <groupId>edu.cmu.reedsolomon</groupId>
             <artifactId>reed-solomon</artifactId>
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/maven-repo/reed-solomon-1.0.jar</systemPath>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
@@ -201,6 +203,26 @@
             </plugins>
         </pluginManagement>
         <plugins>
+
+            <!-- <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <?m2e execute onConfiguration,onIncremental?>
+                        <id>build-classpath</id>
+                        <goals>
+                            <goal>build-classpath</goal>
+                        </goals>
+                        <configuration>
+                            <outputProperty>${project.basedir}/maven-repo/reed-solomon-1.0.jar</outputProperty>
+                            <includeScope>runtime</includeScope>
+                            <pathSeparator>;</pathSeparator>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin> -->
 
             <plugin>
                 <groupId>com.github.os72</groupId>

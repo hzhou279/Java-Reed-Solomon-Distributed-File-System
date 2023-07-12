@@ -46,7 +46,6 @@ import java.util.concurrent.TimeoutException;
 
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
-import edu.cmu.reedsolomonfs.cli.ClientCLI;
 import edu.cmu.reedsolomonfs.ConfigVariables;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
@@ -54,7 +53,7 @@ import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
-public class Client {
+public class ReadClient {
 
     // private final String groupId;
     // private final String confStr;
@@ -66,13 +65,8 @@ public class Client {
     // this.confStr = confStr;
     // this.cliClientService = cliClientService;
     // }
-    static ClientCLI cli = new ClientCLI();
-    public ManagedChannel channel;
-    public CliClientServiceImpl cliClientService;
-    public String groupId;
-    public String confStr;
 
-    public Client(final String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
         if (args.length != 2) {
             System.out.println("Usage : java com.alipay.sofa.jraft.example.counter.CounterClient {groupId} {conf}");
             System.out
@@ -80,18 +74,18 @@ public class Client {
                             "Example: java com.alipay.sofa.jraft.example.counter.CounterClient counter 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
             System.exit(1);
         }
-        groupId = args[0];
-        confStr = args[1];
+        final String groupId = args[0];
+        final String confStr = args[1];
         ChunkserverGrpcHelper.initGRpc();
 
         final Configuration conf = new Configuration();
         if (!conf.parse(confStr)) {
             throw new IllegalArgumentException("Fail to parse conf:" + confStr);
         }
-        System.out.println(groupId + "????");
+
         RouteTable.getInstance().updateConfiguration(groupId, conf);
 
-        cliClientService = new CliClientServiceImpl();
+        final CliClientServiceImpl cliClientService = new CliClientServiceImpl();
         cliClientService.init(new CliOptions());
 
         if (!RouteTable.getInstance().refreshLeader(cliClientService, groupId, 1000).isOk()) {
@@ -104,22 +98,21 @@ public class Client {
         System.out.println("Configuration is " + RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
 
         // Create a channel to connect to the master
-        channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
-    }
 
-    public void test(final String[] args) throws Exception {
         // Cache file metadata
         Map<String, FileMetadata> cache = new HashMap<>();
 
         // Make a create request
         String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
         byte[] fileData = Files.readAllBytes(Path.of(filePath));
-        create(cliClientService, "test.txt", fileData, groupId);
-        System.out.println(filePath + " created successfully!!!!");
-        // // sleep for 7s to wait for the data to be replicated to the follower
-        Thread.sleep(7000);
+
+        // create(cliClientService, "test.txt", fileData, groupId);
+        // System.out.println(filePath + " created successfully!!!!");
+        // // // sleep for 7s to wait for the data to be replicated to the follower
+        // Thread.sleep(7000);
 
         System.out.println("Going to read the file!!!!");
 
@@ -150,7 +143,6 @@ public class Client {
 
         // Shutdown the channel to the master
         channel.shutdown();
-        
 
         // Exit the client
         System.exit(0);
@@ -272,11 +264,11 @@ public class Client {
 
     }
 
-    public void create(final CliClientServiceImpl cliClientService, String filePath, byte[] fileData,
+    public static void create(final CliClientServiceImpl cliClientService, String filePath, byte[] fileData,
             final String groupId) throws RemotingException, InterruptedException {
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
-        // final long start = System.currentTimeMillis();
+        final long start = System.currentTimeMillis();
 
         ReedSolomonEncoder encoder = new ReedSolomonEncoder(fileData);
         encoder.encode();
@@ -291,7 +283,7 @@ public class Client {
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
         // latch.await();
-        // System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start) + " mssssssss.");
+        System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start) + " mssssssss.");
     }
 
     private static WriteRequest packWriteRequest(String operationType, String filePath, int fileSize, int appendAt,
@@ -325,7 +317,7 @@ public class Client {
                 public void complete(Object result, Throwable err) {
                     if (err == null) {
                         latch.countDown();
-                        // System.out.println("write request result:" + result);
+                        System.out.println("write request result:" + result);
                     } else {
                         err.printStackTrace();
                         latch.countDown();

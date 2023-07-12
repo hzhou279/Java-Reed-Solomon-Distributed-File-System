@@ -1,0 +1,25 @@
+Server starteds on port 18003
+Started counter server at port:8084
+fileNameChunks: {test.txt=[test.txt.0-39, test.txt.0-99, test.txt.0-87, test.txt.0-123, test.txt.0-117, test.txt.0-111, test.txt.0-63, test.txt.0-21, test.txt.0-135, test.txt.0-129, test.txt.0-75, test.txt.0-57, test.txt.0-93, test.txt.0-3, test.txt.0-51, test.txt.0-27, test.txt.0-105, test.txt.0-69, test.txt.0-81, test.txt.0-33, test.txt.0-9, test.txt.0-45, test.txt.0-15], MM.txt=[MM.txt.0-3], Danny.txt=[Danny.txt.0-3]}
+server 3 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName NIce.txt.0-3
+storedFileNameToChunks size is 4
+File: test.txt, Chunks: [test.txt.0-39, test.txt.0-99, test.txt.0-87, test.txt.0-123, test.txt.0-117, test.txt.0-111, test.txt.0-63, test.txt.0-21, test.txt.0-135, test.txt.0-129, test.txt.0-75, test.txt.0-57, test.txt.0-93, test.txt.0-3, test.txt.0-51, test.txt.0-27, test.txt.0-105, test.txt.0-69, test.txt.0-81, test.txt.0-33, test.txt.0-9, test.txt.0-45, test.txt.0-15]
+File: NIce.txt, Chunks: [NIce.txt.0-3]
+File: MM.txt, Chunks: [MM.txt.0-3]
+File: Danny.txt, Chunks: [Danny.txt.0-3]
+-4]
+, test.txt.0-6, test.txt.0-90]
+File: NIce.txt, Chunks: [NIce.txt.0-0]
+File: MM.txt, Chunks: [MM.txt.0-0]
+File: Danny.txt, Chunks: [Danny.txt.0-0]
+ReadRequestProcessor thread: Bolt-default-executor-6-thread-1
+ReadRequestProcessor thread2: Bolt-default-executor-6-thread-1
+read filePath: NIce.txt
+bytesMap: {NIce.txt.0-0=[B@3bcb32cb}
+.0-1
+storedFileNameToChunks size is 4
+File: test.txt, Chunks: [test.txt.0-73, test.txt.0-31, test.txt.0-133, test.txt.0-97, test.txt.0-43, test.txt.0-85, test.txt.0-121, test.txt.0-49, test.txt.0-25, test.txt.0-67, test.txt.0-7, test.txt.0-103, test.txt.0-37, test.txt.0-79, test.txt.0-19, test.txt.0-127, test.txt.0-1, test.txt.0-13, test.txt.0-61, test.txt.0-109, test.txt.0-55, test.txt.0-115, test.txt.0-91]
+File: NIce.txt, Chunks: [NIce.txt.0-1]
+File: MM.txt, Chunks: [MM.txt.0-1]
+File: Danny.txt, Chunks: [Danny.txt.0-1]

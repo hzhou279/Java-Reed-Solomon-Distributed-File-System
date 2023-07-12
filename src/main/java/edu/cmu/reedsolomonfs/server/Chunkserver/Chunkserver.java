@@ -84,12 +84,20 @@ public class Chunkserver {
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
 
-        ChunkserverService counterService = new ChunkserverServiceImpl(this);
-        rpcServer.registerProcessor(new GetValueRequestProcessor(counterService));
-        rpcServer.registerProcessor(new IncrementAndGetRequestProcessor(counterService));
-        rpcServer.registerProcessor(new SetBytesValueRequestProcessor(counterService));
-        rpcServer.registerProcessor(new WriteRequestProcessor(counterService, channel));
-        rpcServer.registerProcessor(new ReadRequestProcessor(counterService));
+        ChunkserverService chunkService = new ChunkserverServiceImpl(this);
+        rpcServer.registerProcessor(new GetValueRequestProcessor(chunkService));
+        rpcServer.registerProcessor(new IncrementAndGetRequestProcessor(chunkService));
+        rpcServer.registerProcessor(new SetBytesValueRequestProcessor(chunkService));
+        rpcServer.registerProcessor(new WriteRequestProcessor(chunkService, channel));
+        rpcServer.registerProcessor(new ReadRequestProcessor(chunkService));
+        // start the recovery thread
+        String diskPath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + serverIdx + "/";
+        try {
+            startRecoveryServer(serverIdx, diskPath, this);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         // record the server index
         this.serverIdx = serverIdx;
@@ -160,13 +168,13 @@ public class Chunkserver {
         }
     }
 
-    private static void startRecoveryServer(int serverIdx, String diskPath) throws Exception {
+    private static void startRecoveryServer(int serverIdx, String diskPath, Chunkserver chunkService) throws Exception {
         // Create a new thread for running the server
         Thread recoveryServerThread = new Thread(() -> {
             try {
                 // Create a gRPC server using ServerBuilder
                 Server server = ServerBuilder.forPort(18000 + serverIdx)
-                        .addService(new RecoveryServiceImpl(serverIdx, diskPath)) // Add your service implementation
+                        .addService(new RecoveryServiceImpl(serverIdx, diskPath, chunkService)) // Add your service implementation
                         .build();
 
                 // Start the server
@@ -259,10 +267,7 @@ public class Chunkserver {
                 Integer.parseInt(serverIdx));
         System.out.println("Started counter server at port:"
                 + counterServer.getNode().getNodeId().getPeerId().getPort());
-
-        // start the recovery thread
-        String diskPath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + serverIdx + "/";
-        startRecoveryServer(Integer.parseInt(serverIdx), diskPath);
+    
 
         // GrpcServer need block to prevent process exit
         ChunkserverGrpcHelper.blockUntilShutdown();

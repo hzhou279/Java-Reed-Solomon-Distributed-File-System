@@ -30,4 +30,15 @@ fi
 
 # command=("mvn" "exec:java" "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Master.Master")
 # "${command[@]}"
+
+# mvn compile \
+#   -Dmaven.compiler.source=17 \
+#   -Dmaven.compiler.target=17 \
+#   -Dmaven.compiler.useIncrementalCompilation=false \
+#   -Dmdep.includeScope=compile \
+#   -Dmdep.outputFile=classpath.txt \
+#   -DadditionalClasspath="/maven-repo/reed-solomon-1.0.jar"
+
+# javac -cp "/maven-repo/reed-solomon-1.0.jar" src/main/java/edu/cmu/reedsolomonfs/server/Chunkserver/ChunkserverDiskRecoveryMachine.java
+mvn compile -DadditionalClasspath="/maven-repo/reed-solomon-1.0.jar"
 mvn exec:java -Dexec.mainClass=edu.cmu.reedsolomonfs.server.Master.Master -Dexec.additionalClasspath="/maven-repo/reed-solomon-1.0.jar"

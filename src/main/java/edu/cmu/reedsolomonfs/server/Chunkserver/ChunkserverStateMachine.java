@@ -133,12 +133,18 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
         return this.leaderTerm.get() > 0;
     }
 
-    private void updateStoredFileNameToChunks(String fileName) {
+    public void updateStoredFileNameToChunks(String fileName) {
+        System.out.println("server " + serverIdx + " updateStoredFileNameToChunks:");
+        System.out.println("updateStoredFileNameToChunks with fileName " + fileName);
         // update storedFileNameToChunks map
         int separatorIndex = fileName.lastIndexOf('.');
         if (separatorIndex > 0) {
             String originalFileName = fileName.substring(0, separatorIndex);
             storedFileNameToChunks.computeIfAbsent(originalFileName, k -> new ArrayList<>()).add(fileName);
+        }
+        System.out.println("storedFileNameToChunks size is " + storedFileNameToChunks.size());
+        for (Map.Entry<String, List<String>> entry : storedFileNameToChunks.entrySet()) {
+            System.out.println("File: " + entry.getKey() + ", Chunks: " + entry.getValue());
         }
     }
     private void printStoredFileNameToChunks() {

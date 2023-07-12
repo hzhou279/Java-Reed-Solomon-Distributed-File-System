@@ -136,7 +136,7 @@ public class ClientCLI implements KeyListener {
                         byte[] fileData = Files.readAllBytes(newFilePath);
                         String wholePath = localPath + "/" + words[1];
                         System.out.println(wholePath);
-                        client.create(client.cliClientService, wholePath, fileData, client.groupId);
+                        client.create(client.cliClientService, words[1], fileData, client.groupId);
                         tree.addPath(wholePath);
                     } catch (IOException e) {
                         System.err.println("Error reading file: " + e.getMessage());
@@ -149,7 +149,6 @@ public class ClientCLI implements KeyListener {
                 // client.create(client.cliClientService, wholePath, fileData, client.groupId);
                 System.out.println("!!!!!!");
             } else if (words[0].equals("read")) {
-                client.test(args);
                 System.out.println(words[1]);
                 byte[] fileDataRead = client.read(client.cliClientService, "read", words[1], 724, client.groupId);
 

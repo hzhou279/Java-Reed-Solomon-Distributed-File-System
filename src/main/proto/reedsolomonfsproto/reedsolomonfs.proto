@@ -40,11 +40,12 @@ message ReadResponse {
 message WriteRequest {
     string operationType = 1;
     string filePath = 2;
-    int32 fileSize = 3;
-    int32 appendAt = 4;
-    repeated bytes payload = 5;
-    string writeFlag = 6;
-    int32 lastChunkIdx = 7;
+    int32 originalFileSize = 3;
+    int32 fileSize = 4;
+    int32 appendAt = 5;
+    repeated bytes payload = 6;
+    string writeFlag = 7;
+    int32 lastChunkIdx = 8;
 }
 
 message WriteResponse {
@@ -57,21 +58,11 @@ message UpdateMetadataRequest {
     
 }
 
-message RecoveryReadRequest {
-    string filePath = 1;
-}
-
-message RecoveryReadResponse {
-    bytes chunkFileData = 1;
-}
-
 service ClientMasterService {
     rpc GetToken(TokenRequest) returns (TokenResponse);
 }
 
-service RecoveryService {
-    rpc RecoveryRead(RecoveryReadRequest) returns (RecoveryReadResponse) {}
-}
+
 
 // service ClientChunkserverService {
 //     rpc Read(ReadRequest) returns (ReadResponse);
