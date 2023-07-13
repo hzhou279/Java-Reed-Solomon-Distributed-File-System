@@ -6,6 +6,7 @@ option java_outer_classname = "MasterserverOutter";
 service MasterService {
   rpc HeartBeat(HeartbeatRequest) returns (HeartbeatResponse) {}
   rpc WriteSuccess(ackMasterWriteSuccessRequest) returns (ackMasterWriteSuccessRequestResponse) {}
+  rpc GetToken(TokenRequest) returns (TokenResponse);
 //   rpc RecoveryRead(RecoveryReadRequest) returns (RecoveryReadResponse) {}
 }
 
@@ -55,3 +56,27 @@ service RecoveryService {
     rpc RecoveryWrite(RecoveryWriteRequest) returns (RecoveryWriteResponse) {}
 }
 
+
+message TokenRequest {
+    string requestType = 1;
+    string filePath = 2;
+}
+
+message TokenResponse {
+    bool isHealthy = 1;
+    string token = 2;
+    repeated string ips = 3;
+    repeated GRPCMetadata metadata = 4;
+    int32 fileSize = 5;
+}
+
+message GRPCNode {
+    int32 chunkIdx = 1; 
+    int32 serverId = 2;
+    bool isData = 3;
+}
+
+message GRPCMetadata {
+    string filePath = 1;
+    repeated GRPCNode nodes = 2;
+}

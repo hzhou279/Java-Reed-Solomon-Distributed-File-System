@@ -21,6 +21,7 @@ import com.alipay.sofa.jraft.conf.Configuration;
 import com.alipay.sofa.jraft.entity.PeerId;
 import com.alipay.sofa.jraft.error.RemotingException;
 
+import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ChunkserverGrpcHelper;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.IncrementAndGetRequest;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.SetBytesRequest;
@@ -48,8 +49,8 @@ import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
 import edu.cmu.reedsolomonfs.ConfigVariables;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -177,7 +178,7 @@ public class ReadClient {
         byte[][] shards = new byte[ConfigVariables.TOTAL_SHARD_COUNT][];
         boolean[] shardsPresent = new boolean[ConfigVariables.TOTAL_SHARD_COUNT];
         // for (PeerId peer : conf) {
-        //     System.out.println("peer:" + peer.getEndpoint());
+        // System.out.println("peer:" + peer.getEndpoint());
         // }
         for (PeerId peer : conf) {
             System.out.println("peer:" + peer.getEndpoint());
@@ -237,7 +238,7 @@ public class ReadClient {
 
     public static TokenResponse requestToken(ManagedChannel channel, String requestType, String filePath) {
         // Create a stub for the service
-        ClientMasterServiceGrpc.ClientMasterServiceBlockingStub stub = ClientMasterServiceGrpc.newBlockingStub(channel);
+        MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(channel);
 
         TokenRequest request = TokenRequest.newBuilder()
                 .setRequestType(requestType)
@@ -274,9 +275,10 @@ public class ReadClient {
         encoder.encode();
         byte[][] shards = encoder.getShards();
 
-        // WriteRequest request = packWriteRequest("touch", filePath, encoder.getFileSize(), 0, shards, "create",
-        //         encoder.getLastChunkIdx());
-        
+        // WriteRequest request = packWriteRequest("touch", filePath,
+        // encoder.getFileSize(), 0, shards, "create",
+        // encoder.getLastChunkIdx());
+
         // Pass padded file size
         WriteRequest request = packWriteRequest("touch", filePath, encoder.getPaddedFileSize(), 0, shards, "create",
                 encoder.getLastChunkIdx(), encoder.getFileSize());

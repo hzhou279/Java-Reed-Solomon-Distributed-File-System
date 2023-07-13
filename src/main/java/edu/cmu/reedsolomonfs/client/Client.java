@@ -21,6 +21,7 @@ import com.alipay.sofa.jraft.conf.Configuration;
 import com.alipay.sofa.jraft.entity.PeerId;
 import com.alipay.sofa.jraft.error.RemotingException;
 
+import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ChunkserverGrpcHelper;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.IncrementAndGetRequest;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.SetBytesRequest;
@@ -49,8 +50,9 @@ import edu.cmu.reedsolomonfs.datatype.FileMetadata;
 import edu.cmu.reedsolomonfs.cli.ClientCLI;
 import edu.cmu.reedsolomonfs.ConfigVariables;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -94,14 +96,16 @@ public class Client {
         cliClientService = new CliClientServiceImpl();
         cliClientService.init(new CliOptions());
 
-        if (!RouteTable.getInstance().refreshLeader(cliClientService, groupId, 1000).isOk()) {
+        if (!RouteTable.getInstance().refreshLeader(cliClientService, groupId,
+                1000).isOk()) {
             throw new IllegalStateException("Refresh leader failed");
         }
 
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         System.out.println("Leader is " + leader + "\n\n");
         System.out.println("RouteTable is " + RouteTable.getInstance() + "\n\n");
-        System.out.println("Configuration is " + RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
+        System.out.println("Configuration is " +
+                RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
 
         // Create a channel to connect to the master
         channel = ManagedChannelBuilder.forAddress("localhost", 8080)
@@ -150,7 +154,6 @@ public class Client {
 
         // Shutdown the channel to the master
         channel.shutdown();
-        
 
         // Exit the client
         System.exit(0);
@@ -185,7 +188,7 @@ public class Client {
         byte[][] shards = new byte[ConfigVariables.TOTAL_SHARD_COUNT][];
         boolean[] shardsPresent = new boolean[ConfigVariables.TOTAL_SHARD_COUNT];
         // for (PeerId peer : conf) {
-        //     System.out.println("peer:" + peer.getEndpoint());
+        // System.out.println("peer:" + peer.getEndpoint());
         // }
         for (PeerId peer : conf) {
             System.out.println("peer:" + peer.getEndpoint());
@@ -245,13 +248,19 @@ public class Client {
 
     public TokenResponse requestToken(String requestType, String filePath) {
         // Create a stub for the service
-        ClientMasterServiceGrpc.ClientMasterServiceBlockingStub stub = ClientMasterServiceGrpc.newBlockingStub(channel);
+        System.out.println("Creating stub for master service");
+        // print out channel
+        System.out.println("Channel is " + channel);
+        MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(channel);
 
+        System.out.println("stub is " + stub);
+        System.out.println("Requesting JWT token from master for " + requestType + " operation on file " + filePath);
         TokenRequest request = TokenRequest.newBuilder()
                 .setRequestType(requestType)
                 .setFilePath(filePath)
                 .build();
 
+        System.out.println("Sending request to master for JWT token request" + request);
         // Make the RPC call and receive the response
         TokenResponse response = stub.getToken(request);
 
@@ -282,16 +291,18 @@ public class Client {
         encoder.encode();
         byte[][] shards = encoder.getShards();
 
-        // WriteRequest request = packWriteRequest("touch", filePath, encoder.getFileSize(), 0, shards, "create",
-        //         encoder.getLastChunkIdx());
-        
+        // WriteRequest request = packWriteRequest("touch", filePath,
+        // encoder.getFileSize(), 0, shards, "create",
+        // encoder.getLastChunkIdx());
+
         // Pass padded file size
         WriteRequest request = packWriteRequest("touch", filePath, encoder.getPaddedFileSize(), 0, shards, "create",
                 encoder.getLastChunkIdx(), encoder.getFileSize());
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
         // latch.await();
-        // System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start) + " mssssssss.");
+        // System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start)
+        // + " mssssssss.");
     }
 
     private static WriteRequest packWriteRequest(String operationType, String filePath, int fileSize, int appendAt,
