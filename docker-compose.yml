@@ -1,0 +1,132 @@
+version: '3'
+
+services:
+  master:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+    command:
+      [
+        "mvn",
+        "exec:java",
+        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Master.Master"
+      ]
+
+  chunkserver1:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+    command:
+      [
+        "mvn",
+        "exec:java",
+        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver",
+        "-Dexec.args=chunkserver1 cluster chunkserver1:8081 chunkserver1:8081,chunkserver2:8082,chunkserver3:8083,chunkserver4:8084,chunkserver5:8085,chunkserver6:8086 0",
+        "-Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+      ]
+
+  chunkserver2:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+    command:
+      [
+        "mvn",
+        "exec:java",
+        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver",
+        "-Dexec.args=chunkserver2 cluster chunkserver2:8082 chunkserver1:8081,chunkserver2:8082,chunkserver3:8083,chunkserver4:8084,chunkserver5:8085,chunkserver6:8086 1",
+        "-Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+      ]
+
+  chunkserver3:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+    command:
+      [
+        "mvn",
+        "exec:java",
+        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver",
+        "-Dexec.args=chunkserver3 cluster chunkserver3:8083 chunkserver1:8081,chunkserver2:8082,chunkserver3:8083,chunkserver4:8084,chunkserver5:8085,chunkserver6:8086 2",
+        "-Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+      ]
+
+  chunkserver4:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+    command:
+      [
+        "mvn",
+        "exec:java",
+        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver",
+        "-Dexec.args=chunkserver4 cluster chunkserver4:8084 chunkserver1:8081,chunkserver2:8082,chunkserver3:8083,chunkserver4:8084,chunkserver5:8085,chunkserver6:8086 3",
+        "-Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+      ]
+
+  chunkserver5:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+    command:
+      [
+        "mvn",
+        "exec:java",
+        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver",
+        "-Dexec.args=chunkserver5 cluster chunkserver5:8085 chunkserver1:8081,chunkserver2:8082,chunkserver3:8083,chunkserver4:8084,chunkserver5:8085,chunkserver6:8086 4",
+        "-Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+      ]
+
+  chunkserver6:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+    command:
+      [
+        "mvn",
+        "exec:java",
+        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver",
+        "-Dexec.args=chunkserver6 cluster chunkserver6:8086 chunkserver1:8081,chunkserver2:8082,chunkserver3:8083,chunkserver4:8084,chunkserver5:8085,chunkserver6:8086 5",
+        "-Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+      ]
+
+  client:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+    command:
+      [
+        "mvn",
+        "exec:java",
+        "-Dexec.mainClass=edu.cmu.reedsolomonfs.client.Client",
+        "-Dexec.args=cluster chunkserver1:8081,chunkserver2:8082,chunkserver3:8083,chunkserver4:8084,chunkserver5:8085,chunkserver6:8086",
+        "-Dexec.classpathScope=compile",
+        "-Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+      ]
+
+networks:
+  reed_solomon:

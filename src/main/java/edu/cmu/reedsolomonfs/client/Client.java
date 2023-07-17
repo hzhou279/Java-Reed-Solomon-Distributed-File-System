@@ -98,7 +98,7 @@ public class Client {
         System.out.println("Configuration is " + RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
 
         // Create a channel to connect to the master
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("master", 8080)
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
 
@@ -177,7 +177,7 @@ public class Client {
         byte[][] shards = new byte[ConfigVariables.TOTAL_SHARD_COUNT][];
         boolean[] shardsPresent = new boolean[ConfigVariables.TOTAL_SHARD_COUNT];
         // for (PeerId peer : conf) {
-        //     System.out.println("peer:" + peer.getEndpoint());
+        // System.out.println("peer:" + peer.getEndpoint());
         // }
         for (PeerId peer : conf) {
             System.out.println("peer:" + peer.getEndpoint());
@@ -274,9 +274,10 @@ public class Client {
         encoder.encode();
         byte[][] shards = encoder.getShards();
 
-        // WriteRequest request = packWriteRequest("touch", filePath, encoder.getFileSize(), 0, shards, "create",
-        //         encoder.getLastChunkIdx());
-        
+        // WriteRequest request = packWriteRequest("touch", filePath,
+        // encoder.getFileSize(), 0, shards, "create",
+        // encoder.getLastChunkIdx());
+
         // Pass padded file size
         WriteRequest request = packWriteRequest("touch", filePath, encoder.getPaddedFileSize(), 0, shards, "create",
                 encoder.getLastChunkIdx(), encoder.getFileSize());

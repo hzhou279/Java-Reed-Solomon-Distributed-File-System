@@ -32,7 +32,7 @@ public class RecoveryServiceImpl extends RecoveryServiceImplBase {
         this.chunkServer = chunkServer;
         this.serverIdx = serverIdx;
         this.diskPath = diskPath;
-        redirectSystemOutToFile();
+        // redirectSystemOutToFile();
     }
 
     @Override
@@ -61,13 +61,13 @@ public class RecoveryServiceImpl extends RecoveryServiceImplBase {
     @Override
     public void recoveryWrite(RecoveryWriteRequest request,
             StreamObserver<RecoveryWriteResponse> responseObserver) {
-        
+
         System.out.println("RecoveryWriteRequest received from Master");
         String recoveredChunkFilePath = diskPath + request.getChunkFilePath();
         byte[] recoveredChunkFileData = request.getChunkFileData().toByteArray();
         try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
             fos.write(recoveredChunkFilePath.getBytes()); // Write the recovered data to the recovered file path
-            } catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("An error occurred while writing the file: " + e.getMessage());
         }
 

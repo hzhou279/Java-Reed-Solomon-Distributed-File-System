@@ -120,7 +120,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         latestChunkIndex = new ConcurrentHashMap<>();
         chunkServerChunkFileNames = new ConcurrentHashMap<>();
         metadata = new HashMap<>();
-        redirectSystemOutToFile();
+        // redirectSystemOutToFile();
 
         // load from file if exists
         try {
@@ -142,8 +142,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
         // Shutdown the recovery channel
         // for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++)
-        //     if (recoveryConnectionEstablished[i])
-        //         recoveryChannels[i].shutdown();
+        // if (recoveryConnectionEstablished[i])
+        // recoveryChannels[i].shutdown();
     }
 
     public void addFileVersion(String filename, long fileSize, long appendAt, String writeFlag) {
@@ -275,13 +275,13 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                         System.out.println("line 74 in MasterImpl");
                         recoverOfflineChunkserver();
                         // try {
-                        //     Thread.sleep(checkInterval);
+                        // Thread.sleep(checkInterval);
                         // } catch (InterruptedException e) {
-                        //     e.printStackTrace();
+                        // e.printStackTrace();
                         // }
                         needToRecover = false;
                         // for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
-                        //     oldHeartbeat.put(i, (long) 0);
+                        // oldHeartbeat.put(i, (long) 0);
                         // }
                         // Arrays.fill(chunkserversPresent, true);
                         // break;
@@ -392,9 +392,16 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
     private void initRecoveryChannelsAndStubs(int serverIdx) {
         // Create a gRPC channel to connect to the chunkserver
-        recoveryChannels[serverIdx] = ManagedChannelBuilder.forAddress("localhost", recoveryPorts[serverIdx])
+        // name is chunkserver1, chunkserver2, according to the serverIdx
+        String name = "chunkserver" + (serverIdx + 1);
+        recoveryChannels[serverIdx] = ManagedChannelBuilder.forAddress(name, recoveryPorts[serverIdx])
                 .usePlaintext() // For simplicity, using plaintext communication
                 .build();
+
+        // recoveryChannels[serverIdx] = ManagedChannelBuilder.forAddress("localhost",
+        // recoveryPorts[serverIdx])
+        // .usePlaintext() // For simplicity, using plaintext communication
+        // .build();
 
         // Create a client stub using the generated MyServiceGrpc class
         stubs[serverIdx] = RecoveryServiceGrpc.newBlockingStub(recoveryChannels[serverIdx]);
@@ -433,6 +440,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
     private void relaunchOfflineChunkserver(int serverIdx, CountDownLatch latch) {
         // Create a new thread to re launch one offline chunkserver
+        String name = "chunkserver" + (serverIdx + 1);
         Thread launchThread = new Thread(() -> {
             try {
                 // Specify the Maven command
@@ -440,8 +448,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                         "mvn",
                         "exec:java",
                         "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver",
-                        "-Dexec.args=chunkserver" + (serverIdx + 1) + " cluster 127.0.0.1:808" + (serverIdx + 1)
-                                + " 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086 "
+                        "-Dexec.args=chunkserver" + (serverIdx + 1) + " cluster" + name
+                                + " chunkserver1:8081,chunkserver2:8082,chunkserver3:8083,chunkserver4:8084,chunkserver5:8085,chunkserver6:8086 "
                                 + serverIdx
                 };
 
@@ -627,7 +635,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         for (int offlineServerIdx : offlineServerIndices) {
             chunkserversPresent[offlineServerIdx] = true;
         }
-        
+
     }
 
     /**

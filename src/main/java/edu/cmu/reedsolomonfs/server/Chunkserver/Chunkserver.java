@@ -79,7 +79,7 @@ public class Chunkserver {
         // GrpcServer need init marshaller
         ChunkserverGrpcHelper.initGRpc();
         ChunkserverGrpcHelper.setRpcServer(rpcServer);
-        channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+        channel = ManagedChannelBuilder.forAddress("master", 8080)
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
 
