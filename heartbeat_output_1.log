@@ -1,0 +1,29 @@
+Started counter server at port:8082
+fileNameChunks: {test.txt=[test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133]}
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@29216baa
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@41f497e1
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@31281a2b
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName a.txt.0-1
+storedFileNameToChunks size is 2
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133]
+File: a.txt, Chunks: [a.txt.0-1]
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@7b90f386
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@c1c8618
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@602249f9
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@1f6f49e3
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@6c26b67
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@4f004d53
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@685dbf3f
+channel: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=1, target=localhost:8080}}
+stub: edu.cmu.reedsolomonfs.server.MasterServiceGrpc$MasterServiceBlockingStub@1bb9b99a

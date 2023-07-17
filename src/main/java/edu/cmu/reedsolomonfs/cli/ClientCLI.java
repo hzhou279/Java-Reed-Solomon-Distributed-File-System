@@ -18,9 +18,12 @@ import org.apache.commons.cli.ParseException;
 
 import edu.cmu.reedsolomonfs.cli.DirectoryTree.Node;
 import edu.cmu.reedsolomonfs.client.Client;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.GRPCMetadata;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
+import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCMetadata;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCNode;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenResponse;
+import io.grpc.ManagedChannelBuilder;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,6 +33,9 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 
 public class ClientCLI implements KeyListener {
     public static String localPath = "/A";
@@ -43,8 +49,9 @@ public class ClientCLI implements KeyListener {
     public static void main(final String[] args) throws Exception {
         // System.setErr(new PrintStream("./log/err.txt"));
         // /dev/null is a null device that discards any data that is written to it
-        System.setErr(new PrintStream("/dev/null"));
+        // System.setErr(new PrintStream("/dev/null"));
         client = new Client(args);
+        // client.test(args);
 
         Scanner scanner = new Scanner(System.in);
         CommandLineParser parser = new DefaultParser();
@@ -62,6 +69,18 @@ public class ClientCLI implements KeyListener {
         metaData.put("A/E/Z/D", list4);
 
         TokenResponse tResponse = client.requestToken("read", "/A/B/C");
+        // print out tResponse metadata
+        System.out.println("tResponse metadata");
+        List<GRPCMetadata> m = tResponse.getMetadataList();
+        for (GRPCMetadata data : m) {
+            System.out.println("File Path: " + data.getFilePath());
+            List<GRPCNode> nodes = data.getNodesList();
+            for (GRPCNode node : nodes) {
+                System.out.println(node.getChunkIdx());
+                System.out.println(node.getServerId());
+                System.out.println(node.getIsData());
+            }
+        }
 
         for (String path : metaData.keySet()) {
             tree.addPath(path);
@@ -158,7 +177,7 @@ public class ClientCLI implements KeyListener {
                 byte[] fileDataRead = client.read(client.cliClientService, "read", words[1], 724, client.groupId);
 
                 System.out.println("File read successfully!!!!");
-        
+
                 // write fileDataRead to a file
                 Files.write(Path.of("./ClientClusterCommTestFiles/FilesRead/testRead1.txt"), fileDataRead);
             } else {

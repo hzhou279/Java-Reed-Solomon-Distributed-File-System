@@ -34,7 +34,11 @@ import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.WriteRequestProcessor;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse.Builder;
 import edu.cmu.reedsolomonfs.server.MasterServiceGrpc.MasterServiceBlockingStub;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCMetadata;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCNode;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenResponse;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -47,6 +51,8 @@ import com.alipay.sofa.jraft.rpc.RpcServer;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
@@ -66,11 +72,14 @@ public class Chunkserver {
     private ChunkserverStateMachine fsm;
     private int serverIdx;
     private ManagedChannel channel;
+    String outputLogFile = "chunkserver_output.log";
 
     // line 88 to line 99 follows server setting example in SOFAJaft documentation
     // https://www.sofastack.tech/en/projects/sofa-jraft/jraft-user-guide/
     public Chunkserver(final String dataPath, final String groupId, final PeerId serverId,
             final NodeOptions nodeOptions, int serverIdx) throws IOException {
+        outputLogFile = "chunkserver_output_" + serverIdx + ".log";
+        // redirectSystemOutToFile();
         // init raft data path, it contains log,meta,snapshot
         FileUtils.forceMkdir(new File(dataPath));
 
@@ -128,13 +137,24 @@ public class Chunkserver {
         private ManagedChannel channel;
         private RpcServer rpcServer;
         private int serverIdx;
-                Map<String, List<String>> fileNameChunks = fsm.getStoredFileNameToChunks();
-
+        Map<String, List<String>> fileNameChunks = fsm.getStoredFileNameToChunks();
 
         public heartbeatThread(ManagedChannel channel, RpcServer rpcServer, int serverIdx) {
             this.channel = channel;
             this.rpcServer = rpcServer;
             this.serverIdx = serverIdx;
+            try {
+                // Create a new file output stream for the desired file
+                FileOutputStream fileOutputStream = new FileOutputStream("heartbeat_output_" + serverIdx + ".log");
+
+                // Create a new print stream that writes to the file output stream
+                PrintStream printStream = new PrintStream(fileOutputStream);
+
+                // Redirect System.out to the print stream
+                System.setOut(printStream);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
         public void run() {
@@ -156,8 +176,37 @@ public class Chunkserver {
                 }
                 // System.out.println("fileNameChunksMap: " + fileNameChunksMap);
 
-                HeartbeatRequest hb = HeartbeatRequest.newBuilder().setServerTag(String.valueOf(serverIdx)).putAllChunkFileNames(fileNameChunksMap).build();
+                HeartbeatRequest hb = HeartbeatRequest.newBuilder().setServerTag(String.valueOf(serverIdx))
+                        .putAllChunkFileNames(fileNameChunksMap).build();
+                System.out.println("channel: " + channel);
+                System.out.println("stub: " + stub);
                 stub.heartBeat(hb);
+
+                // System.out.println("requestToken");
+                // // Create a stub for the service
+                // System.out.println("Creating stub for master service");
+
+                // // print out channel
+                // ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+                // .usePlaintext() // Use insecure connection, for testing only
+                // .build();
+                // System.out.println("Channel is " + channel);
+
+                // System.out.println("stub is " + stub);
+                // System.out.println("Requesting JWT token from master for " + "read" + "
+                // operation on file " + "/A/B/C");
+                // TokenRequest request = TokenRequest.newBuilder()
+                // .setRequestType("read")
+                // .setFilePath("/A/B/C")
+                // .build();
+
+                // System.out.println("Sending request to master for JWT token request" +
+                // request);
+                // // Make the RPC call and receive the response
+                // TokenResponse response = stub.getToken(request);
+
+                // System.out.println("JWT token received at client is: " +
+                // response.getToken());
                 try {
                     sleep(5000); // heartbeat interval
                 } catch (InterruptedException e) {
@@ -174,7 +223,8 @@ public class Chunkserver {
             try {
                 // Create a gRPC server using ServerBuilder
                 Server server = ServerBuilder.forPort(18000 + serverIdx)
-                        .addService(new RecoveryServiceImpl(serverIdx, diskPath, chunkService)) // Add your service implementation
+                        .addService(new RecoveryServiceImpl(serverIdx, diskPath, chunkService)) // Add your service
+                                                                                                // implementation
                         .build();
 
                 // Start the server
@@ -267,9 +317,23 @@ public class Chunkserver {
                 Integer.parseInt(serverIdx));
         System.out.println("Started counter server at port:"
                 + counterServer.getNode().getNodeId().getPeerId().getPort());
-    
 
         // GrpcServer need block to prevent process exit
         ChunkserverGrpcHelper.blockUntilShutdown();
+    }
+
+    public void redirectSystemOutToFile() {
+        try {
+            // Create a new file output stream for the desired file
+            FileOutputStream fileOutputStream = new FileOutputStream(outputLogFile);
+
+            // Create a new print stream that writes to the file output stream
+            PrintStream printStream = new PrintStream(fileOutputStream);
+
+            // Redirect System.out to the print stream
+            System.setOut(printStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
