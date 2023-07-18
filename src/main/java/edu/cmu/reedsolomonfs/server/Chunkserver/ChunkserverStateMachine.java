@@ -71,7 +71,7 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
     private final String serverDiskPath;
     // Create Map of stored chunks in memory: filename -> list of chunk filepaths
     private Map<String, List<String>> storedFileNameToChunks;
-    
+
     public ChunkserverStateMachine(int serverIdx) {
         this.serverIdx = serverIdx;
         serverDiskPath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + serverIdx + "/";
@@ -80,7 +80,7 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
         System.out.println("serverDiskPath is " + serverDiskPath);
         // iterate through all files in serverDiskPath
         // TBD: the file directory data structure can be improved
-        Path start = Paths.get(serverDiskPath); 
+        Path start = Paths.get(serverDiskPath);
         try (Stream<Path> stream = Files.walk(start)) {
             stream.filter(Files::isRegularFile).forEach(path -> {
                 String fileNameWithSubDir = start.relativize(path).toString();
@@ -89,7 +89,8 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                     String originalFileName = fileNameWithSubDir.substring(0, separatorIndex);
                     System.out.println("originalFileName is " + originalFileName);
                     System.out.println("fileNameWithSubDir is " + fileNameWithSubDir);
-                    storedFileNameToChunks.computeIfAbsent(originalFileName, k -> new ArrayList<>()).add(fileNameWithSubDir);
+                    storedFileNameToChunks.computeIfAbsent(originalFileName, k -> new ArrayList<>())
+                            .add(fileNameWithSubDir);
                 }
 
             });
@@ -147,6 +148,7 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
             System.out.println("File: " + entry.getKey() + ", Chunks: " + entry.getValue());
         }
     }
+
     private void printStoredFileNameToChunks() {
         System.out.println("server " + serverIdx + " storedFileNameToChunks:");
         System.out.println("storedFileNameToChunks size is " + storedFileNameToChunks.size());
@@ -154,7 +156,7 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
             System.out.println("File: " + entry.getKey() + ", Chunks: " + entry.getValue());
         }
     }
-    
+
     public Map<String, List<String>> getStoredFileNameToChunks() {
         return storedFileNameToChunks;
     }
@@ -183,7 +185,8 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
             String chunkFilePath = serverDiskPath + chunkFilePaths.get(i);
             try {
                 byte[] chunk = Files.readAllBytes(Paths.get(chunkFilePath));
-                // System.out.println("Byte data read from " + chunkFilePath + " is " + new String(chunk));
+                // System.out.println("Byte data read from " + chunkFilePath + " is " + new
+                // String(chunk));
                 chunks.put(chunkFilePaths.get(i), chunk);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -243,25 +246,33 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
 
                         Path directory = Paths.get(serverDiskPath);
                         try {
-                            Files.createDirectories(directory); // Create the directory and any nonexistent parent directories
+                            Files.createDirectories(directory); // Create the directory and any nonexistent parent
+                                                                // directories
                         } catch (IOException e) {
                             System.out.println("Failed to create the directory: " + e.getMessage());
                         }
 
                         for (int i = 0; i < chunks.length; i++) {
                             String chunkFilePath = serverDiskPath + chunkFilePaths.get(i);
+                            // Create parent directories if they do not exist
+                            File file = new File(chunkFilePath);
+                            File parentDirectory = file.getParentFile();
+                            System.out.println("parentDirectory is " + parentDirectory);
+                            if (!parentDirectory.exists()) {
+                                parentDirectory.mkdirs();
+                            }
                             try (FileOutputStream fos = new FileOutputStream(chunkFilePath)) {
                                 fos.write(chunks[i]); // Write the byte data to the file
                                 String fileNameWithSubDir = chunkFilePaths.get(i);
                                 updateStoredFileNameToChunks(fileNameWithSubDir);
                                 // printStoredFileNameToChunks();
                                 // System.out.println("Byte data to store is " + new String(chunks[i]));
-                                // System.out.println("Byte data stored in " + chunkFilePath + " successfully.");
+                                // System.out.println("Byte data stored in " + chunkFilePath + "
+                                // successfully.");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
-
 
                         // final byte[][] shards = counterOperation.getShards();
                         // try (FileOutputStream fos = new FileOutputStream(serverDiskPath)) {

@@ -144,6 +144,18 @@ public class ClientCLI implements KeyListener {
                 // client.create(client.cliClientService, words[1], fileData, client.groupId);
                 String clientFileDirectory = "./ClientClusterCommTestFiles/Files/";
                 String newFileName = words[1];
+                Path newFilePath = Paths.get(clientFileDirectory, newFileName);
+
+                // Create parent directories if they do not exist
+                File parentDirectory = newFilePath.toFile().getParentFile();
+                if (!parentDirectory.exists()) {
+                    boolean dirsCreated = parentDirectory.mkdirs();
+                    if (!dirsCreated) {
+                        System.out.println("Failed to create directories.");
+                        return; // Skip the rest of the code if directories weren't created
+                    }
+                }
+
                 try {
                     ProcessBuilder processBuilder = new ProcessBuilder("vim",
                             clientFileDirectory + newFileName);
@@ -153,7 +165,6 @@ public class ClientCLI implements KeyListener {
                     e.printStackTrace();
                 }
 
-                Path newFilePath = Paths.get(clientFileDirectory, newFileName);
 
                 if (Files.exists(newFilePath)) {
                     try {
