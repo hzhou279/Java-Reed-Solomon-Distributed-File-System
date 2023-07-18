@@ -236,11 +236,12 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                         LOG.info("Added value={} by delta={} at logIndex={}", prev, delta, iter.getIndex());
                         break;
                     case WRITE_BYTES:
+                        System.out.println("Enter write byte: ");
                         final byte[][] shards = counterOperation.getShards();
                         final FileMetadata metadata = counterOperation.getMetadata();
                         final byte[][] chunks = NodeHelper.splitShardToChunks(shards[serverIdx]);
                         List<String> chunkFilePaths = FileMetadataHelper.retrieveFileChunkPaths(metadata, serverIdx);
-
+                        for (String s: chunkFilePaths) System.out.println("chunkFIlePath: " + s);
                         Path directory = Paths.get(serverDiskPath);
                         try {
                             Files.createDirectories(directory); // Create the directory and any nonexistent parent directories

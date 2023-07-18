@@ -286,7 +286,7 @@ public class Client {
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
         // final long start = System.currentTimeMillis();
-
+ 
         ReedSolomonEncoder encoder = new ReedSolomonEncoder(fileData);
         encoder.encode();
         byte[][] shards = encoder.getShards();
@@ -296,6 +296,7 @@ public class Client {
         // encoder.getLastChunkIdx());
 
         // Pass padded file size
+        System.out.println("Client create: " + filePath);
         WriteRequest request = packWriteRequest("touch", filePath, encoder.getPaddedFileSize(), 0, shards, "create",
                 encoder.getLastChunkIdx(), encoder.getFileSize());
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
@@ -308,13 +309,14 @@ public class Client {
     private static WriteRequest packWriteRequest(String operationType, String filePath, int fileSize, int appendAt,
             byte[][] shards, String writeFlag, int lastChunkIdx, int originalFileSize) {
         WriteRequest.Builder requestBuilder = WriteRequest.newBuilder();
-
+                
         for (byte[] shard : shards) {
             // System.out.println("current shard is: " + new String(shard));
             requestBuilder.addPayload(ByteString.copyFrom(shard));
         }
 
         requestBuilder.setOperationType(operationType);
+        System.out.println("Client packWriteRequest: " + filePath);
         requestBuilder.setFilePath(filePath);
         requestBuilder.setFileSize(fileSize);
         requestBuilder.setAppendAt(appendAt);
@@ -336,7 +338,7 @@ public class Client {
                 public void complete(Object result, Throwable err) {
                     if (err == null) {
                         latch.countDown();
-                        // System.out.println("write request result:" + result);
+                        System.out.println("write request result:" + result);
                     } else {
                         err.printStackTrace();
                         latch.countDown();

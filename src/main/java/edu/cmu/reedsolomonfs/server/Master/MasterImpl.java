@@ -410,7 +410,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             TokenResponse response = TokenResponse.newBuilder()
                     .setIsHealthy(isHealthy)
                     .setToken(token)
-                    .addAllIps(ips)
+                    // .addAllIps(ips)
                     .addAllMetadata(grpcMetadatas)
                     .build();
 

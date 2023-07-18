@@ -79,7 +79,7 @@ public class Chunkserver {
     public Chunkserver(final String dataPath, final String groupId, final PeerId serverId,
             final NodeOptions nodeOptions, int serverIdx) throws IOException {
         outputLogFile = "chunkserver_output_" + serverIdx + ".log";
-        // redirectSystemOutToFile();
+        redirectSystemOutToFile();
         // init raft data path, it contains log,meta,snapshot
         FileUtils.forceMkdir(new File(dataPath));
 

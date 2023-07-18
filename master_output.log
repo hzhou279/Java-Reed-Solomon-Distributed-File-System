@@ -1,16 +1,993 @@
-fileVersions: {OOC.txt={1=[OOC.txt.1.0, OOC.txt.1.1, OOC.txt.1.2, OOC.txt.1.3]}}
-latestFileVersion: {OOC.txt=1}
-latestChunkIndex: {OOC.txt=4}
-storedChunkFileNames: {0={OOC.txt=[OOC.txt.1.0]}, 1={OOC.txt=[OOC.txt.1.1]}, 2={OOC.txt=[OOC.txt.1.2]}, 3={OOC.txt=[OOC.txt.1.3]}}
-metadata: {OOC.txt=[edu.cmu.reedsolomonfs.datatype.Node@3059fccf, edu.cmu.reedsolomonfs.datatype.Node@5d0a0694, edu.cmu.reedsolomonfs.datatype.Node@68c7df15, edu.cmu.reedsolomonfs.datatype.Node@4683ff2d]}
+fileVersions: {test.txt={1=[test.txt.1.0, test.txt.1.1, test.txt.1.2, test.txt.1.3, test.txt.1.4, test.txt.1.5, test.txt.1.6, test.txt.1.7, test.txt.1.8, test.txt.1.9, test.txt.1.10, test.txt.1.11, test.txt.1.12, test.txt.1.13, test.txt.1.14, test.txt.1.15, test.txt.1.16, test.txt.1.17, test.txt.1.18, test.txt.1.19, test.txt.1.20, test.txt.1.21, test.txt.1.22, test.txt.1.23, test.txt.1.24, test.txt.1.25, test.txt.1.26, test.txt.1.27, test.txt.1.28, test.txt.1.29, test.txt.1.30, test.txt.1.31, test.txt.1.32, test.txt.1.33, test.txt.1.34, test.txt.1.35, test.txt.1.36, test.txt.1.37, test.txt.1.38, test.txt.1.39, test.txt.1.40, test.txt.1.41, test.txt.1.42, test.txt.1.43, test.txt.1.44, test.txt.1.45, test.txt.1.46, test.txt.1.47, test.txt.1.48, test.txt.1.49, test.txt.1.50, test.txt.1.51, test.txt.1.52, test.txt.1.53, test.txt.1.54, test.txt.1.55, test.txt.1.56, test.txt.1.57, test.txt.1.58, test.txt.1.59, test.txt.1.60, test.txt.1.61, test.txt.1.62, test.txt.1.63, test.txt.1.64, test.txt.1.65, test.txt.1.66, test.txt.1.67, test.txt.1.68, test.txt.1.69, test.txt.1.70, test.txt.1.71, test.txt.1.72, test.txt.1.73, test.txt.1.74, test.txt.1.75, test.txt.1.76, test.txt.1.77, test.txt.1.78, test.txt.1.79, test.txt.1.80, test.txt.1.81, test.txt.1.82, test.txt.1.83, test.txt.1.84, test.txt.1.85, test.txt.1.86, test.txt.1.87, test.txt.1.88, test.txt.1.89, test.txt.1.90, test.txt.1.91], 2=[test.txt.1.0, test.txt.1.1, test.txt.1.2, test.txt.1.3, test.txt.1.4, test.txt.1.5, test.txt.1.6, test.txt.1.7, test.txt.1.8, test.txt.1.9, test.txt.1.10, test.txt.1.11, test.txt.1.12, test.txt.1.13, test.txt.1.14, test.txt.1.15, test.txt.1.16, test.txt.1.17, test.txt.1.18, test.txt.1.19, test.txt.1.20, test.txt.1.21, test.txt.1.22, test.txt.1.23, test.txt.1.24, test.txt.1.25, test.txt.1.26, test.txt.1.27, test.txt.1.28, test.txt.1.29, test.txt.1.30, test.txt.1.31, test.txt.1.32, test.txt.1.33, test.txt.1.34, test.txt.1.35, test.txt.1.36, test.txt.1.37, test.txt.1.38, test.txt.1.39, test.txt.1.40, test.txt.1.41, test.txt.1.42, test.txt.1.43, test.txt.1.44, test.txt.1.45, test.txt.1.46, test.txt.1.47, test.txt.1.48, test.txt.1.49, test.txt.1.50, test.txt.1.51, test.txt.1.52, test.txt.1.53, test.txt.1.54, test.txt.1.55, test.txt.1.56, test.txt.1.57, test.txt.1.58, test.txt.1.59, test.txt.1.60, test.txt.1.61, test.txt.1.62, test.txt.1.63, test.txt.1.64, test.txt.1.65, test.txt.1.66, test.txt.1.67, test.txt.1.68, test.txt.1.69, test.txt.1.70, test.txt.1.71, test.txt.1.72, test.txt.1.73, test.txt.1.74, test.txt.1.75, test.txt.1.76, test.txt.1.77, test.txt.1.78, test.txt.1.79, test.txt.1.80, test.txt.1.81, test.txt.1.82, test.txt.1.83, test.txt.1.84, test.txt.1.85, test.txt.1.86, test.txt.1.87, test.txt.1.88, test.txt.1.89, test.txt.1.90, test.txt.1.91]}, /A/INP.txt={1=[/A/INP.txt.1.0, /A/INP.txt.1.1, /A/INP.txt.1.2, /A/INP.txt.1.3]}, OOC.txt={1=[OOC.txt.1.0, OOC.txt.1.1, OOC.txt.1.2, OOC.txt.1.3]}, /A/MOM.txt={1=[/A/MOM.txt.1.0, /A/MOM.txt.1.1, /A/MOM.txt.1.2, /A/MOM.txt.1.3]}, DADA.txt={1=[DADA.txt.1.0, DADA.txt.1.1, DADA.txt.1.2, DADA.txt.1.3]}, /A/NB.txt={1=[/A/NB.txt.1.0, /A/NB.txt.1.1, /A/NB.txt.1.2, /A/NB.txt.1.3]}, c.txt={1=[c.txt.1.0, c.txt.1.1, c.txt.1.2, c.txt.1.3]}, a.txt={1=[a.txt.1.0, a.txt.1.1, a.txt.1.2, a.txt.1.3]}, /A/TNT.txt={1=[/A/TNT.txt.1.0, /A/TNT.txt.1.1, /A/TNT.txt.1.2, /A/TNT.txt.1.3]}, /A/NIN.txt={1=[/A/NIN.txt.1.0, /A/NIN.txt.1.1, /A/NIN.txt.1.2, /A/NIN.txt.1.3]}, /A/DAD.txt={1=[/A/DAD.txt.1.0, /A/DAD.txt.1.1, /A/DAD.txt.1.2, /A/DAD.txt.1.3]}, /A/DM.txt={1=[/A/DM.txt.1.0, /A/DM.txt.1.1, /A/DM.txt.1.2, /A/DM.txt.1.3]}, /A/MMM.txt={1=[/A/MMM.txt.1.0, /A/MMM.txt.1.1, /A/MMM.txt.1.2, /A/MMM.txt.1.3]}, NIPP.txt={1=[NIPP.txt.1.0, NIPP.txt.1.1, NIPP.txt.1.2, NIPP.txt.1.3]}}
+latestFileVersion: {test.txt=2, /A/INP.txt=1, OOC.txt=1, /A/MOM.txt=1, DADA.txt=1, /A/NB.txt=1, c.txt=1, a.txt=1, /A/TNT.txt=1, /A/NIN.txt=1, /A/DAD.txt=1, /A/DM.txt=1, /A/MMM.txt=1, NIPP.txt=1}
+latestChunkIndex: {test.txt=184, /A/INP.txt=4, OOC.txt=4, /A/MOM.txt=4, DADA.txt=4, /A/NB.txt=4, c.txt=4, a.txt=4, /A/TNT.txt=4, /A/NIN.txt=4, /A/DAD.txt=4, /A/DM.txt=4, /A/MMM.txt=4, NIPP.txt=4}
+storedChunkFileNames: {0={test.txt=[test.txt.1.8, test.txt.1.80, test.txt.1.36, test.txt.1.48, test.txt.1.12, test.txt.1.56, test.txt.1.24, test.txt.1.68, test.txt.1.16, test.txt.1.28, test.txt.1.72, test.txt.1.0, test.txt.1.40, test.txt.1.84, test.txt.1.60, test.txt.1.32, test.txt.1.76, test.txt.1.4, test.txt.1.44, test.txt.1.88, test.txt.1.52, test.txt.1.20, test.txt.1.64], /A/INP.txt=[/A/INP.txt.1.0], OOC.txt=[OOC.txt.1.0], /A/MOM.txt=[/A/MOM.txt.1.0], DADA.txt=[DADA.txt.1.0], /A/NB.txt=[/A/NB.txt.1.0], c.txt=[c.txt.1.0], a.txt=[a.txt.1.0], /A/TNT.txt=[/A/TNT.txt.1.0], /A/NIN.txt=[/A/NIN.txt.1.0], /A/DAD.txt=[/A/DAD.txt.1.0], /A/DM.txt=[/A/DM.txt.1.0], /A/MMM.txt=[/A/MMM.txt.1.0], NIPP.txt=[NIPP.txt.1.0]}, 1={test.txt=[test.txt.1.9, test.txt.1.25, test.txt.1.69, test.txt.1.37, test.txt.1.45, test.txt.1.89, test.txt.1.13, test.txt.1.57, test.txt.1.29, test.txt.1.49, test.txt.1.17, test.txt.1.61, test.txt.1.73, test.txt.1.1, test.txt.1.81, test.txt.1.21, test.txt.1.65, test.txt.1.33, test.txt.1.77, test.txt.1.5, test.txt.1.41, test.txt.1.85, test.txt.1.53], /A/INP.txt=[/A/INP.txt.1.1], OOC.txt=[OOC.txt.1.1], /A/MOM.txt=[/A/MOM.txt.1.1], DADA.txt=[DADA.txt.1.1], /A/NB.txt=[/A/NB.txt.1.1], c.txt=[c.txt.1.1], a.txt=[a.txt.1.1], /A/TNT.txt=[/A/TNT.txt.1.1], /A/NIN.txt=[/A/NIN.txt.1.1], /A/DAD.txt=[/A/DAD.txt.1.1], /A/DM.txt=[/A/DM.txt.1.1], /A/MMM.txt=[/A/MMM.txt.1.1], NIPP.txt=[NIPP.txt.1.1]}, 2={test.txt=[test.txt.1.90, test.txt.1.14, test.txt.1.58, test.txt.1.26, test.txt.1.34, test.txt.1.78, test.txt.1.46, test.txt.1.18, test.txt.1.38, test.txt.1.50, test.txt.1.62, test.txt.1.70, test.txt.1.2, test.txt.1.82, test.txt.1.10, test.txt.1.54, test.txt.1.22, test.txt.1.66, test.txt.1.30, test.txt.1.74, test.txt.1.6, test.txt.1.42, test.txt.1.86], /A/INP.txt=[/A/INP.txt.1.2], OOC.txt=[OOC.txt.1.2], /A/MOM.txt=[/A/MOM.txt.1.2], DADA.txt=[DADA.txt.1.2], /A/NB.txt=[/A/NB.txt.1.2], c.txt=[c.txt.1.2], a.txt=[a.txt.1.2], /A/TNT.txt=[/A/TNT.txt.1.2], /A/NIN.txt=[/A/NIN.txt.1.2], /A/DAD.txt=[/A/DAD.txt.1.2], /A/DM.txt=[/A/DM.txt.1.2], /A/MMM.txt=[/A/MMM.txt.1.2], NIPP.txt=[NIPP.txt.1.2]}, 3={test.txt=[test.txt.1.7, test.txt.1.91, test.txt.1.47, test.txt.1.15, test.txt.1.59, test.txt.1.23, test.txt.1.67, test.txt.1.35, test.txt.1.79, test.txt.1.19, test.txt.1.27, test.txt.1.39, test.txt.1.83, test.txt.1.51, test.txt.1.71, test.txt.1.3, test.txt.1.43, test.txt.1.87, test.txt.1.11, test.txt.1.55, test.txt.1.63, test.txt.1.31, test.txt.1.75], /A/INP.txt=[/A/INP.txt.1.3], OOC.txt=[OOC.txt.1.3], /A/MOM.txt=[/A/MOM.txt.1.3], DADA.txt=[DADA.txt.1.3], /A/NB.txt=[/A/NB.txt.1.3], c.txt=[c.txt.1.3], a.txt=[a.txt.1.3], /A/TNT.txt=[/A/TNT.txt.1.3], /A/NIN.txt=[/A/NIN.txt.1.3], /A/DAD.txt=[/A/DAD.txt.1.3], /A/DM.txt=[/A/DM.txt.1.3], /A/MMM.txt=[/A/MMM.txt.1.3], NIPP.txt=[NIPP.txt.1.3]}}
+metadata: {test.txt=[edu.cmu.reedsolomonfs.datatype.Node@2ae06c8c, edu.cmu.reedsolomonfs.datatype.Node@39071d, edu.cmu.reedsolomonfs.datatype.Node@6c0a7c17, edu.cmu.reedsolomonfs.datatype.Node@2d785313, edu.cmu.reedsolomonfs.datatype.Node@4d5de3c, edu.cmu.reedsolomonfs.datatype.Node@4c1c3054, edu.cmu.reedsolomonfs.datatype.Node@73490704, edu.cmu.reedsolomonfs.datatype.Node@1c4622b5, edu.cmu.reedsolomonfs.datatype.Node@36c82b3f, edu.cmu.reedsolomonfs.datatype.Node@1b7b2322, edu.cmu.reedsolomonfs.datatype.Node@2031766e, edu.cmu.reedsolomonfs.datatype.Node@dcfab57, edu.cmu.reedsolomonfs.datatype.Node@7a29f802, edu.cmu.reedsolomonfs.datatype.Node@3889b656, edu.cmu.reedsolomonfs.datatype.Node@13a0352f, edu.cmu.reedsolomonfs.datatype.Node@63c5a11f, edu.cmu.reedsolomonfs.datatype.Node@5699ac8d, edu.cmu.reedsolomonfs.datatype.Node@23d78b0e, edu.cmu.reedsolomonfs.datatype.Node@314cdb16, edu.cmu.reedsolomonfs.datatype.Node@7fcf4979, edu.cmu.reedsolomonfs.datatype.Node@64297fc9, edu.cmu.reedsolomonfs.datatype.Node@7bb907b9, edu.cmu.reedsolomonfs.datatype.Node@2c7af7b3, edu.cmu.reedsolomonfs.datatype.Node@29fbf7c4, edu.cmu.reedsolomonfs.datatype.Node@6031205, edu.cmu.reedsolomonfs.datatype.Node@353459b3, edu.cmu.reedsolomonfs.datatype.Node@4e08e7c9, edu.cmu.reedsolomonfs.datatype.Node@38bb7c1b, edu.cmu.reedsolomonfs.datatype.Node@2636c233, edu.cmu.reedsolomonfs.datatype.Node@31d8ee87, edu.cmu.reedsolomonfs.datatype.Node@38e761da, edu.cmu.reedsolomonfs.datatype.Node@5bdf8979, edu.cmu.reedsolomonfs.datatype.Node@4be8ef6b, edu.cmu.reedsolomonfs.datatype.Node@3d328c47, edu.cmu.reedsolomonfs.datatype.Node@3e58c38a, edu.cmu.reedsolomonfs.datatype.Node@19eb1179, edu.cmu.reedsolomonfs.datatype.Node@15f43698, edu.cmu.reedsolomonfs.datatype.Node@3c8dc0d5, edu.cmu.reedsolomonfs.datatype.Node@4431005d, edu.cmu.reedsolomonfs.datatype.Node@510b17b, edu.cmu.reedsolomonfs.datatype.Node@316407b7, edu.cmu.reedsolomonfs.datatype.Node@633de226, edu.cmu.reedsolomonfs.datatype.Node@2fc225f4, edu.cmu.reedsolomonfs.datatype.Node@2fd9d21e, edu.cmu.reedsolomonfs.datatype.Node@3e9121ed, edu.cmu.reedsolomonfs.datatype.Node@32b1c8cb, edu.cmu.reedsolomonfs.datatype.Node@c62b6ec, edu.cmu.reedsolomonfs.datatype.Node@6d4acc5c, edu.cmu.reedsolomonfs.datatype.Node@5ae30651, edu.cmu.reedsolomonfs.datatype.Node@66287a56, edu.cmu.reedsolomonfs.datatype.Node@7f6465a9, edu.cmu.reedsolomonfs.datatype.Node@44f76e35, edu.cmu.reedsolomonfs.datatype.Node@6e42974, edu.cmu.reedsolomonfs.datatype.Node@23bb1934, edu.cmu.reedsolomonfs.datatype.Node@7fae69c7, edu.cmu.reedsolomonfs.datatype.Node@5736c1, edu.cmu.reedsolomonfs.datatype.Node@27df0036, edu.cmu.reedsolomonfs.datatype.Node@5cd6df40, edu.cmu.reedsolomonfs.datatype.Node@50ba754c, edu.cmu.reedsolomonfs.datatype.Node@6962a0a4, edu.cmu.reedsolomonfs.datatype.Node@36e3c30e, edu.cmu.reedsolomonfs.datatype.Node@5ca5364d, edu.cmu.reedsolomonfs.datatype.Node@5f363880, edu.cmu.reedsolomonfs.datatype.Node@232dc442, edu.cmu.reedsolomonfs.datatype.Node@bfe989a, edu.cmu.reedsolomonfs.datatype.Node@7e9cc0f6, edu.cmu.reedsolomonfs.datatype.Node@1000159d, edu.cmu.reedsolomonfs.datatype.Node@5dc2dc0b, edu.cmu.reedsolomonfs.datatype.Node@2287a561, edu.cmu.reedsolomonfs.datatype.Node@3a044ab7, edu.cmu.reedsolomonfs.datatype.Node@2a381c97, edu.cmu.reedsolomonfs.datatype.Node@6151af5f, edu.cmu.reedsolomonfs.datatype.Node@7ee2b2b9, edu.cmu.reedsolomonfs.datatype.Node@66ab0e20, edu.cmu.reedsolomonfs.datatype.Node@c1d6ac6, edu.cmu.reedsolomonfs.datatype.Node@605a074d, edu.cmu.reedsolomonfs.datatype.Node@bc61685, edu.cmu.reedsolomonfs.datatype.Node@35a2c3d3, edu.cmu.reedsolomonfs.datatype.Node@528ec4fb, edu.cmu.reedsolomonfs.datatype.Node@62ded188, edu.cmu.reedsolomonfs.datatype.Node@59978168, edu.cmu.reedsolomonfs.datatype.Node@7a887dd2, edu.cmu.reedsolomonfs.datatype.Node@5e85c764, edu.cmu.reedsolomonfs.datatype.Node@4ac31fad, edu.cmu.reedsolomonfs.datatype.Node@2f3a5b5c, edu.cmu.reedsolomonfs.datatype.Node@1665c584, edu.cmu.reedsolomonfs.datatype.Node@662b8ecb, edu.cmu.reedsolomonfs.datatype.Node@34c7cbd4, edu.cmu.reedsolomonfs.datatype.Node@495a86ab, edu.cmu.reedsolomonfs.datatype.Node@71ab33e1, edu.cmu.reedsolomonfs.datatype.Node@4bccb6c9, edu.cmu.reedsolomonfs.datatype.Node@41df4d0f], /A/INP.txt=[edu.cmu.reedsolomonfs.datatype.Node@5cade441, edu.cmu.reedsolomonfs.datatype.Node@74b1f00e, edu.cmu.reedsolomonfs.datatype.Node@5ae56aaf, edu.cmu.reedsolomonfs.datatype.Node@6169f3c9], OOC.txt=[edu.cmu.reedsolomonfs.datatype.Node@52558c49, edu.cmu.reedsolomonfs.datatype.Node@291f378d, edu.cmu.reedsolomonfs.datatype.Node@585e9013, edu.cmu.reedsolomonfs.datatype.Node@7607c76a], /A/MOM.txt=[edu.cmu.reedsolomonfs.datatype.Node@8ce3a27, edu.cmu.reedsolomonfs.datatype.Node@58bdd7ec, edu.cmu.reedsolomonfs.datatype.Node@744f0ae0, edu.cmu.reedsolomonfs.datatype.Node@3c3baf94], DADA.txt=[edu.cmu.reedsolomonfs.datatype.Node@45ddb536, edu.cmu.reedsolomonfs.datatype.Node@736918d6, edu.cmu.reedsolomonfs.datatype.Node@7f7d0451, edu.cmu.reedsolomonfs.datatype.Node@1edb4325], /A/NB.txt=[edu.cmu.reedsolomonfs.datatype.Node@368721cd, edu.cmu.reedsolomonfs.datatype.Node@d133063, edu.cmu.reedsolomonfs.datatype.Node@1adbf21c, edu.cmu.reedsolomonfs.datatype.Node@5e5d5809], c.txt=[edu.cmu.reedsolomonfs.datatype.Node@515b9346, edu.cmu.reedsolomonfs.datatype.Node@45df3126, edu.cmu.reedsolomonfs.datatype.Node@517093, edu.cmu.reedsolomonfs.datatype.Node@3478fd80], a.txt=[edu.cmu.reedsolomonfs.datatype.Node@39b489ea, edu.cmu.reedsolomonfs.datatype.Node@5dec9fb, edu.cmu.reedsolomonfs.datatype.Node@e80e43b, edu.cmu.reedsolomonfs.datatype.Node@7d678c96], /A/TNT.txt=[edu.cmu.reedsolomonfs.datatype.Node@6081a109, edu.cmu.reedsolomonfs.datatype.Node@13632df3, edu.cmu.reedsolomonfs.datatype.Node@1acbb298, edu.cmu.reedsolomonfs.datatype.Node@5b898e6b], /A/NIN.txt=[edu.cmu.reedsolomonfs.datatype.Node@366de5fa, edu.cmu.reedsolomonfs.datatype.Node@3c6b5a71, edu.cmu.reedsolomonfs.datatype.Node@7b737016, edu.cmu.reedsolomonfs.datatype.Node@6c9e53c5], /A/DAD.txt=[edu.cmu.reedsolomonfs.datatype.Node@35852999, edu.cmu.reedsolomonfs.datatype.Node@535b458a, edu.cmu.reedsolomonfs.datatype.Node@33487c37, edu.cmu.reedsolomonfs.datatype.Node@2dd611e0], /A/DM.txt=[edu.cmu.reedsolomonfs.datatype.Node@31033c22, edu.cmu.reedsolomonfs.datatype.Node@38fd589d, edu.cmu.reedsolomonfs.datatype.Node@48a42271, edu.cmu.reedsolomonfs.datatype.Node@55606394], /A/MMM.txt=[edu.cmu.reedsolomonfs.datatype.Node@7daab736, edu.cmu.reedsolomonfs.datatype.Node@2fc121ae, edu.cmu.reedsolomonfs.datatype.Node@461f298d, edu.cmu.reedsolomonfs.datatype.Node@10b58e19], NIPP.txt=[edu.cmu.reedsolomonfs.datatype.Node@380e983e, edu.cmu.reedsolomonfs.datatype.Node@1e6412c0, edu.cmu.reedsolomonfs.datatype.Node@210803c0, edu.cmu.reedsolomonfs.datatype.Node@1d7184be]}
 Checking last heartbeat
 Checking last heartbeat
 Checking last heartbeat
 Checking last heartbeat
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:49:19.522
+0
+Received Heatbeat in: 2023-07-18 18:49:19.522
+4
+Received Heatbeat in: 2023-07-18 18:49:19.52
+2
+Received Heatbeat in: 2023-07-18 18:49:19.522
+1
+Received Heatbeat in: 2023-07-18 18:49:19.522
+3
+Received Heatbeat in: 2023-07-18 18:49:19.522
+5
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:49:24.627
+5
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:49:24.643
+2
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:49:24.648
+4
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:49:24.652
+3
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:49:24.678
+0
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:49:24.689
+1
 Checking last heartbeat
+Chunkserver 0 pass timeout check
+Chunkserver 1 pass timeout check
+Chunkserver 2 pass timeout check
+Chunkserver 3 pass timeout check
+Chunkserver 4 pass timeout check
+Chunkserver 5 pass timeout check
+getToken
+token: RANDOM_TOKEN
+metadata: {test.txt=[edu.cmu.reedsolomonfs.datatype.Node@2ae06c8c, edu.cmu.reedsolomonfs.datatype.Node@39071d, edu.cmu.reedsolomonfs.datatype.Node@6c0a7c17, edu.cmu.reedsolomonfs.datatype.Node@2d785313, edu.cmu.reedsolomonfs.datatype.Node@4d5de3c, edu.cmu.reedsolomonfs.datatype.Node@4c1c3054, edu.cmu.reedsolomonfs.datatype.Node@73490704, edu.cmu.reedsolomonfs.datatype.Node@1c4622b5, edu.cmu.reedsolomonfs.datatype.Node@36c82b3f, edu.cmu.reedsolomonfs.datatype.Node@1b7b2322, edu.cmu.reedsolomonfs.datatype.Node@2031766e, edu.cmu.reedsolomonfs.datatype.Node@dcfab57, edu.cmu.reedsolomonfs.datatype.Node@7a29f802, edu.cmu.reedsolomonfs.datatype.Node@3889b656, edu.cmu.reedsolomonfs.datatype.Node@13a0352f, edu.cmu.reedsolomonfs.datatype.Node@63c5a11f, edu.cmu.reedsolomonfs.datatype.Node@5699ac8d, edu.cmu.reedsolomonfs.datatype.Node@23d78b0e, edu.cmu.reedsolomonfs.datatype.Node@314cdb16, edu.cmu.reedsolomonfs.datatype.Node@7fcf4979, edu.cmu.reedsolomonfs.datatype.Node@64297fc9, edu.cmu.reedsolomonfs.datatype.Node@7bb907b9, edu.cmu.reedsolomonfs.datatype.Node@2c7af7b3, edu.cmu.reedsolomonfs.datatype.Node@29fbf7c4, edu.cmu.reedsolomonfs.datatype.Node@6031205, edu.cmu.reedsolomonfs.datatype.Node@353459b3, edu.cmu.reedsolomonfs.datatype.Node@4e08e7c9, edu.cmu.reedsolomonfs.datatype.Node@38bb7c1b, edu.cmu.reedsolomonfs.datatype.Node@2636c233, edu.cmu.reedsolomonfs.datatype.Node@31d8ee87, edu.cmu.reedsolomonfs.datatype.Node@38e761da, edu.cmu.reedsolomonfs.datatype.Node@5bdf8979, edu.cmu.reedsolomonfs.datatype.Node@4be8ef6b, edu.cmu.reedsolomonfs.datatype.Node@3d328c47, edu.cmu.reedsolomonfs.datatype.Node@3e58c38a, edu.cmu.reedsolomonfs.datatype.Node@19eb1179, edu.cmu.reedsolomonfs.datatype.Node@15f43698, edu.cmu.reedsolomonfs.datatype.Node@3c8dc0d5, edu.cmu.reedsolomonfs.datatype.Node@4431005d, edu.cmu.reedsolomonfs.datatype.Node@510b17b, edu.cmu.reedsolomonfs.datatype.Node@316407b7, edu.cmu.reedsolomonfs.datatype.Node@633de226, edu.cmu.reedsolomonfs.datatype.Node@2fc225f4, edu.cmu.reedsolomonfs.datatype.Node@2fd9d21e, edu.cmu.reedsolomonfs.datatype.Node@3e9121ed, edu.cmu.reedsolomonfs.datatype.Node@32b1c8cb, edu.cmu.reedsolomonfs.datatype.Node@c62b6ec, edu.cmu.reedsolomonfs.datatype.Node@6d4acc5c, edu.cmu.reedsolomonfs.datatype.Node@5ae30651, edu.cmu.reedsolomonfs.datatype.Node@66287a56, edu.cmu.reedsolomonfs.datatype.Node@7f6465a9, edu.cmu.reedsolomonfs.datatype.Node@44f76e35, edu.cmu.reedsolomonfs.datatype.Node@6e42974, edu.cmu.reedsolomonfs.datatype.Node@23bb1934, edu.cmu.reedsolomonfs.datatype.Node@7fae69c7, edu.cmu.reedsolomonfs.datatype.Node@5736c1, edu.cmu.reedsolomonfs.datatype.Node@27df0036, edu.cmu.reedsolomonfs.datatype.Node@5cd6df40, edu.cmu.reedsolomonfs.datatype.Node@50ba754c, edu.cmu.reedsolomonfs.datatype.Node@6962a0a4, edu.cmu.reedsolomonfs.datatype.Node@36e3c30e, edu.cmu.reedsolomonfs.datatype.Node@5ca5364d, edu.cmu.reedsolomonfs.datatype.Node@5f363880, edu.cmu.reedsolomonfs.datatype.Node@232dc442, edu.cmu.reedsolomonfs.datatype.Node@bfe989a, edu.cmu.reedsolomonfs.datatype.Node@7e9cc0f6, edu.cmu.reedsolomonfs.datatype.Node@1000159d, edu.cmu.reedsolomonfs.datatype.Node@5dc2dc0b, edu.cmu.reedsolomonfs.datatype.Node@2287a561, edu.cmu.reedsolomonfs.datatype.Node@3a044ab7, edu.cmu.reedsolomonfs.datatype.Node@2a381c97, edu.cmu.reedsolomonfs.datatype.Node@6151af5f, edu.cmu.reedsolomonfs.datatype.Node@7ee2b2b9, edu.cmu.reedsolomonfs.datatype.Node@66ab0e20, edu.cmu.reedsolomonfs.datatype.Node@c1d6ac6, edu.cmu.reedsolomonfs.datatype.Node@605a074d, edu.cmu.reedsolomonfs.datatype.Node@bc61685, edu.cmu.reedsolomonfs.datatype.Node@35a2c3d3, edu.cmu.reedsolomonfs.datatype.Node@528ec4fb, edu.cmu.reedsolomonfs.datatype.Node@62ded188, edu.cmu.reedsolomonfs.datatype.Node@59978168, edu.cmu.reedsolomonfs.datatype.Node@7a887dd2, edu.cmu.reedsolomonfs.datatype.Node@5e85c764, edu.cmu.reedsolomonfs.datatype.Node@4ac31fad, edu.cmu.reedsolomonfs.datatype.Node@2f3a5b5c, edu.cmu.reedsolomonfs.datatype.Node@1665c584, edu.cmu.reedsolomonfs.datatype.Node@662b8ecb, edu.cmu.reedsolomonfs.datatype.Node@34c7cbd4, edu.cmu.reedsolomonfs.datatype.Node@495a86ab, edu.cmu.reedsolomonfs.datatype.Node@71ab33e1, edu.cmu.reedsolomonfs.datatype.Node@4bccb6c9, edu.cmu.reedsolomonfs.datatype.Node@41df4d0f], /A/INP.txt=[edu.cmu.reedsolomonfs.datatype.Node@5cade441, edu.cmu.reedsolomonfs.datatype.Node@74b1f00e, edu.cmu.reedsolomonfs.datatype.Node@5ae56aaf, edu.cmu.reedsolomonfs.datatype.Node@6169f3c9], OOC.txt=[edu.cmu.reedsolomonfs.datatype.Node@52558c49, edu.cmu.reedsolomonfs.datatype.Node@291f378d, edu.cmu.reedsolomonfs.datatype.Node@585e9013, edu.cmu.reedsolomonfs.datatype.Node@7607c76a], /A/MOM.txt=[edu.cmu.reedsolomonfs.datatype.Node@8ce3a27, edu.cmu.reedsolomonfs.datatype.Node@58bdd7ec, edu.cmu.reedsolomonfs.datatype.Node@744f0ae0, edu.cmu.reedsolomonfs.datatype.Node@3c3baf94], DADA.txt=[edu.cmu.reedsolomonfs.datatype.Node@45ddb536, edu.cmu.reedsolomonfs.datatype.Node@736918d6, edu.cmu.reedsolomonfs.datatype.Node@7f7d0451, edu.cmu.reedsolomonfs.datatype.Node@1edb4325], /A/NB.txt=[edu.cmu.reedsolomonfs.datatype.Node@368721cd, edu.cmu.reedsolomonfs.datatype.Node@d133063, edu.cmu.reedsolomonfs.datatype.Node@1adbf21c, edu.cmu.reedsolomonfs.datatype.Node@5e5d5809], c.txt=[edu.cmu.reedsolomonfs.datatype.Node@515b9346, edu.cmu.reedsolomonfs.datatype.Node@45df3126, edu.cmu.reedsolomonfs.datatype.Node@517093, edu.cmu.reedsolomonfs.datatype.Node@3478fd80], a.txt=[edu.cmu.reedsolomonfs.datatype.Node@39b489ea, edu.cmu.reedsolomonfs.datatype.Node@5dec9fb, edu.cmu.reedsolomonfs.datatype.Node@e80e43b, edu.cmu.reedsolomonfs.datatype.Node@7d678c96], /A/TNT.txt=[edu.cmu.reedsolomonfs.datatype.Node@6081a109, edu.cmu.reedsolomonfs.datatype.Node@13632df3, edu.cmu.reedsolomonfs.datatype.Node@1acbb298, edu.cmu.reedsolomonfs.datatype.Node@5b898e6b], /A/NIN.txt=[edu.cmu.reedsolomonfs.datatype.Node@366de5fa, edu.cmu.reedsolomonfs.datatype.Node@3c6b5a71, edu.cmu.reedsolomonfs.datatype.Node@7b737016, edu.cmu.reedsolomonfs.datatype.Node@6c9e53c5], /A/DAD.txt=[edu.cmu.reedsolomonfs.datatype.Node@35852999, edu.cmu.reedsolomonfs.datatype.Node@535b458a, edu.cmu.reedsolomonfs.datatype.Node@33487c37, edu.cmu.reedsolomonfs.datatype.Node@2dd611e0], /A/DM.txt=[edu.cmu.reedsolomonfs.datatype.Node@31033c22, edu.cmu.reedsolomonfs.datatype.Node@38fd589d, edu.cmu.reedsolomonfs.datatype.Node@48a42271, edu.cmu.reedsolomonfs.datatype.Node@55606394], /A/MMM.txt=[edu.cmu.reedsolomonfs.datatype.Node@7daab736, edu.cmu.reedsolomonfs.datatype.Node@2fc121ae, edu.cmu.reedsolomonfs.datatype.Node@461f298d, edu.cmu.reedsolomonfs.datatype.Node@10b58e19], NIPP.txt=[edu.cmu.reedsolomonfs.datatype.Node@380e983e, edu.cmu.reedsolomonfs.datatype.Node@1e6412c0, edu.cmu.reedsolomonfs.datatype.Node@210803c0, edu.cmu.reedsolomonfs.datatype.Node@1d7184be]}
+grpcMetadatas
+test.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+4 0 false
+5 1 false
+6 2 false
+7 3 false
+8 0 false
+9 1 false
+10 2 false
+11 3 false
+12 0 false
+13 1 false
+14 2 false
+15 3 false
+16 0 false
+17 1 false
+18 2 false
+19 3 false
+20 0 false
+21 1 false
+22 2 false
+23 3 false
+24 0 false
+25 1 false
+26 2 false
+27 3 false
+28 0 false
+29 1 false
+30 2 false
+31 3 false
+32 0 false
+33 1 false
+34 2 false
+35 3 false
+36 0 false
+37 1 false
+38 2 false
+39 3 false
+40 0 false
+41 1 false
+42 2 false
+43 3 false
+44 0 false
+45 1 false
+46 2 false
+47 3 false
+48 0 false
+49 1 false
+50 2 false
+51 3 false
+52 0 false
+53 1 false
+54 2 false
+55 3 false
+56 0 false
+57 1 false
+58 2 false
+59 3 false
+60 0 false
+61 1 false
+62 2 false
+63 3 false
+64 0 false
+65 1 false
+66 2 false
+67 3 false
+68 0 false
+69 1 false
+70 2 false
+71 3 false
+72 0 false
+73 1 false
+74 2 false
+75 3 false
+76 0 false
+77 1 false
+78 2 false
+79 3 false
+80 0 false
+81 1 false
+82 2 false
+83 3 false
+84 0 false
+85 1 false
+86 2 false
+87 3 false
+88 0 false
+89 1 false
+90 2 false
+91 3 false
+/A/INP.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+OOC.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+/A/MOM.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+DADA.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+/A/NB.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+c.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+a.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+/A/TNT.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+/A/NIN.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+/A/DAD.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+/A/DM.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+/A/MMM.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+NIPP.txt
+0 0 false
+1 1 false
+2 2 false
+3 3 false
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:49:29.637
+5
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:49:29.65
+2
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:49:29.657
+4
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:49:29.66
+3
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:49:29.683
+0
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:49:29.703
+1
 Checking last heartbeat
+Chunkserver 0 pass timeout check
+Chunkserver 1 pass timeout check
+Chunkserver 2 pass timeout check
+Chunkserver 3 pass timeout check
+Chunkserver 4 pass timeout check
+Chunkserver 5 pass timeout check
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:49:34.647
+5
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:49:34.655
+2
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:49:34.667
+4
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:49:34.67
+3
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:49:34.688
+0
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:49:34.708
+1
 Checking last heartbeat
+Chunkserver 0 pass timeout check
+Chunkserver 1 pass timeout check
+Chunkserver 2 pass timeout check
+Chunkserver 3 pass timeout check
+Chunkserver 4 pass timeout check
+Chunkserver 5 pass timeout check
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:49:39.654
+5
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:49:39.666
+2
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:49:39.674
+4
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:49:39.679
+3
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:49:39.695
+0
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:49:39.713
+1
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:49:44.662
+5
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:49:44.681
+2
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:49:44.683
+4
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:49:44.685
+3
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:49:44.7
+0
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:49:44.718
+1
 Checking last heartbeat
+Chunkserver 0 pass timeout check
+Chunkserver 1 pass timeout check
+Chunkserver 2 pass timeout check
+Chunkserver 3 pass timeout check
+Chunkserver 4 pass timeout check
+Chunkserver 5 pass timeout check
+MNI.txt
+4000
+0
+create
+chunkCnt: 4
+fileVersions: {test.txt={1=[test.txt.1.0, test.txt.1.1, test.txt.1.2, test.txt.1.3, test.txt.1.4, test.txt.1.5, test.txt.1.6, test.txt.1.7, test.txt.1.8, test.txt.1.9, test.txt.1.10, test.txt.1.11, test.txt.1.12, test.txt.1.13, test.txt.1.14, test.txt.1.15, test.txt.1.16, test.txt.1.17, test.txt.1.18, test.txt.1.19, test.txt.1.20, test.txt.1.21, test.txt.1.22, test.txt.1.23, test.txt.1.24, test.txt.1.25, test.txt.1.26, test.txt.1.27, test.txt.1.28, test.txt.1.29, test.txt.1.30, test.txt.1.31, test.txt.1.32, test.txt.1.33, test.txt.1.34, test.txt.1.35, test.txt.1.36, test.txt.1.37, test.txt.1.38, test.txt.1.39, test.txt.1.40, test.txt.1.41, test.txt.1.42, test.txt.1.43, test.txt.1.44, test.txt.1.45, test.txt.1.46, test.txt.1.47, test.txt.1.48, test.txt.1.49, test.txt.1.50, test.txt.1.51, test.txt.1.52, test.txt.1.53, test.txt.1.54, test.txt.1.55, test.txt.1.56, test.txt.1.57, test.txt.1.58, test.txt.1.59, test.txt.1.60, test.txt.1.61, test.txt.1.62, test.txt.1.63, test.txt.1.64, test.txt.1.65, test.txt.1.66, test.txt.1.67, test.txt.1.68, test.txt.1.69, test.txt.1.70, test.txt.1.71, test.txt.1.72, test.txt.1.73, test.txt.1.74, test.txt.1.75, test.txt.1.76, test.txt.1.77, test.txt.1.78, test.txt.1.79, test.txt.1.80, test.txt.1.81, test.txt.1.82, test.txt.1.83, test.txt.1.84, test.txt.1.85, test.txt.1.86, test.txt.1.87, test.txt.1.88, test.txt.1.89, test.txt.1.90, test.txt.1.91], 2=[test.txt.1.0, test.txt.1.1, test.txt.1.2, test.txt.1.3, test.txt.1.4, test.txt.1.5, test.txt.1.6, test.txt.1.7, test.txt.1.8, test.txt.1.9, test.txt.1.10, test.txt.1.11, test.txt.1.12, test.txt.1.13, test.txt.1.14, test.txt.1.15, test.txt.1.16, test.txt.1.17, test.txt.1.18, test.txt.1.19, test.txt.1.20, test.txt.1.21, test.txt.1.22, test.txt.1.23, test.txt.1.24, test.txt.1.25, test.txt.1.26, test.txt.1.27, test.txt.1.28, test.txt.1.29, test.txt.1.30, test.txt.1.31, test.txt.1.32, test.txt.1.33, test.txt.1.34, test.txt.1.35, test.txt.1.36, test.txt.1.37, test.txt.1.38, test.txt.1.39, test.txt.1.40, test.txt.1.41, test.txt.1.42, test.txt.1.43, test.txt.1.44, test.txt.1.45, test.txt.1.46, test.txt.1.47, test.txt.1.48, test.txt.1.49, test.txt.1.50, test.txt.1.51, test.txt.1.52, test.txt.1.53, test.txt.1.54, test.txt.1.55, test.txt.1.56, test.txt.1.57, test.txt.1.58, test.txt.1.59, test.txt.1.60, test.txt.1.61, test.txt.1.62, test.txt.1.63, test.txt.1.64, test.txt.1.65, test.txt.1.66, test.txt.1.67, test.txt.1.68, test.txt.1.69, test.txt.1.70, test.txt.1.71, test.txt.1.72, test.txt.1.73, test.txt.1.74, test.txt.1.75, test.txt.1.76, test.txt.1.77, test.txt.1.78, test.txt.1.79, test.txt.1.80, test.txt.1.81, test.txt.1.82, test.txt.1.83, test.txt.1.84, test.txt.1.85, test.txt.1.86, test.txt.1.87, test.txt.1.88, test.txt.1.89, test.txt.1.90, test.txt.1.91]}, /A/INP.txt={1=[/A/INP.txt.1.0, /A/INP.txt.1.1, /A/INP.txt.1.2, /A/INP.txt.1.3]}, OOC.txt={1=[OOC.txt.1.0, OOC.txt.1.1, OOC.txt.1.2, OOC.txt.1.3]}, /A/MOM.txt={1=[/A/MOM.txt.1.0, /A/MOM.txt.1.1, /A/MOM.txt.1.2, /A/MOM.txt.1.3]}, DADA.txt={1=[DADA.txt.1.0, DADA.txt.1.1, DADA.txt.1.2, DADA.txt.1.3]}, /A/NB.txt={1=[/A/NB.txt.1.0, /A/NB.txt.1.1, /A/NB.txt.1.2, /A/NB.txt.1.3]}, c.txt={1=[c.txt.1.0, c.txt.1.1, c.txt.1.2, c.txt.1.3]}, a.txt={1=[a.txt.1.0, a.txt.1.1, a.txt.1.2, a.txt.1.3]}, /A/TNT.txt={1=[/A/TNT.txt.1.0, /A/TNT.txt.1.1, /A/TNT.txt.1.2, /A/TNT.txt.1.3]}, /A/NIN.txt={1=[/A/NIN.txt.1.0, /A/NIN.txt.1.1, /A/NIN.txt.1.2, /A/NIN.txt.1.3]}, /A/DAD.txt={1=[/A/DAD.txt.1.0, /A/DAD.txt.1.1, /A/DAD.txt.1.2, /A/DAD.txt.1.3]}, /A/DM.txt={1=[/A/DM.txt.1.0, /A/DM.txt.1.1, /A/DM.txt.1.2, /A/DM.txt.1.3]}, /A/MMM.txt={1=[/A/MMM.txt.1.0, /A/MMM.txt.1.1, /A/MMM.txt.1.2, /A/MMM.txt.1.3]}, NIPP.txt={1=[NIPP.txt.1.0, NIPP.txt.1.1, NIPP.txt.1.2, NIPP.txt.1.3]}, MNI.txt={1=[MNI.txt.1.0, MNI.txt.1.1, MNI.txt.1.2, MNI.txt.1.3]}}
+latestFileVersion: {test.txt=2, /A/INP.txt=1, OOC.txt=1, /A/MOM.txt=1, DADA.txt=1, /A/NB.txt=1, c.txt=1, a.txt=1, /A/TNT.txt=1, /A/NIN.txt=1, /A/DAD.txt=1, /A/DM.txt=1, /A/MMM.txt=1, NIPP.txt=1, MNI.txt=1}
+latestChunkIndex: {test.txt=184, /A/INP.txt=4, OOC.txt=4, /A/MOM.txt=4, DADA.txt=4, /A/NB.txt=4, c.txt=4, a.txt=4, /A/TNT.txt=4, /A/NIN.txt=4, /A/DAD.txt=4, /A/DM.txt=4, /A/MMM.txt=4, NIPP.txt=4, MNI.txt=4}
+storedChunkFileNames: {0={test.txt=[test.txt.1.8, test.txt.1.80, test.txt.1.36, test.txt.1.48, test.txt.1.12, test.txt.1.56, test.txt.1.24, test.txt.1.68, test.txt.1.16, test.txt.1.28, test.txt.1.72, test.txt.1.0, test.txt.1.40, test.txt.1.84, test.txt.1.60, test.txt.1.32, test.txt.1.76, test.txt.1.4, test.txt.1.44, test.txt.1.88, test.txt.1.52, test.txt.1.20, test.txt.1.64], /A/INP.txt=[/A/INP.txt.1.0], OOC.txt=[OOC.txt.1.0], /A/MOM.txt=[/A/MOM.txt.1.0], DADA.txt=[DADA.txt.1.0], /A/NB.txt=[/A/NB.txt.1.0], c.txt=[c.txt.1.0], a.txt=[a.txt.1.0], /A/TNT.txt=[/A/TNT.txt.1.0], /A/NIN.txt=[/A/NIN.txt.1.0], /A/DAD.txt=[/A/DAD.txt.1.0], /A/DM.txt=[/A/DM.txt.1.0], /A/MMM.txt=[/A/MMM.txt.1.0], NIPP.txt=[NIPP.txt.1.0], MNI.txt=[MNI.txt.1.0]}, 1={test.txt=[test.txt.1.9, test.txt.1.25, test.txt.1.69, test.txt.1.37, test.txt.1.45, test.txt.1.89, test.txt.1.13, test.txt.1.57, test.txt.1.29, test.txt.1.49, test.txt.1.17, test.txt.1.61, test.txt.1.73, test.txt.1.1, test.txt.1.81, test.txt.1.21, test.txt.1.65, test.txt.1.33, test.txt.1.77, test.txt.1.5, test.txt.1.41, test.txt.1.85, test.txt.1.53], /A/INP.txt=[/A/INP.txt.1.1], OOC.txt=[OOC.txt.1.1], /A/MOM.txt=[/A/MOM.txt.1.1], DADA.txt=[DADA.txt.1.1], /A/NB.txt=[/A/NB.txt.1.1], c.txt=[c.txt.1.1], a.txt=[a.txt.1.1], /A/TNT.txt=[/A/TNT.txt.1.1], /A/NIN.txt=[/A/NIN.txt.1.1], /A/DAD.txt=[/A/DAD.txt.1.1], /A/DM.txt=[/A/DM.txt.1.1], /A/MMM.txt=[/A/MMM.txt.1.1], NIPP.txt=[NIPP.txt.1.1], MNI.txt=[MNI.txt.1.1]}, 2={test.txt=[test.txt.1.90, test.txt.1.14, test.txt.1.58, test.txt.1.26, test.txt.1.34, test.txt.1.78, test.txt.1.46, test.txt.1.18, test.txt.1.38, test.txt.1.50, test.txt.1.62, test.txt.1.70, test.txt.1.2, test.txt.1.82, test.txt.1.10, test.txt.1.54, test.txt.1.22, test.txt.1.66, test.txt.1.30, test.txt.1.74, test.txt.1.6, test.txt.1.42, test.txt.1.86], /A/INP.txt=[/A/INP.txt.1.2], OOC.txt=[OOC.txt.1.2], /A/MOM.txt=[/A/MOM.txt.1.2], DADA.txt=[DADA.txt.1.2], /A/NB.txt=[/A/NB.txt.1.2], c.txt=[c.txt.1.2], a.txt=[a.txt.1.2], /A/TNT.txt=[/A/TNT.txt.1.2], /A/NIN.txt=[/A/NIN.txt.1.2], /A/DAD.txt=[/A/DAD.txt.1.2], /A/DM.txt=[/A/DM.txt.1.2], /A/MMM.txt=[/A/MMM.txt.1.2], NIPP.txt=[NIPP.txt.1.2], MNI.txt=[MNI.txt.1.2]}, 3={test.txt=[test.txt.1.7, test.txt.1.91, test.txt.1.47, test.txt.1.15, test.txt.1.59, test.txt.1.23, test.txt.1.67, test.txt.1.35, test.txt.1.79, test.txt.1.19, test.txt.1.27, test.txt.1.39, test.txt.1.83, test.txt.1.51, test.txt.1.71, test.txt.1.3, test.txt.1.43, test.txt.1.87, test.txt.1.11, test.txt.1.55, test.txt.1.63, test.txt.1.31, test.txt.1.75], /A/INP.txt=[/A/INP.txt.1.3], OOC.txt=[OOC.txt.1.3], /A/MOM.txt=[/A/MOM.txt.1.3], DADA.txt=[DADA.txt.1.3], /A/NB.txt=[/A/NB.txt.1.3], c.txt=[c.txt.1.3], a.txt=[a.txt.1.3], /A/TNT.txt=[/A/TNT.txt.1.3], /A/NIN.txt=[/A/NIN.txt.1.3], /A/DAD.txt=[/A/DAD.txt.1.3], /A/DM.txt=[/A/DM.txt.1.3], /A/MMM.txt=[/A/MMM.txt.1.3], NIPP.txt=[NIPP.txt.1.3], MNI.txt=[MNI.txt.1.3]}}
+metadata: {test.txt=[edu.cmu.reedsolomonfs.datatype.Node@2ae06c8c, edu.cmu.reedsolomonfs.datatype.Node@39071d, edu.cmu.reedsolomonfs.datatype.Node@6c0a7c17, edu.cmu.reedsolomonfs.datatype.Node@2d785313, edu.cmu.reedsolomonfs.datatype.Node@4d5de3c, edu.cmu.reedsolomonfs.datatype.Node@4c1c3054, edu.cmu.reedsolomonfs.datatype.Node@73490704, edu.cmu.reedsolomonfs.datatype.Node@1c4622b5, edu.cmu.reedsolomonfs.datatype.Node@36c82b3f, edu.cmu.reedsolomonfs.datatype.Node@1b7b2322, edu.cmu.reedsolomonfs.datatype.Node@2031766e, edu.cmu.reedsolomonfs.datatype.Node@dcfab57, edu.cmu.reedsolomonfs.datatype.Node@7a29f802, edu.cmu.reedsolomonfs.datatype.Node@3889b656, edu.cmu.reedsolomonfs.datatype.Node@13a0352f, edu.cmu.reedsolomonfs.datatype.Node@63c5a11f, edu.cmu.reedsolomonfs.datatype.Node@5699ac8d, edu.cmu.reedsolomonfs.datatype.Node@23d78b0e, edu.cmu.reedsolomonfs.datatype.Node@314cdb16, edu.cmu.reedsolomonfs.datatype.Node@7fcf4979, edu.cmu.reedsolomonfs.datatype.Node@64297fc9, edu.cmu.reedsolomonfs.datatype.Node@7bb907b9, edu.cmu.reedsolomonfs.datatype.Node@2c7af7b3, edu.cmu.reedsolomonfs.datatype.Node@29fbf7c4, edu.cmu.reedsolomonfs.datatype.Node@6031205, edu.cmu.reedsolomonfs.datatype.Node@353459b3, edu.cmu.reedsolomonfs.datatype.Node@4e08e7c9, edu.cmu.reedsolomonfs.datatype.Node@38bb7c1b, edu.cmu.reedsolomonfs.datatype.Node@2636c233, edu.cmu.reedsolomonfs.datatype.Node@31d8ee87, edu.cmu.reedsolomonfs.datatype.Node@38e761da, edu.cmu.reedsolomonfs.datatype.Node@5bdf8979, edu.cmu.reedsolomonfs.datatype.Node@4be8ef6b, edu.cmu.reedsolomonfs.datatype.Node@3d328c47, edu.cmu.reedsolomonfs.datatype.Node@3e58c38a, edu.cmu.reedsolomonfs.datatype.Node@19eb1179, edu.cmu.reedsolomonfs.datatype.Node@15f43698, edu.cmu.reedsolomonfs.datatype.Node@3c8dc0d5, edu.cmu.reedsolomonfs.datatype.Node@4431005d, edu.cmu.reedsolomonfs.datatype.Node@510b17b, edu.cmu.reedsolomonfs.datatype.Node@316407b7, edu.cmu.reedsolomonfs.datatype.Node@633de226, edu.cmu.reedsolomonfs.datatype.Node@2fc225f4, edu.cmu.reedsolomonfs.datatype.Node@2fd9d21e, edu.cmu.reedsolomonfs.datatype.Node@3e9121ed, edu.cmu.reedsolomonfs.datatype.Node@32b1c8cb, edu.cmu.reedsolomonfs.datatype.Node@c62b6ec, edu.cmu.reedsolomonfs.datatype.Node@6d4acc5c, edu.cmu.reedsolomonfs.datatype.Node@5ae30651, edu.cmu.reedsolomonfs.datatype.Node@66287a56, edu.cmu.reedsolomonfs.datatype.Node@7f6465a9, edu.cmu.reedsolomonfs.datatype.Node@44f76e35, edu.cmu.reedsolomonfs.datatype.Node@6e42974, edu.cmu.reedsolomonfs.datatype.Node@23bb1934, edu.cmu.reedsolomonfs.datatype.Node@7fae69c7, edu.cmu.reedsolomonfs.datatype.Node@5736c1, edu.cmu.reedsolomonfs.datatype.Node@27df0036, edu.cmu.reedsolomonfs.datatype.Node@5cd6df40, edu.cmu.reedsolomonfs.datatype.Node@50ba754c, edu.cmu.reedsolomonfs.datatype.Node@6962a0a4, edu.cmu.reedsolomonfs.datatype.Node@36e3c30e, edu.cmu.reedsolomonfs.datatype.Node@5ca5364d, edu.cmu.reedsolomonfs.datatype.Node@5f363880, edu.cmu.reedsolomonfs.datatype.Node@232dc442, edu.cmu.reedsolomonfs.datatype.Node@bfe989a, edu.cmu.reedsolomonfs.datatype.Node@7e9cc0f6, edu.cmu.reedsolomonfs.datatype.Node@1000159d, edu.cmu.reedsolomonfs.datatype.Node@5dc2dc0b, edu.cmu.reedsolomonfs.datatype.Node@2287a561, edu.cmu.reedsolomonfs.datatype.Node@3a044ab7, edu.cmu.reedsolomonfs.datatype.Node@2a381c97, edu.cmu.reedsolomonfs.datatype.Node@6151af5f, edu.cmu.reedsolomonfs.datatype.Node@7ee2b2b9, edu.cmu.reedsolomonfs.datatype.Node@66ab0e20, edu.cmu.reedsolomonfs.datatype.Node@c1d6ac6, edu.cmu.reedsolomonfs.datatype.Node@605a074d, edu.cmu.reedsolomonfs.datatype.Node@bc61685, edu.cmu.reedsolomonfs.datatype.Node@35a2c3d3, edu.cmu.reedsolomonfs.datatype.Node@528ec4fb, edu.cmu.reedsolomonfs.datatype.Node@62ded188, edu.cmu.reedsolomonfs.datatype.Node@59978168, edu.cmu.reedsolomonfs.datatype.Node@7a887dd2, edu.cmu.reedsolomonfs.datatype.Node@5e85c764, edu.cmu.reedsolomonfs.datatype.Node@4ac31fad, edu.cmu.reedsolomonfs.datatype.Node@2f3a5b5c, edu.cmu.reedsolomonfs.datatype.Node@1665c584, edu.cmu.reedsolomonfs.datatype.Node@662b8ecb, edu.cmu.reedsolomonfs.datatype.Node@34c7cbd4, edu.cmu.reedsolomonfs.datatype.Node@495a86ab, edu.cmu.reedsolomonfs.datatype.Node@71ab33e1, edu.cmu.reedsolomonfs.datatype.Node@4bccb6c9, edu.cmu.reedsolomonfs.datatype.Node@41df4d0f], /A/INP.txt=[edu.cmu.reedsolomonfs.datatype.Node@5cade441, edu.cmu.reedsolomonfs.datatype.Node@74b1f00e, edu.cmu.reedsolomonfs.datatype.Node@5ae56aaf, edu.cmu.reedsolomonfs.datatype.Node@6169f3c9], OOC.txt=[edu.cmu.reedsolomonfs.datatype.Node@52558c49, edu.cmu.reedsolomonfs.datatype.Node@291f378d, edu.cmu.reedsolomonfs.datatype.Node@585e9013, edu.cmu.reedsolomonfs.datatype.Node@7607c76a], /A/MOM.txt=[edu.cmu.reedsolomonfs.datatype.Node@8ce3a27, edu.cmu.reedsolomonfs.datatype.Node@58bdd7ec, edu.cmu.reedsolomonfs.datatype.Node@744f0ae0, edu.cmu.reedsolomonfs.datatype.Node@3c3baf94], DADA.txt=[edu.cmu.reedsolomonfs.datatype.Node@45ddb536, edu.cmu.reedsolomonfs.datatype.Node@736918d6, edu.cmu.reedsolomonfs.datatype.Node@7f7d0451, edu.cmu.reedsolomonfs.datatype.Node@1edb4325], /A/NB.txt=[edu.cmu.reedsolomonfs.datatype.Node@368721cd, edu.cmu.reedsolomonfs.datatype.Node@d133063, edu.cmu.reedsolomonfs.datatype.Node@1adbf21c, edu.cmu.reedsolomonfs.datatype.Node@5e5d5809], c.txt=[edu.cmu.reedsolomonfs.datatype.Node@515b9346, edu.cmu.reedsolomonfs.datatype.Node@45df3126, edu.cmu.reedsolomonfs.datatype.Node@517093, edu.cmu.reedsolomonfs.datatype.Node@3478fd80], a.txt=[edu.cmu.reedsolomonfs.datatype.Node@39b489ea, edu.cmu.reedsolomonfs.datatype.Node@5dec9fb, edu.cmu.reedsolomonfs.datatype.Node@e80e43b, edu.cmu.reedsolomonfs.datatype.Node@7d678c96], /A/TNT.txt=[edu.cmu.reedsolomonfs.datatype.Node@6081a109, edu.cmu.reedsolomonfs.datatype.Node@13632df3, edu.cmu.reedsolomonfs.datatype.Node@1acbb298, edu.cmu.reedsolomonfs.datatype.Node@5b898e6b], /A/NIN.txt=[edu.cmu.reedsolomonfs.datatype.Node@366de5fa, edu.cmu.reedsolomonfs.datatype.Node@3c6b5a71, edu.cmu.reedsolomonfs.datatype.Node@7b737016, edu.cmu.reedsolomonfs.datatype.Node@6c9e53c5], /A/DAD.txt=[edu.cmu.reedsolomonfs.datatype.Node@35852999, edu.cmu.reedsolomonfs.datatype.Node@535b458a, edu.cmu.reedsolomonfs.datatype.Node@33487c37, edu.cmu.reedsolomonfs.datatype.Node@2dd611e0], /A/DM.txt=[edu.cmu.reedsolomonfs.datatype.Node@31033c22, edu.cmu.reedsolomonfs.datatype.Node@38fd589d, edu.cmu.reedsolomonfs.datatype.Node@48a42271, edu.cmu.reedsolomonfs.datatype.Node@55606394], /A/MMM.txt=[edu.cmu.reedsolomonfs.datatype.Node@7daab736, edu.cmu.reedsolomonfs.datatype.Node@2fc121ae, edu.cmu.reedsolomonfs.datatype.Node@461f298d, edu.cmu.reedsolomonfs.datatype.Node@10b58e19], NIPP.txt=[edu.cmu.reedsolomonfs.datatype.Node@380e983e, edu.cmu.reedsolomonfs.datatype.Node@1e6412c0, edu.cmu.reedsolomonfs.datatype.Node@210803c0, edu.cmu.reedsolomonfs.datatype.Node@1d7184be], MNI.txt=[edu.cmu.reedsolomonfs.datatype.Node@27731b8c, edu.cmu.reedsolomonfs.datatype.Node@5b275ca4, edu.cmu.reedsolomonfs.datatype.Node@2ec0b03c, edu.cmu.reedsolomonfs.datatype.Node@4d88f6bb]}
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: MNI.txt diff: [MNI.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:49:49.667
+5
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: MNI.txt diff: [MNI.txt.0-4]
+servertag: 2 filename: MNI.txt diff: [MNI.txt.0-2]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:49:49.696
+4
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:49:49.696
+2
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: MNI.txt diff: [MNI.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:49:49.71
+0
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: MNI.txt diff: [MNI.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:49:49.712
+3
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: MNI.txt diff: [MNI.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:49:49.722
+1
 Checking last heartbeat
+Chunkserver 0 pass timeout check
+Chunkserver 1 pass timeout check
+Chunkserver 2 pass timeout check
+Chunkserver 3 pass timeout check
+Chunkserver 4 pass timeout check
+Chunkserver 5 pass timeout check
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: MNI.txt diff: [MNI.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:49:54.672
+5
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: MNI.txt diff: [MNI.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:49:54.704
+4
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: MNI.txt diff: [MNI.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:49:54.714
+2
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: MNI.txt diff: [MNI.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:49:54.719
+0
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: MNI.txt diff: [MNI.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:49:54.725
+3
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: MNI.txt diff: [MNI.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:49:54.729
+1
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: MNI.txt diff: [MNI.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:49:59.681
+5
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: MNI.txt diff: [MNI.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:49:59.709
+4
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: MNI.txt diff: [MNI.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:49:59.722
+2
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: MNI.txt diff: [MNI.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:49:59.734
+3
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: MNI.txt diff: [MNI.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:49:59.738
+0
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: MNI.txt diff: [MNI.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:49:59.743
+1
 Checking last heartbeat
+Chunkserver 0 pass timeout check
+Chunkserver 1 pass timeout check
+Chunkserver 2 pass timeout check
+Chunkserver 3 pass timeout check
+Chunkserver 4 pass timeout check
+Chunkserver 5 pass timeout check
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: MNI.txt diff: [MNI.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:50:04.686
+5
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: MNI.txt diff: [MNI.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:50:04.713
+4
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: MNI.txt diff: [MNI.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:50:04.727
+2
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: MNI.txt diff: [MNI.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:50:04.741
+3
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: MNI.txt diff: [MNI.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:50:04.744
+0
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: MNI.txt diff: [MNI.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:50:04.752
+1
 Checking last heartbeat
+Chunkserver 0 pass timeout check
+Chunkserver 1 pass timeout check
+Chunkserver 2 pass timeout check
+Chunkserver 3 pass timeout check
+Chunkserver 4 pass timeout check
+Chunkserver 5 pass timeout check
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: MNI.txt diff: [MNI.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:50:09.691
+5
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: MNI.txt diff: [MNI.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:50:09.718
+4
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: MNI.txt diff: [MNI.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:50:09.731
+2
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: MNI.txt diff: [MNI.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:50:09.75
+3
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: MNI.txt diff: [MNI.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:50:09.756
+0
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: MNI.txt diff: [MNI.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:50:09.758
+1
+Checking last heartbeat
+Chunkserver 0 pass timeout check
+Chunkserver 1 pass timeout check
+Chunkserver 2 pass timeout check
+Chunkserver 3 pass timeout check
+Chunkserver 4 pass timeout check
+Chunkserver 5 pass timeout check
+servertag: 5 filename: test.txt diff: [test.txt.0-107, test.txt.0-119, test.txt.0-35, test.txt.0-113, test.txt.0-125, test.txt.0-89, test.txt.0-23, test.txt.0-59, test.txt.0-137, test.txt.0-47, test.txt.0-131, test.txt.0-17, test.txt.0-29, test.txt.0-101, test.txt.0-71, test.txt.0-95, test.txt.0-83, test.txt.0-53, test.txt.0-41, test.txt.0-77, test.txt.0-5, test.txt.0-11, test.txt.0-65]
+servertag: 5 filename: OOC.txt diff: [OOC.txt.0-5]
+servertag: 5 filename: DADA.txt diff: [DADA.txt.0-5]
+servertag: 5 filename: NIce.txt diff: [NIce.txt.0-5]
+servertag: 5 filename: NIPP.txt diff: [NIPP.txt.0-5]
+servertag: 5 filename: MM.txt diff: [MM.txt.0-5]
+servertag: 5 filename: c.txt diff: [c.txt.0-5]
+servertag: 5 filename: MNI.txt diff: [MNI.txt.0-5]
+servertag: 5 filename: Danny.txt diff: [Danny.txt.0-5]
+Received Heatbeat in: 2023-07-18 18:50:14.695
+5
+servertag: 4 filename: test.txt diff: [test.txt.0-106, test.txt.0-118, test.txt.0-124, test.txt.0-46, test.txt.0-136, test.txt.0-34, test.txt.0-58, test.txt.0-28, test.txt.0-16, test.txt.0-100, test.txt.0-112, test.txt.0-82, test.txt.0-70, test.txt.0-40, test.txt.0-130, test.txt.0-94, test.txt.0-64, test.txt.0-52, test.txt.0-4, test.txt.0-22, test.txt.0-88, test.txt.0-10, test.txt.0-76]
+servertag: 4 filename: OOC.txt diff: [OOC.txt.0-4]
+servertag: 4 filename: DADA.txt diff: [DADA.txt.0-4]
+servertag: 4 filename: NIce.txt diff: [NIce.txt.0-4]
+servertag: 4 filename: NIPP.txt diff: [NIPP.txt.0-4]
+servertag: 4 filename: MM.txt diff: [MM.txt.0-4]
+servertag: 4 filename: c.txt diff: [c.txt.0-4]
+servertag: 4 filename: MNI.txt diff: [MNI.txt.0-4]
+servertag: 4 filename: Danny.txt diff: [Danny.txt.0-4]
+Received Heatbeat in: 2023-07-18 18:50:14.723
+4
+servertag: 2 filename: test.txt diff: [test.txt.0-8, test.txt.0-80, test.txt.0-128, test.txt.0-68, test.txt.0-56, test.txt.0-104, test.txt.0-26, test.txt.0-14, test.txt.0-116, test.txt.0-110, test.txt.0-38, test.txt.0-122, test.txt.0-134, test.txt.0-92, test.txt.0-62, test.txt.0-2, test.txt.0-50, test.txt.0-86, test.txt.0-20, test.txt.0-74, test.txt.0-44, test.txt.0-32, test.txt.0-98]
+servertag: 2 filename: OOC.txt diff: [OOC.txt.0-2]
+servertag: 2 filename: DADA.txt diff: [DADA.txt.0-2]
+servertag: 2 filename: NIce.txt diff: [NIce.txt.0-2]
+servertag: 2 filename: NIPP.txt diff: [NIPP.txt.0-2]
+servertag: 2 filename: MM.txt diff: [MM.txt.0-2]
+servertag: 2 filename: c.txt diff: [c.txt.0-2]
+servertag: 2 filename: MNI.txt diff: [MNI.txt.0-2]
+servertag: 2 filename: Danny.txt diff: [Danny.txt.0-2]
+Received Heatbeat in: 2023-07-18 18:50:14.735
+2
+servertag: 3 filename: test.txt diff: [test.txt.0-9, test.txt.0-117, test.txt.0-129, test.txt.0-135, test.txt.0-57, test.txt.0-45, test.txt.0-15, test.txt.0-105, test.txt.0-69, test.txt.0-39, test.txt.0-27, test.txt.0-111, test.txt.0-123, test.txt.0-93, test.txt.0-81, test.txt.0-51, test.txt.0-75, test.txt.0-3, test.txt.0-63, test.txt.0-99, test.txt.0-33, test.txt.0-87, test.txt.0-21]
+servertag: 3 filename: OOC.txt diff: [OOC.txt.0-3]
+servertag: 3 filename: DADA.txt diff: [DADA.txt.0-3]
+servertag: 3 filename: NIce.txt diff: [NIce.txt.0-3]
+servertag: 3 filename: NIPP.txt diff: [NIPP.txt.0-3]
+servertag: 3 filename: MM.txt diff: [MM.txt.0-3]
+servertag: 3 filename: c.txt diff: [c.txt.0-3]
+servertag: 3 filename: MNI.txt diff: [MNI.txt.0-3]
+servertag: 3 filename: Danny.txt diff: [Danny.txt.0-3]
+Received Heatbeat in: 2023-07-18 18:50:14.755
+3
+servertag: 0 filename: test.txt diff: [test.txt.0-90, test.txt.0-108, test.txt.0-24, test.txt.0-102, test.txt.0-78, test.txt.0-114, test.txt.0-12, test.txt.0-48, test.txt.0-126, test.txt.0-36, test.txt.0-120, test.txt.0-132, test.txt.0-18, test.txt.0-60, test.txt.0-0, test.txt.0-84, test.txt.0-72, test.txt.0-42, test.txt.0-96, test.txt.0-30, test.txt.0-66, test.txt.0-54, test.txt.0-6]
+servertag: 0 filename: OOC.txt diff: [OOC.txt.0-0]
+servertag: 0 filename: DADA.txt diff: [DADA.txt.0-0]
+servertag: 0 filename: NIce.txt diff: [NIce.txt.0-0]
+servertag: 0 filename: NIPP.txt diff: [NIPP.txt.0-0]
+servertag: 0 filename: MM.txt diff: [MM.txt.0-0]
+servertag: 0 filename: c.txt diff: [c.txt.0-0]
+servertag: 0 filename: MNI.txt diff: [MNI.txt.0-0]
+servertag: 0 filename: Danny.txt diff: [Danny.txt.0-0]
+Received Heatbeat in: 2023-07-18 18:50:14.761
+0
+servertag: 1 filename: test.txt diff: [test.txt.0-7, test.txt.0-91, test.txt.0-109, test.txt.0-79, test.txt.0-13, test.txt.0-67, test.txt.0-103, test.txt.0-37, test.txt.0-115, test.txt.0-25, test.txt.0-127, test.txt.0-121, test.txt.0-49, test.txt.0-133, test.txt.0-19, test.txt.0-73, test.txt.0-1, test.txt.0-61, test.txt.0-31, test.txt.0-97, test.txt.0-85, test.txt.0-55, test.txt.0-43]
+servertag: 1 filename: OOC.txt diff: [OOC.txt.0-1]
+servertag: 1 filename: DADA.txt diff: [DADA.txt.0-1]
+servertag: 1 filename: NIce.txt diff: [NIce.txt.0-1]
+servertag: 1 filename: NIPP.txt diff: [NIPP.txt.0-1]
+servertag: 1 filename: MM.txt diff: [MM.txt.0-1]
+servertag: 1 filename: c.txt diff: [c.txt.0-1]
+servertag: 1 filename: MNI.txt diff: [MNI.txt.0-1]
+servertag: 1 filename: Danny.txt diff: [Danny.txt.0-1]
+Received Heatbeat in: 2023-07-18 18:50:14.762
+1

@@ -16,12 +16,10 @@ public class DirectoryTree {
     public void addPath(String path) {
         String[] dirs = path.split("/");
         Node node = root;
-        System.out.println(dirs.length);
         for (String dir : dirs) {
             if (!dir.equals("")) {
                 if (!node.children.containsKey(dir)) {
                     node.children.put(dir, new Node(dir));
-                    System.out.println(dir);
                 }
                 node = node.children.get(dir);
             }

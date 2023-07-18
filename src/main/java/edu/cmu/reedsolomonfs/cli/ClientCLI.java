@@ -70,17 +70,17 @@ public class ClientCLI implements KeyListener {
 
         TokenResponse tResponse = client.requestToken("read", "/A/B/C");
         // print out tResponse metadata
-        System.out.println("tResponse metadata");
-        List<GRPCMetadata> m = tResponse.getMetadataList();
-        for (GRPCMetadata data : m) {
-            System.out.println("File Path: " + data.getFilePath());
-            List<GRPCNode> nodes = data.getNodesList();
-            for (GRPCNode node : nodes) {
-                System.out.println(node.getChunkIdx());
-                System.out.println(node.getServerId());
-                System.out.println(node.getIsData());
-            }
-        }
+        // System.out.println("tResponse metadata");
+        // List<GRPCMetadata> m = tResponse.getMetadataList();
+        // for (GRPCMetadata data : m) {
+        //     System.out.println("File Path: " + data.getFilePath());
+        //     List<GRPCNode> nodes = data.getNodesList();
+        //     for (GRPCNode node : nodes) {
+        //         System.out.println(node.getChunkIdx());
+        //         System.out.println(node.getServerId());
+        //         System.out.println(node.getIsData());
+        //     }
+        // }
 
         for (String path : metaData.keySet()) {
             tree.addPath(path);
@@ -159,7 +159,7 @@ public class ClientCLI implements KeyListener {
                     try {
                         byte[] fileData = Files.readAllBytes(newFilePath);
                         String wholePath = localPath + "/" + words[1];
-                        System.out.println(wholePath);
+                        // System.out.println(wholePath);
                         client.create(client.cliClientService, words[1], fileData, client.groupId);
                         tree.addPath(wholePath);
                     } catch (IOException e) {
@@ -171,9 +171,9 @@ public class ClientCLI implements KeyListener {
 
                 // String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
                 // client.create(client.cliClientService, wholePath, fileData, client.groupId);
-                System.out.println("!!!!!!");
+                // System.out.println("!!!!!!");
             } else if (words[0].equals("read")) {
-                System.out.println(words[1]);
+                // System.out.println(words[1]);
                 byte[] fileDataRead = client.read(client.cliClientService, "read", words[1], 724, client.groupId);
 
                 System.out.println("File read successfully!!!!");
@@ -187,7 +187,6 @@ public class ClientCLI implements KeyListener {
 
         scanner.close();
         System.out.println("CLI application exited.");
-        client.test(args);
     }
 
     public String[] findStringsStartingWith(String[] array, char[] startChars) {

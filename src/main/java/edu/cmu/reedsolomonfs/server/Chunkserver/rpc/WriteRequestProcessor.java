@@ -57,6 +57,7 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
         super();
         this.counterService = counterService;
         this.masterChannel = masterChannel;
+        //redirectSystemOutToFile();
     }
 
     @Override
@@ -122,6 +123,21 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
         this.counterService.write(shards, metadata, closure);
     }
 
+    public void redirectSystemOutToFile() {
+        try {
+            // Create a new file output stream for the desired file
+            FileOutputStream fileOutputStream = new FileOutputStream("chunkserver_output.log");
+
+            // Create a new print stream that writes to the file output stream
+            PrintStream printStream = new PrintStream(fileOutputStream);
+
+            // Redirect System.out to the print stream
+            System.setOut(printStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    
     @Override
     public String interest() {
         return WriteRequest.class.getName();
