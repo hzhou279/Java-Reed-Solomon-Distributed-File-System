@@ -38,7 +38,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
 public class ClientCLI implements KeyListener {
-    public static String localPath = "/A";
+    public static String localPath = "/";
     public static String[] lowerDirectory = { "direcory1", "directory2", "file1", "file2" };
     public static String[] upperDirectory;
     static Map<String, LinkedList<Integer>> metaData;
@@ -71,19 +71,9 @@ public class ClientCLI implements KeyListener {
         TokenResponse tResponse = client.requestToken("read", "/A/B/C");
         // print out tResponse metadata
         // System.out.println("tResponse metadata");
-        // List<GRPCMetadata> m = tResponse.getMetadataList();
-        // for (GRPCMetadata data : m) {
-        //     System.out.println("File Path: " + data.getFilePath());
-        //     List<GRPCNode> nodes = data.getNodesList();
-        //     for (GRPCNode node : nodes) {
-        //         System.out.println(node.getChunkIdx());
-        //         System.out.println(node.getServerId());
-        //         System.out.println(node.getIsData());
-        //     }
-        // }
-
-        for (String path : metaData.keySet()) {
-            tree.addPath(path);
+        List<GRPCMetadata> m = tResponse.getMetadataList();
+        for (GRPCMetadata data : m) {
+            tree.addPath(data.getFilePath());
         }
 
         root = tree.getRoot();
@@ -171,7 +161,7 @@ public class ClientCLI implements KeyListener {
                         byte[] fileData = Files.readAllBytes(newFilePath);
                         String wholePath = localPath + "/" + words[1];
                         // System.out.println(wholePath);
-                        client.create(client.cliClientService, words[1], fileData, client.groupId);
+                        client.create(client.cliClientService, wholePath, fileData, client.groupId);
                         tree.addPath(wholePath);
                     } catch (IOException e) {
                         System.err.println("Error reading file: " + e.getMessage());
