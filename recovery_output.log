@@ -1,0 +1,202 @@
+Server starteds on port 18001
+Started counter server at port:8082
+fileNameChunks: {test.txt=[test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133], a/b/a.txt=[a/b/a.txt.0-1], c/d/e.txt=[c/d/e.txt.0-1], yueyu.txt=[yueyu.txt.0-1], a.txt=[a.txt.0-1]}
+server 0 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-0
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-0, test.txt.0-6, test.txt.0-12, test.txt.0-18, test.txt.0-24, test.txt.0-30, test.txt.0-36, test.txt.0-42, test.txt.0-48, test.txt.0-54, test.txt.0-60, test.txt.0-66, test.txt.0-72, test.txt.0-78, test.txt.0-84, test.txt.0-90, test.txt.0-96, test.txt.0-102, test.txt.0-108, test.txt.0-114, test.txt.0-120, test.txt.0-126, test.txt.0-132, test.txt.0-0]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-0]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-0]
+File: yueyu.txt, Chunks: [yueyu.txt.0-0]
+File: a.txt, Chunks: [a.txt.0-0]
+server 0 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-6
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-0, test.txt.0-6, test.txt.0-12, test.txt.0-18, test.txt.0-24, test.txt.0-30, test.txt.0-36, test.txt.0-42, test.txt.0-48, test.txt.0-54, test.txt.0-60, test.txt.0-66, test.txt.0-72, test.txt.0-78, test.txt.0-84, test.txt.0-90, test.txt.0-96, test.txt.0-102, test.txt.0-108, test.txt.0-114, test.txt.0-120, test.txt.0-126, test.txt.0-132, test.txt.0-0, test.txt.0-6]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-0]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-0]
+File: yueyu.txt, Chunks: [yueyu.txt.0-0]
+File: a.txt, Chunks: [a.txt.0-0]
+server 0 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-12
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-0, test.txt.0-6, test.txt.0-12, test.txt.0-18, test.txt.0-24, test.txt.0-30, test.txt.0-36, test.txt.0-42, test.txt.0-48, test.txt.0-54, test.txt.0-60, test.txt.0-66, test.txt.0-72, test.txt.0-78, test.txt.0-84, test.txt.0-90, test.txt.0-96, test.txt.0-102, test.txt.0-108, test.txt.0-114, test.txt.0-120, test.txt.0-126, test.txt.0-132, test.txt.0-0, test.txt.0-6, test.txt.0-12]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-0]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-0]
+File: yueyu.txt, Chunks: [yueyu.txt.0-0]
+File: a.txt, Chunks: [a.txt.0-0]
+server 0 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-18
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-0, test.txt.0-6, test.txt.0-12, test.txt.0-18, test.txt.0-24, test.txt.0-30, test.txt.0-36, test.txt.0-42, test.txt.0-48, test.txt.0-54, test.txt.0-60, test.txt.0-66, test.txt.0-72, test.txt.0-78, test.txt.0-84, test.txt.0-90, test.txt.0-96, test.txt.0-102, test.txt.0-108, test.txt.0-114, test.txt.0-120, test.txt.0-126, test.txt.0-132, test.txt.0-0, test.txt.0-6, test.txt.0-12, test.txt.0-18]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-0]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-0]
+File: yueyu.txt, Chunks: [yueyu.txt.0-0]
+File: a.txt, Chunks: [a.txt.0-0]
+server 0 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-24
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-0, test.txt.0-6, test.txt.0-12, test.txt.0-18, test.txt.0-24, test.txt.0-30, test.txt.0-36, test.txt.0-42, test.txt.0-48, test.txt.0-54, test.txt.0-60, test.txt.0-66, test.txt.0-72, test.txt.0-78, test.txt.0-84, test.txt.0-90, test.txt.0-96, test.txt.0-102, test.txt.0-108, test.txt.0-114, test.txt.0-120, test.txt.0-126, test.txt.0-132, test.txt.0-0, test.txt.0-6, test.txt.0-12, test.txt.0-18, test.txt.0-24]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-0]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-0]
+File: yueyu.txt, Chunks: [yueyu.txt.0-0]
+File: a.txt, Chunks: [a.txt.0-0]
+server 0 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-30
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-37
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-43
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-49
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-55
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-61
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-67
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-73
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-79
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-85
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-91
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-97
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-103
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-109
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-115
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-121
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-127
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+server 1 updateStoredFileNameToChunks:
+updateStoredFileNameToChunks with fileName test.txt.0-133
+storedFileNameToChunks size is 5
+File: test.txt, Chunks: [test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133, test.txt.0-1, test.txt.0-7, test.txt.0-13, test.txt.0-19, test.txt.0-25, test.txt.0-31, test.txt.0-37, test.txt.0-43, test.txt.0-49, test.txt.0-55, test.txt.0-61, test.txt.0-67, test.txt.0-73, test.txt.0-79, test.txt.0-85, test.txt.0-91, test.txt.0-97, test.txt.0-103, test.txt.0-109, test.txt.0-115, test.txt.0-121, test.txt.0-127, test.txt.0-133]
+File: a/b/a.txt, Chunks: [a/b/a.txt.0-1]
+File: c/d/e.txt, Chunks: [c/d/e.txt.0-1]
+File: yueyu.txt, Chunks: [yueyu.txt.0-1]
+File: a.txt, Chunks: [a.txt.0-1]
+ReadRequestProcessor thread: Bolt-default-executor-6-thread-6
+ReadRequestProcesReadRequestProcessor thread: Bolt-default-executor-6-thread-8
+ReadRequestProcessor thread2: Bolt-default-executor-6-thread-8
+read filePath: test.txt
+bytesMap: {test.txt.0-107=[B@697d8ea5, test.txt.0-119=[B@7d70332d, test.txt.0-35=[B@27250bff, test.txt.0-113=[B@5f0ab3e7, test.txt.0-23=[B@5a071605, test.txt.0-89=[B@2692af33, test.txt.0-125=[B@296722ed, test.txt.0-59=[B@23f829ad, test.txt.0-137=[B@412db4e9, test.txt.0-47=[B@727570c8, test.txt.0-17=[B@62954421, test.txt.0-131=[B@42ac9f, test.txt.0-29=[B@2c64ca82, test.txt.0-101=[B@754e0cf6, test.txt.0-71=[B@3db2ea32, test.txt.0-95=[B@28018f4f, test.txt.0-83=[B@223b6017, test.txt.0-53=[B@2797f11a, test.txt.0-41=[B@d5e7ca0, test.txt.0-5=[B@2901e1b3, test.txt.0-11=[B@50c3175c, test.txt.0-77=[B@48c4237f, test.txt.0-65=[B@3601edbb}
+9}
+.txt, Chunks: [c/d/e.txt.0-3]
+File: yueyu.txt, Chunks: [yueyu.txt.0-3]
+File: a.txt, Chunks: [a.txt.0-3]
+WriteRequestProcessor: run 
+Write Success
+ReadRequestProcessor thread: Bolt-default-executor-6-thread-20
+ReadRequestProcessor thread2: Bolt-default-executor-6-thread-20
+read filePath: test.txt
+bytesMap: {test.txt.0-9=[B@5f9520ae, test.txt.0-117=[B@6c0d5b9e, test.txt.0-129=[B@e1e7754, test.txt.0-57=[B@7b8d49e, test.txt.0-135=[B@71de0497, test.txt.0-45=[B@77097099, test.txt.0-15=[B@a500dfb, test.txt.0-69=[B@4b0d240b, test.txt.0-105=[B@4a767b41, test.txt.0-39=[B@76c7472e, test.txt.0-27=[B@7cf2a3d8, test.txt.0-111=[B@5e7dfd31, test.txt.0-123=[B@272839cc, test.txt.0-93=[B@6b9af430, test.txt.0-81=[B@29f76f8, test.txt.0-51=[B@333a87ef, test.txt.0-3=[B@55ba2e1d, test.txt.0-75=[B@693d7bee, test.txt.0-63=[B@106ce887, test.txt.0-33=[B@770e109a, test.txt.0-99=[B@73c012a0, test.txt.0-21=[B@71a0f53d, test.txt.0-87=[B@6ff135e}

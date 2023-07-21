@@ -18,7 +18,7 @@ case $command in
     ;;
   client)
     echo "Starting client..."
-    docker-compose run client
+    docker-compose -f docker-compose.client.yml up
     ;;
   *)
     echo "Invalid command. Valid commands are: build, start, stop"

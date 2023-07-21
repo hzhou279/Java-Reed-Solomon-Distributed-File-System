@@ -439,35 +439,39 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     }
 
     private void relaunchOfflineChunkserver(int serverIdx, CountDownLatch latch) {
-        // Create a new thread to re launch one offline chunkserver
-        String name = "chunkserver" + (serverIdx + 1);
+        // Create a new thread to re-launch one offline chunkserver
         Thread launchThread = new Thread(() -> {
             try {
-                // Specify the Maven command
-                String[] mvnCommand = {
-                        "mvn",
-                        "exec:java",
-                        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver",
-                        "-Dexec.args=chunkserver" + (serverIdx + 1) + " cluster" + name
-                                + " chunkserver1:8081,chunkserver2:8082,chunkserver3:8083,chunkserver4:8084,chunkserver5:8085,chunkserver6:8086 "
-                                + serverIdx
+                // Specify the Docker command
+                String[] dockerCommand = {
+                        "docker-compose",
+                        "restart",
+                        "chunkserver" + (serverIdx)
                 };
 
                 // Build the process
-                ProcessBuilder pb = new ProcessBuilder(mvnCommand);
+                ProcessBuilder pb = new ProcessBuilder(dockerCommand);
                 pb.redirectErrorStream(true);
 
                 // Start the process
                 Process process = pb.start();
 
-                // latch.countDown();
-
                 // Wait for the process to complete
                 int exitCode = process.waitFor();
 
-                System.out.println("Relaunched chunkserver completes with exit code: " + exitCode);
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+                // Check exit code and print appropriate message
+                if (exitCode == 0) {
+                    System.out.println("Successfully relaunched chunkserver" + (serverIdx) + ".");
+                } else {
+                    System.out.println("Failed to relaunch chunkserver" + (serverIdx) + ". Exit code: " + exitCode);
+                }
+
+            } catch (IOException e) {
+                System.err.println(
+                        "IO exception while trying to relaunch chunkserver" + (serverIdx + 1) + ": " + e.getMessage());
+            } catch (InterruptedException e) {
+                System.err.println("Interrupted exception while trying to relaunch chunkserver" + (serverIdx + 1) + ": "
+                        + e.getMessage());
             }
         });
 
@@ -494,7 +498,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             // In normal case, Master should know all chunk file paths in any existing
             // chunkserver
             if (chunkFilePathsInOneServer == null) {
-                chunkFilePathsInOneServer = getChunkserverChunkFilePaths(i);
+                // chunkFilePathsInOneServer = getChunkserverChunkFilePaths(i);
+                chunkFilePathsInOneServer = getChunkserverChunkFilePathsByMetadata();
                 System.out.println("chunkFilePathsInOneServer: " + Arrays.toString(chunkFilePathsInOneServer));
             }
         }
@@ -636,6 +641,18 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             chunkserversPresent[offlineServerIdx] = true;
         }
 
+    }
+
+    private String[] getChunkserverChunkFilePathsByMetadata() {
+        // init filename string array with the size of metadata key set
+        String fileNames[] = new String[metadata.keySet().size()];
+        // iterate metadata key as the filename and save it to incremental index
+        int i = 0;
+        for (String filename : metadata.keySet()) {
+            fileNames[i] = filename;
+            i++;
+        }
+        return fileNames;
     }
 
     /**
