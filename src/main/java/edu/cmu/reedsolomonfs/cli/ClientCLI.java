@@ -69,6 +69,7 @@ public class ClientCLI implements KeyListener {
         metaData.put("A/E/Z/D", list4);
 
         TokenResponse tResponse = client.requestToken("read", "/A/B/C");
+        String token = tResponse.getToken();
         // print out tResponse metadata
         // System.out.println("tResponse metadata");
         List<GRPCMetadata> m = tResponse.getMetadataList();
@@ -155,13 +156,12 @@ public class ClientCLI implements KeyListener {
                     e.printStackTrace();
                 }
 
-
                 if (Files.exists(newFilePath)) {
                     try {
                         byte[] fileData = Files.readAllBytes(newFilePath);
                         String wholePath = localPath + words[1];
                         // System.out.println(wholePath);
-                        client.create(client.cliClientService, wholePath, fileData, client.groupId);
+                        client.create(client.cliClientService, wholePath, fileData, client.groupId, token);
                         tree.addPath(wholePath);
                     } catch (IOException e) {
                         System.err.println("Error reading file: " + e.getMessage());
@@ -183,7 +183,7 @@ public class ClientCLI implements KeyListener {
                 Files.write(Path.of("./ClientClusterCommTestFiles/FilesRead/testRead1.txt"), fileDataRead);
             } else if (words[0].equals("delete")) {
                 String fileToDelete = words[1];
-                client.delete(client.cliClientService, fileToDelete, client.groupId);
+                client.delete(client.cliClientService, fileToDelete, client.groupId, token);
             } else {
                 System.out.println("Invalid Command");
             }

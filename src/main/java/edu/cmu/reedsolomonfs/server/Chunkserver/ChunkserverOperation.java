@@ -30,22 +30,24 @@ public class ChunkserverOperation implements Serializable {
     private static final long serialVersionUID = -6597003954824547294L;
 
     /** Get value */
-    public static final byte  GET              = 0x01;
+    public static final byte GET = 0x01;
     /** Increment and get value */
-    public static final byte  INCREMENT        = 0x02;
+    public static final byte INCREMENT = 0x02;
     /** Write bytes */
-    public static final byte  WRITE_BYTES      = 0x03;
+    public static final byte WRITE_BYTES = 0x03;
     /** Read bytes */
-    public static final byte  READ_BYTES       = 0x04;
+    public static final byte READ_BYTES = 0x04;
     /** Delete bytes */
-    public static final byte  DELETE_BYTES     = 0x05;
+    public static final byte DELETE_BYTES = 0x05;
 
-    private byte              op;
-    private long              delta;
-    private byte[]            bytes;
-    private byte[][]          shards;
-    private FileMetadata      metadata;
-    private String            filePath;
+    public static final byte UPDATE_SECRETKEY = 0x06;
+
+    private byte op;
+    private long delta;
+    private byte[] bytes;
+    private byte[][] shards;
+    private FileMetadata metadata;
+    private String filePath;
 
     public static ChunkserverOperation createGet() {
         return new ChunkserverOperation(GET);
@@ -69,6 +71,10 @@ public class ChunkserverOperation implements Serializable {
 
     public static ChunkserverOperation createReadBytes() {
         return new ChunkserverOperation(READ_BYTES);
+    }
+
+    public static ChunkserverOperation updateSecretKey(final String secretKey) {
+        return new ChunkserverOperation(UPDATE_SECRETKEY, secretKey);
     }
 
     public ChunkserverOperation(byte op) {

@@ -126,6 +126,11 @@ public class ChunkserverServiceImpl implements ChunkserverService {
         return;
     }
 
+    @Override
+    public void updateSecretKey(final String secretKey, final ChunkserverClosure closure) {
+        applyOperation(ChunkserverOperation.updateSecretKey(secretKey), closure);
+    }
+
     private void applyOperation(final ChunkserverOperation op, final ChunkserverClosure closure) {
         if (!isLeader()) {
             System.out.print("Not leader.");
