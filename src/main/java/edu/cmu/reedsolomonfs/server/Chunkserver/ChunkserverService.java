@@ -47,6 +47,10 @@ public interface ChunkserverService {
      */
     void write(final byte[][] shards, final FileMetadata metadata, final ChunkserverClosure closure);
 
+    /**
+     * Delete data from cluster
+     */
+    void delete(final String filePath, final ChunkserverClosure closure);
 
     /**
      * Read data from cluster to client

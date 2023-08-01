@@ -159,7 +159,7 @@ public class ClientCLI implements KeyListener {
                 if (Files.exists(newFilePath)) {
                     try {
                         byte[] fileData = Files.readAllBytes(newFilePath);
-                        String wholePath = localPath + "/" + words[1];
+                        String wholePath = localPath + words[1];
                         // System.out.println(wholePath);
                         client.create(client.cliClientService, wholePath, fileData, client.groupId);
                         tree.addPath(wholePath);
@@ -181,6 +181,9 @@ public class ClientCLI implements KeyListener {
 
                 // write fileDataRead to a file
                 Files.write(Path.of("./ClientClusterCommTestFiles/FilesRead/testRead1.txt"), fileDataRead);
+            } else if (words[0].equals("delete")) {
+                String fileToDelete = words[1];
+                client.delete(client.cliClientService, fileToDelete, client.groupId);
             } else {
                 System.out.println("Invalid Command");
             }

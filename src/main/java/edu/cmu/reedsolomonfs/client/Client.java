@@ -269,8 +269,16 @@ public class Client {
         return response;
     }
 
-    public static void delete() {
+    public void delete(final CliClientServiceImpl cliClientService, String filePath,
+            final String groupId) throws RemotingException, InterruptedException {
+        final int n = 10000;
+        final CountDownLatch latch = new CountDownLatch(n);
 
+        System.out.println("Client delete: " + filePath);
+        WriteRequest request = packWriteRequest("delete", filePath, -1, 0, null, "delete",
+                -1, -1);
+        final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
+        writeRequest(cliClientService, leader, request, latch);
     }
 
     public static void overwrite() {
@@ -309,21 +317,26 @@ public class Client {
     private static WriteRequest packWriteRequest(String operationType, String filePath, int fileSize, int appendAt,
             byte[][] shards, String writeFlag, int lastChunkIdx, int originalFileSize) {
         WriteRequest.Builder requestBuilder = WriteRequest.newBuilder();
-                
-        for (byte[] shard : shards) {
-            // System.out.println("current shard is: " + new String(shard));
-            requestBuilder.addPayload(ByteString.copyFrom(shard));
+
+        if (writeFlag.equals("create")) {
+            for (byte[] shard : shards) {
+                // System.out.println("current shard is: " + new String(shard));
+                requestBuilder.addPayload(ByteString.copyFrom(shard));
+            }
+
+            requestBuilder.setOperationType(operationType);
+            System.out.println("Client packWriteRequest: " + filePath);
+            requestBuilder.setFilePath(filePath);
+            requestBuilder.setFileSize(fileSize);
+            requestBuilder.setAppendAt(appendAt);
+            requestBuilder.setWriteFlag(writeFlag);
+            requestBuilder.setLastChunkIdx(lastChunkIdx);
+            requestBuilder.setOriginalFileSize(originalFileSize);
+            
+        } else if (writeFlag.equals("delete")) {
+            requestBuilder.setWriteFlag(writeFlag);
+            requestBuilder.setFilePath(filePath);
         }
-
-        requestBuilder.setOperationType(operationType);
-        System.out.println("Client packWriteRequest: " + filePath);
-        requestBuilder.setFilePath(filePath);
-        requestBuilder.setFileSize(fileSize);
-        requestBuilder.setAppendAt(appendAt);
-        requestBuilder.setWriteFlag(writeFlag);
-        requestBuilder.setLastChunkIdx(lastChunkIdx);
-        requestBuilder.setOriginalFileSize(originalFileSize);
-
         return requestBuilder.build();
     }
 

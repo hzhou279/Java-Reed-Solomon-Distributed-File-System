@@ -20,9 +20,12 @@ import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.GET;
 import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.INCREMENT;
 import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.READ_BYTES;
 import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.WRITE_BYTES;
+import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.DELETE_BYTES;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
@@ -176,23 +179,53 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
     }
 
     public Map<String, byte[]> readFromServerDisk(String filePath) {
+        System.out.println("readFromServerDisk line 181");
         // get chunks file path from storedFileNameToChunks
         List<String> chunkFilePaths = storedFileNameToChunks.get(filePath);
+        if (chunkFilePaths == null)
+            System.out.println("chunk file paths does not exist.");
         // System.out.println("chunkFilePaths is " + chunkFilePaths);
         // read chunks from disk
         Map<String, byte[]> chunks = new HashMap<String, byte[]>();
         for (int i = 0; i < chunkFilePaths.size(); i++) {
             String chunkFilePath = serverDiskPath + chunkFilePaths.get(i);
             try {
+                System.out.println("To read " + chunkFilePath);
                 byte[] chunk = Files.readAllBytes(Paths.get(chunkFilePath));
                 // System.out.println("Byte data read from " + chunkFilePath + " is " + new
                 // String(chunk));
+
                 chunks.put(chunkFilePaths.get(i), chunk);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        System.out.println("readFromServerDisk line 198");
         return chunks;
+    }
+
+    public void deleteFile(String filePath) {
+        // get chunks file path from storedFileNameToChunks
+        System.out.println("reach delete file 209");
+        List<String> chunkFilePaths = storedFileNameToChunks.get(filePath);
+        if (chunkFilePaths == null) {
+            System.out.println("chunk file paths to delete does not exist.");
+            return;
+        }
+        for (int i = 0; i < chunkFilePaths.size(); i++) {
+            String chunkFilePath = serverDiskPath + chunkFilePaths.get(i);
+            try {
+                System.out.println("To delete " + chunkFilePath);
+
+                Path path = Paths.get(chunkFilePath);
+            
+                // Delete the file using Files.delete() method
+                Files.delete(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("deleteFromServerDisk line 227");
     }
 
     @Override
@@ -244,7 +277,8 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                         final FileMetadata metadata = counterOperation.getMetadata();
                         final byte[][] chunks = NodeHelper.splitShardToChunks(shards[serverIdx]);
                         List<String> chunkFilePaths = FileMetadataHelper.retrieveFileChunkPaths(metadata, serverIdx);
-                        for (String s: chunkFilePaths) System.out.println("chunkFIlePath: " + s);
+                        for (String s : chunkFilePaths)
+                            System.out.println("chunkFIlePath: " + s);
                         Path directory = Paths.get(serverDiskPath);
                         try {
                             Files.createDirectories(directory); // Create the directory and any nonexistent parent
@@ -303,6 +337,9 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                     case READ_BYTES:
                         final Byte[] byteValue2 = this.byteValue;
                         LOG.info("Get byte value={} at logIndex={}", byteValue2, iter.getIndex());
+                        break;
+                    case DELETE_BYTES:
+                        deleteFile(counterOperation.getFilePath());
                         break;
                 }
 

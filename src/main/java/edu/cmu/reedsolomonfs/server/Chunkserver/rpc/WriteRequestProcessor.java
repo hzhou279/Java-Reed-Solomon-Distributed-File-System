@@ -41,7 +41,7 @@ import com.alipay.sofa.jraft.rpc.RpcProcessor;
  *
  * @author boyan (boyan@alibaba-inc.com)
  *
- * 2018-Apr-09 5:43:57 PM
+ *         2018-Apr-09 5:43:57 PM
  */
 public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
 
@@ -52,17 +52,16 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
     private int fileSize;
     private ManagedChannel masterChannel;
 
-
     public WriteRequestProcessor(ChunkserverService counterService, ManagedChannel masterChannel) {
         super();
         this.counterService = counterService;
         this.masterChannel = masterChannel;
-        //redirectSystemOutToFile();
+        // redirectSystemOutToFile();
     }
 
     @Override
     public void handleRequest(final RpcContext rpcCtx, final WriteRequest request) {
-        
+
         writeFlag = request.getWriteFlag();
         appendAt = request.getAppendAt();
         filePath = request.getFilePath();
@@ -79,48 +78,50 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
                 // redirect the print log to file
                 // PrintStream out = null;
                 // try {
-                //     out = new PrintStream(new FileOutputStream("./output.txt"));
+                // out = new PrintStream(new FileOutputStream("./output.txt"));
                 // } catch (FileNotFoundException e) {
-                //     e.printStackTrace();
+                // e.printStackTrace();
                 // }
                 // System.setOut(out);
-                // send success to master 
+                // send success to master
                 MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(masterChannel);
                 ackMasterWriteSuccessRequest ack = ackMasterWriteSuccessRequest.newBuilder()
-                .setAppendAt(appendAt)
-                .setWriteFlag(writeFlag)
-                .setFileName(filePath)
-                .setFileSize(fileSize).build();
+                        .setAppendAt(appendAt)
+                        .setWriteFlag(writeFlag)
+                        .setFileName(filePath)
+                        .setFileSize(fileSize).build();
 
                 stub.writeSuccess(ack);
-                
+
                 // send reponse back to the client
                 rpcCtx.sendResponse(getValueResponse());
-                
+
             }
         };
 
         // WriteFlag can be "create", "append", "overwrite", and "delete"
         // switch (writeFlag) {
-        //     case "create":
-        //         FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath, fileSize);
-        //         byte[][] shards = new byte[request.getPayloadCount()][];
-        //         for (int i = 0; i < request.getPayloadCount(); i++)
-        //             shards[i] = request.getPayload(i).toByteArray();
-        //         this.counterService.write(shards, metadata, closure);
-        //         break;
-        //     case "append":
-        //         break;
+        // case "create":
+        // FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath,
+        // fileSize);
+        // byte[][] shards = new byte[request.getPayloadCount()][];
+        // for (int i = 0; i < request.getPayloadCount(); i++)
+        // shards[i] = request.getPayload(i).toByteArray();
+        // this.counterService.write(shards, metadata, closure);
+        // break;
+        // case "append":
+        // break;
         // }
-        FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath, fileSize);
-        byte[][] shards = new byte[request.getPayloadCount()][];
+        if (writeFlag.equals("create")) {
+            FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath, fileSize);
+            byte[][] shards = new byte[request.getPayloadCount()][];
+            for (int i = 0; i < request.getPayloadCount(); i++)
+                shards[i] = request.getPayload(i).toByteArray();
+            this.counterService.write(shards, metadata, closure);
+        } else if (writeFlag.equals("delete")) {
+            this.counterService.delete(filePath, closure);
+        }
 
-        
-
-
-        for (int i = 0; i < request.getPayloadCount(); i++)
-            shards[i] = request.getPayload(i).toByteArray();
-        this.counterService.write(shards, metadata, closure);
     }
 
     public void redirectSystemOutToFile() {
@@ -137,7 +138,7 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public String interest() {
         return WriteRequest.class.getName();

@@ -56,6 +56,7 @@ public class ReadRequestProcessor implements RpcProcessor<ReadRequest> {
         System.out.println("ReadRequestProcessor thread2: " + Thread.currentThread().getName());
         String filePath = request.getFilePath();
         this.counterService.read(filePath, closure);
+        System.out.println("ReadRequestProcessor thread completes: " + Thread.currentThread().getName());
     }
 
     @Override
