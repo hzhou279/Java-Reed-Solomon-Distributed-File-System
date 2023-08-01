@@ -147,6 +147,71 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                 recoveryChannels[i].shutdown();
     }
 
+    // print fileVersions, latestFileVersion, latestChunkIndex,
+    // chunkServerChunkFileNames, metadata
+    public void printFileVersion() {
+        // print out the map for debugging
+        for (String filename : fileVersions.keySet()) {
+            System.out.println("filename: " + filename);
+            Map<Integer, List<String>> fileVersion = fileVersions.get(filename);
+            for (int version : fileVersion.keySet()) {
+                System.out.println("version: " + version);
+                List<String> chunkFileNames = fileVersion.get(version);
+                for (String chunkFileName : chunkFileNames) {
+                    System.out.println("chunkFileName: " + chunkFileName);
+                }
+            }
+        }
+        for (String filename : latestFileVersion.keySet()) {
+            System.out.println("filename: " + filename);
+            System.out.println("latestFileVersion: " + latestFileVersion.get(filename));
+        }
+        for (String filename : latestChunkIndex.keySet()) {
+            System.out.println("filename: " + filename);
+            System.out.println("latestChunkIndex: " + latestChunkIndex.get(filename));
+        }
+        for (int sharedIdx : chunkServerChunkFileNames.keySet()) {
+            System.out.println("sharedIdx: " + sharedIdx);
+            Map<String, Set<String>> chunkFileNames = chunkServerChunkFileNames.get(sharedIdx);
+            for (String chunkFileName : chunkFileNames.keySet()) {
+                System.out.println("chunkFileName: " + chunkFileName);
+                Set<String> chunkServerNames = chunkFileNames.get(chunkFileName);
+                for (String chunkServerName : chunkServerNames) {
+                    System.out.println("chunkServerName: " + chunkServerName);
+                }
+            }
+        }
+        for (String filename : metadata.keySet()) {
+            System.out.println("filename: " + filename);
+            List<Node> nodes = metadata.get(filename);
+            for (Node node : nodes) {
+                System.out.println("node: " + node);
+            }
+        }
+    }
+
+    public void deleteFileVersion(String filename) {
+        fileVersions.remove(filename);
+        latestFileVersion.remove(filename);
+        latestChunkIndex.remove(filename);
+        // iterate all sharedIdx and remove the filename from the
+        // chunkServerChunkFileNames
+        for (int sharedIdx = 0; sharedIdx < ConfigVariables.TOTAL_SHARD_COUNT; sharedIdx++) {
+            if (chunkServerChunkFileNames.containsKey(sharedIdx)) {
+                Map<String, Set<String>> chunkFileNames = chunkServerChunkFileNames.get(sharedIdx);
+                // remove filenae from the chunkFileNames
+                chunkFileNames.remove(filename);
+            }
+        }
+        metadata.remove(filename);
+        try {
+            saveToFile(fileVersionsFileName);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     public void addFileVersion(String filename, long fileSize, long appendAt, String writeFlag) {
         // retrieve the latest file version from the map, if not found, start from 0
         int latestVersion = latestFileVersion.getOrDefault(filename, 0);
@@ -237,6 +302,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             oos.writeObject(chunkServerChunkFileNames);
             oos.writeObject(metadata);
         }
+        printFileVersion();
     }
 
     // Load from disk
@@ -487,7 +553,14 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             System.out.println(request.getFileSize());
             System.out.println(request.getAppendAt());
             System.out.println(request.getWriteFlag());
-            addFileVersion(request.getFileName(), request.getFileSize(), request.getAppendAt(), request.getWriteFlag());
+            // addFileVersion if writeFlag is "write"
+            if (request.getWriteFlag().equals("create"))
+                addFileVersion(request.getFileName(), request.getFileSize(), request.getAppendAt(),
+                        request.getWriteFlag());
+
+            // deleteFileVersion if writeFlag is "delete"
+            if (request.getWriteFlag().equals("delete"))
+                deleteFileVersion(request.getFileName());
 
             ackMasterWriteSuccessRequestResponse response = ackMasterWriteSuccessRequestResponse.newBuilder()
                     .setSuccess(true).build();

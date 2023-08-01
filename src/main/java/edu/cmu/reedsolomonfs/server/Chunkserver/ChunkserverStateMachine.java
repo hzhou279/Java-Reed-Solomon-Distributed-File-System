@@ -206,19 +206,26 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
 
     public void deleteFile(String filePath) {
         // get chunks file path from storedFileNameToChunks
+        System.out.println("filePath is " + filePath);
+        // print out storedFileNameToChunks map
+        for (Map.Entry<String, List<String>> entry : storedFileNameToChunks.entrySet()) {
+            System.out.println("File: " + entry.getKey() + ", Chunks: " + entry.getValue());
+        }
         System.out.println("reach delete file 209");
         List<String> chunkFilePaths = storedFileNameToChunks.get(filePath);
         if (chunkFilePaths == null) {
             System.out.println("chunk file paths to delete does not exist.");
             return;
         }
+        // delete filepath from storedFileNameToChunks
+        storedFileNameToChunks.remove(filePath);
         for (int i = 0; i < chunkFilePaths.size(); i++) {
             String chunkFilePath = serverDiskPath + chunkFilePaths.get(i);
             try {
                 System.out.println("To delete " + chunkFilePath);
 
                 Path path = Paths.get(chunkFilePath);
-            
+
                 // Delete the file using Files.delete() method
                 Files.delete(path);
             } catch (IOException e) {
