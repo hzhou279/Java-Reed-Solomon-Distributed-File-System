@@ -159,7 +159,13 @@ public class ClientCLI implements KeyListener {
                 if (Files.exists(newFilePath)) {
                     try {
                         byte[] fileData = Files.readAllBytes(newFilePath);
+                        
                         String wholePath = localPath + words[1];
+                        if (words[1].charAt(0) == '/') {
+                            wholePath = words[1];
+                        } else {
+                            wholePath = localPath + '/' + words[1];
+                        }
                         // System.out.println(wholePath);
                         client.create(client.cliClientService, wholePath, fileData, client.groupId);
                         tree.addPath(wholePath);
@@ -175,15 +181,29 @@ public class ClientCLI implements KeyListener {
                 // System.out.println("!!!!!!");
             } else if (words[0].equals("read")) {
                 // System.out.println(words[1]);
-                byte[] fileDataRead = client.read(client.cliClientService, "read", words[1], 724, client.groupId);
+                String wholePath = localPath + words[1];
+                if (words[1].charAt(0) == '/') {
+                    wholePath = words[1];
+                } else {
+                    wholePath = localPath + '/' + words[1];
+                }
+
+                byte[] fileDataRead = client.read(client.cliClientService, "read", wholePath, 724, client.groupId);
 
                 System.out.println("File read successfully!!!!");
 
                 // write fileDataRead to a file
                 Files.write(Path.of("./ClientClusterCommTestFiles/FilesRead/testRead1.txt"), fileDataRead);
             } else if (words[0].equals("delete")) {
-                String fileToDelete = words[1];
-                client.delete(client.cliClientService, fileToDelete, client.groupId);
+                String wholePath = localPath + words[1];
+                if (words[1].charAt(0) == '/') {
+                    wholePath = words[1];
+                } else {
+                    wholePath = localPath + '/' + words[1];
+                }
+                
+                client.delete(client.cliClientService, wholePath, client.groupId);
+                tree.delete(wholePath);
             } else {
                 System.out.println("Invalid Command");
             }

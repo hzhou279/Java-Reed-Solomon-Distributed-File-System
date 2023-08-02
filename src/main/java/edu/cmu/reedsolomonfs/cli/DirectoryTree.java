@@ -60,4 +60,25 @@ public class DirectoryTree {
         // Return the names of all children of the final node
         return new ArrayList<>(node.children.keySet());
     }
+
+    public boolean delete(String path) {
+        String[] dirs = path.split("/");
+        Node node = root;
+        for (int i = 0; i < dirs.length - 1; i++) { // stop at the parent node
+            if (dirs[i].equals("")) {
+                continue;
+            }
+            if (!node.children.containsKey(dirs[i])) {
+                throw new IllegalArgumentException("Path does not exist in the tree");
+            }
+            node = node.children.get(dirs[i]);
+        }
+        // At this point, 'node' is the parent of the node to be deleted
+        String lastDir = dirs[dirs.length - 1]; // the name of the node to be deleted
+        if (!node.children.containsKey(lastDir)) {
+            throw new IllegalArgumentException("Path does not exist in the tree");
+        }
+        node.children.remove(lastDir);
+        return true;
+    }
 }
