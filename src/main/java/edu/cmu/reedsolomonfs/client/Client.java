@@ -117,10 +117,13 @@ public class Client {
         // Cache file metadata
         Map<String, FileMetadata> cache = new HashMap<>();
 
+        TokenResponse tResponse = requestToken("read", "/A/B/C");
+        System.out.println("Token received: " + tResponse.getToken());
+
         // Make a create request
         String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
         byte[] fileData = Files.readAllBytes(Path.of(filePath));
-        create(cliClientService, "test.txt", fileData, groupId);
+        create(cliClientService, "test.txt", fileData, groupId, tResponse.getToken());
         System.out.println(filePath + " created successfully!!!!");
         // // sleep for 7s to wait for the data to be replicated to the follower
         Thread.sleep(7000);
@@ -270,13 +273,13 @@ public class Client {
     }
 
     public void delete(final CliClientServiceImpl cliClientService, String filePath,
-            final String groupId) throws RemotingException, InterruptedException {
+            final String groupId, String token) throws RemotingException, InterruptedException {
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
 
         System.out.println("Client delete: " + filePath);
         WriteRequest request = packWriteRequest("delete", filePath, -1, 0, null, "delete",
-                -1, -1);
+                -1, -1, token);
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
     }
@@ -290,11 +293,11 @@ public class Client {
     }
 
     public void create(final CliClientServiceImpl cliClientService, String filePath, byte[] fileData,
-            final String groupId) throws RemotingException, InterruptedException {
+            final String groupId, String token) throws RemotingException, InterruptedException {
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
         // final long start = System.currentTimeMillis();
- 
+
         ReedSolomonEncoder encoder = new ReedSolomonEncoder(fileData);
         encoder.encode();
         byte[][] shards = encoder.getShards();
@@ -306,7 +309,7 @@ public class Client {
         // Pass padded file size
         System.out.println("Client create: " + filePath);
         WriteRequest request = packWriteRequest("touch", filePath, encoder.getPaddedFileSize(), 0, shards, "create",
-                encoder.getLastChunkIdx(), encoder.getFileSize());
+                encoder.getLastChunkIdx(), encoder.getFileSize(), token);
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
         // latch.await();
@@ -315,7 +318,7 @@ public class Client {
     }
 
     private static WriteRequest packWriteRequest(String operationType, String filePath, int fileSize, int appendAt,
-            byte[][] shards, String writeFlag, int lastChunkIdx, int originalFileSize) {
+            byte[][] shards, String writeFlag, int lastChunkIdx, int originalFileSize, String token) {
         WriteRequest.Builder requestBuilder = WriteRequest.newBuilder();
 
         if (writeFlag.equals("create")) {
@@ -332,7 +335,8 @@ public class Client {
             requestBuilder.setWriteFlag(writeFlag);
             requestBuilder.setLastChunkIdx(lastChunkIdx);
             requestBuilder.setOriginalFileSize(originalFileSize);
-            
+            requestBuilder.setToken(token);
+
         } else if (writeFlag.equals("delete")) {
             requestBuilder.setWriteFlag(writeFlag);
             requestBuilder.setFilePath(filePath);
@@ -366,7 +370,6 @@ public class Client {
         } catch (InaccessibleObjectException e) {
             System.err.println("Caught InaccessibleObjectException: " + e.getMessage());
         }
-
     }
 
     private static void setBytesValue(final CliClientServiceImpl cliClientService, final PeerId leader,

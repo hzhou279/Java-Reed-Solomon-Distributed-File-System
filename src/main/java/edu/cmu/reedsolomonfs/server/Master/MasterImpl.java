@@ -1,23 +1,31 @@
 package edu.cmu.reedsolomonfs.server.Master;
 
 import edu.cmu.reedsolomonfs.ConfigVariables;
+import edu.cmu.reedsolomonfs.client.ReedSolomonEncoder;
+import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverDiskRecoveryMachine;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest.ChunkFileNames;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatResponse;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequestResponse;
+import edu.cmu.reedsolomonfs.server.ChunkserverOutter.UpdateSecretKeyRequest;
 import edu.cmu.reedsolomonfs.datatype.Node;
+import com.alipay.sofa.jraft.error.RemotingException;
+import com.alipay.sofa.jraft.option.CliOptions;
+import com.alipay.sofa.jraft.rpc.InvokeCallback;
 
 import io.grpc.stub.StreamObserver;
 
 import java.io.FileInputStream;
+import com.alipay.sofa.jraft.conf.Configuration;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.InaccessibleObjectException;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,6 +36,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.impl.LogKitLogger;
 
+import com.alipay.sofa.jraft.RouteTable;
+import com.alipay.sofa.jraft.entity.PeerId;
+import com.alipay.sofa.jraft.rpc.impl.cli.CliClientServiceImpl;
 import com.google.common.collect.Sets;
 // import io.grpc.ManagedChannel;
 // import io.grpc.ManagedChannelBuilder;
@@ -38,6 +49,7 @@ import com.google.protobuf.ByteString;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,6 +71,8 @@ import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryReadResponse;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryWriteRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryWriteResponse;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCNode;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.SecretKeyRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.SecretKeyResponse;
 // import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadRequest;
 // import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadResponse;
 import io.grpc.BindableService;
@@ -76,6 +90,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
 
 public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.MasterServiceImplBase {
 
@@ -92,6 +107,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     private Map<String, Long> latestChunkIndex;
     private Map<Integer, Map<String, Set<String>>> chunkServerChunkFileNames;
     private Map<String, List<Node>> metadata;
+    public CliClientServiceImpl cliClientService;
 
     String fileVersionsFileName = "fileVersions";
     String outputLogFile = "master_output.log";
@@ -100,15 +116,21 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     private RecoveryServiceGrpc.RecoveryServiceBlockingStub[] stubs;
     private boolean[] recoveryConnectionEstablished;
     private int[] recoveryPorts = { 18000, 18001, 18002, 18003, 18004, 18005 };
+    private String groupId;
+    private Configuration conf;
 
-    public MasterImpl() {
+    public MasterImpl(String groupId, Configuration conf) {
         generateSecretKey();
+        cliClientService = new CliClientServiceImpl();
+        cliClientService.init(new CliOptions());
         storageActivated = false;
         currHeartbeat = new ConcurrentHashMap<Integer, Long>();
         oldHeartbeat = new ConcurrentHashMap<Integer, Long>();
         serverStatus = new ConcurrentHashMap<Integer, Boolean>();
         chunkserversPresent = new boolean[ConfigVariables.TOTAL_SHARD_COUNT];
         needToRecover = false;
+        this.groupId = groupId;
+        this.conf = conf;
 
         // Initialize recovery client variables
         recoveryChannels = new ManagedChannel[ConfigVariables.TOTAL_SHARD_COUNT];
@@ -382,28 +404,41 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     }
 
     public String generateJWT(String requestType, String filePath) {
-        return "RANDOM_TOKEN";
+        // return "RANDOM_TOKEN";
         // Set the token expiration time (e.g., 1 hour from now)
-        // long expirationTimeMillis = System.currentTimeMillis() + 3600000; // 1 hour
-        // Date expirationDate = new Date(expirationTimeMillis);
+        System.out.println("generateJWT");
+        long expirationTimeMillis = System.currentTimeMillis() + 3600000; // 1 hour
+        System.out.println("expirationTimeMillis: " + expirationTimeMillis);
+        Date expirationDate = new Date(expirationTimeMillis);
+        System.out.println("expirationDate: " + expirationDate);
 
-        // // Set the JWT claims (e.g., subject and issuer)
-        // Claims claims = Jwts.claims();
-        // // claims.setSubject("example_subject"); // this can be the name of the
+        // Set the JWT claims (e.g., subject and issuer)
+        Claims claims = Jwts.claims();
+        System.out.println("claims: " + claims);
+        // claims.setSubject("example_subject"); // this can be the name of the
         // client
-        // // claims.setIssuer("example_issuer"); // this can be the name of the master
-        // claims.put("permission", requestType);
-        // claims.put("filePath", filePath);
-        // System.out.println("secretKey: " + secretKey);
+        // claims.setIssuer("example_issuer"); // this can be the name of the master
+        claims.put("permission", requestType);
+        System.out.println("requestType: " + requestType);
+        claims.put("filePath", filePath);
+        System.out.println("filePath: " + filePath);
+        System.out.println("secretKey: " + secretKey);
 
-        // // Build the JWT
-        // JwtBuilder jwtBuilder = Jwts.builder()
-        // .setClaims(claims)
-        // .setExpiration(expirationDate)
-        // .signWith(SignatureAlgorithm.HS256, secretKey);
+        // Build the JWT
+        JwtBuilder jwtBuilder = Jwts.builder();
+        System.out.println("jwtBuilder: " + jwtBuilder);
+        jwtBuilder.setClaims(claims);
+        System.out.println("jwtBuilder: " + jwtBuilder);
+        jwtBuilder.setExpiration(expirationDate);
+        System.out.println("jwtBuilder: " + jwtBuilder);
+        byte[] secretKeyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        jwtBuilder.signWith(SignatureAlgorithm.HS256, secretKeyBytes);
+        System.out.println("jwtBuilder: " + jwtBuilder);
 
-        // // Generate the JWT token
-        // return jwtBuilder.compact();
+        String token = jwtBuilder.compact();
+        System.out.println("token: " + token);
+
+        return token;
     }
 
     public static void generateSecretKey() {
@@ -473,12 +508,18 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             }
 
             // Prepare the response
-            TokenResponse response = TokenResponse.newBuilder()
-                    .setIsHealthy(isHealthy)
-                    .setToken(token)
-                    // .addAllIps(ips)
-                    .addAllMetadata(grpcMetadatas)
-                    .build();
+            TokenResponse.Builder tokenResponseBuilder = TokenResponse.newBuilder();
+            System.out.print("response: " + tokenResponseBuilder);
+            tokenResponseBuilder.setIsHealthy(isHealthy);
+            System.out.print("tokenResponseBuilder: " + tokenResponseBuilder);
+            tokenResponseBuilder.setToken(token);
+            System.out.print("tokenResponseBuilder: " + tokenResponseBuilder);
+            // tokenResponseBuilder.addAllIps(ips);
+            // System.out.print("tokenResponseBuilder: " + tokenResponseBuilder);
+            tokenResponseBuilder.addAllMetadata(grpcMetadatas);
+            System.out.print("tokenResponseBuilder: " + tokenResponseBuilder);
+            TokenResponse response = tokenResponseBuilder.build();
+            System.out.println("response: " + response);
 
             // Send the response to the client
             responseObserver.onNext(response);
@@ -520,6 +561,21 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             // storage activated
             if (!storageActivated) {
                 storageActivated = true;
+                System.out.println("storageActivated, start to refresh leader");
+                System.out.println("groupId: " + groupId);
+                System.out.println("conf: " + conf);
+                System.out.println("RouteTable.getInstance: " + RouteTable.getInstance());
+                RouteTable.getInstance().updateConfiguration(groupId, conf);
+                if (!RouteTable.getInstance().refreshLeader(cliClientService, groupId,
+                        1000).isOk()) {
+                    throw new IllegalStateException("Refresh leader failed");
+                }
+
+                final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
+                System.out.println("Leader is " + leader + "\n\n");
+                System.out.println("RouteTable is " + RouteTable.getInstance() + "\n\n");
+                System.out.println("Configuration is " +
+                        RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
                 for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
                     oldHeartbeat.put(i, (long) 0);
                     serverStatus.put(i, false);
@@ -547,7 +603,6 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     public void writeSuccess(ackMasterWriteSuccessRequest request,
             StreamObserver<ackMasterWriteSuccessRequestResponse> responseObserver) {
         try {
-
             // log
             System.out.println(request.getFileName());
             System.out.println(request.getFileSize());
@@ -564,6 +619,11 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
             ackMasterWriteSuccessRequestResponse response = ackMasterWriteSuccessRequestResponse.newBuilder()
                     .setSuccess(true).build();
+
+            generateSecretKey();
+            // notify storage cluster to update secret key
+            updateSecretKey(cliClientService, secretKey);
+
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (Exception e) {
@@ -853,6 +913,57 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             System.setOut(printStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void updateSecretKey(final CliClientServiceImpl cliClientService, String secretKey)
+            throws RemotingException, InterruptedException {
+        final int n = 10000;
+        final CountDownLatch latch = new CountDownLatch(n);
+        // final long start = System.currentTimeMillis();
+
+        // WriteRequest request = packWriteRequest("touch", filePath,
+        // encoder.getFileSize(), 0, shards, "create",
+        // encoder.getLastChunkIdx());
+
+        // Pass padded file size
+        UpdateSecretKeyRequest request = packUpdateSecretKeyRequest();
+        final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
+        updateSecretKeyRequest(cliClientService, leader, request, latch);
+        // latch.await();
+        // System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start)
+        // + " mssssssss.");
+    }
+
+    private static UpdateSecretKeyRequest packUpdateSecretKeyRequest() {
+        UpdateSecretKeyRequest.Builder requestBuilder = UpdateSecretKeyRequest.newBuilder();
+        requestBuilder.setSecretKey(secretKey);
+        return requestBuilder.build();
+    }
+
+    private static void updateSecretKeyRequest(final CliClientServiceImpl cliClientService, final PeerId leader,
+            UpdateSecretKeyRequest request, CountDownLatch latch) throws RemotingException,
+            InterruptedException {
+        try {
+            cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, new InvokeCallback() {
+                @Override
+                public void complete(Object result, Throwable err) {
+                    if (err == null) {
+                        latch.countDown();
+                        System.out.println("write request result:" + result);
+                    } else {
+                        err.printStackTrace();
+                        latch.countDown();
+                    }
+                }
+
+                @Override
+                public Executor executor() {
+                    return null;
+                }
+            }, 5000);
+        } catch (InaccessibleObjectException e) {
+            System.err.println("Caught InaccessibleObjectException: " + e.getMessage());
         }
     }
 

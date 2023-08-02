@@ -10,6 +10,14 @@ service MasterService {
 //   rpc RecoveryRead(RecoveryReadRequest) returns (RecoveryReadResponse) {}
 }
 
+message SecretKeyRequest {
+}
+
+message SecretKeyResponse {
+  string secretKey = 1;
+}
+
+
 message HeartbeatRequest {
   string serverTag = 1;
   map<string, ChunkFileNames> chunkFileNames = 2;

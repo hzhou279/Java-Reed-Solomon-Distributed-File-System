@@ -21,6 +21,7 @@ import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.INCR
 import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.READ_BYTES;
 import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.WRITE_BYTES;
 import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.DELETE_BYTES;
+import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.UPDATE_SECRETKEY;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -74,8 +75,10 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
     private final String serverDiskPath;
     // Create Map of stored chunks in memory: filename -> list of chunk filepaths
     private Map<String, List<String>> storedFileNameToChunks;
+    private String secretKey;
 
     public ChunkserverStateMachine(int serverIdx) {
+        secretKey = "secretKey";
         this.serverIdx = serverIdx;
         serverDiskPath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + serverIdx + "/";
         storedFileNameToChunks = new HashMap<String, List<String>>();
@@ -278,6 +281,10 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                         current = this.value.addAndGet(delta);
                         LOG.info("Added value={} by delta={} at logIndex={}", prev, delta, iter.getIndex());
                         break;
+                    case UPDATE_SECRETKEY:
+                        secretKey = counterOperation.getFilePath();
+                        System.out.println("secretKey is updated in state machine " + secretKey);
+                        break;
                     case WRITE_BYTES:
                         System.out.println("Enter write byte: ");
                         final byte[][] shards = counterOperation.getShards();
@@ -416,6 +423,10 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
     public void onLeaderStop(final Status status) {
         this.leaderTerm.set(-1);
         super.onLeaderStop(status);
+    }
+
+    public String getSecretKey() {
+        return secretKey;
     }
 
 }

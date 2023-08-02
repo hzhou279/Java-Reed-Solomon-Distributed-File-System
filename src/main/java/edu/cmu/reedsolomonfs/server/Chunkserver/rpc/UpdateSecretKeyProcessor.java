@@ -19,7 +19,6 @@ package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 
 import com.alipay.sofa.jraft.Status;
 
@@ -30,26 +29,15 @@ import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverClosure;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverService;
-import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverStateMachine;
+import edu.cmu.reedsolomonfs.server.ChunkserverOutter.UpdateSecretKeyRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
 
 import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
-/**
- * SetBytesValueRequest processor.
- *
- * @author boyan (boyan@alibaba-inc.com)
- *
- *         2018-Apr-09 5:43:57 PM
- */
-public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
+public class UpdateSecretKeyProcessor implements RpcProcessor<UpdateSecretKeyRequest> {
 
     private final ChunkserverService counterService;
     private int appendAt;
@@ -57,64 +45,24 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
     private String filePath;
     private int fileSize;
     private ManagedChannel masterChannel;
-    private ChunkserverStateMachine fsm;
 
-    public WriteRequestProcessor(ChunkserverService counterService, ManagedChannel masterChannel, 
-            ChunkserverStateMachine fsm) {
+    public UpdateSecretKeyProcessor(ChunkserverService counterService, ManagedChannel masterChannel) {
         super();
         this.counterService = counterService;
         this.masterChannel = masterChannel;
-        this.fsm = fsm;
         // redirectSystemOutToFile();
     }
 
-    public boolean validateJWT(String token) {
-        try {
-            byte[] secretKeyBytes = fsm.getSecretKey().getBytes(StandardCharsets.UTF_8);
-            System.out.println("secretKeyBytes: " + secretKeyBytes);
-            // Parse the JWT token
-            Jws<Claims> jwsClaims = Jwts.parser()
-                    .setSigningKey(secretKeyBytes)
-                    .parseClaimsJws(token);
-            System.out.println("jwsClaims: " + jwsClaims);
-
-            // Check the permission and filePath in the token (optional)
-            Claims claims = jwsClaims.getBody();
-            System.out.println("claims: " + claims);
-            String permission = claims.get("permission", String.class);
-            String filePath = claims.get("filePath", String.class);
-
-            // If we reach this point, the token was valid
-            return true;
-        } catch (JwtException ex) {
-            // An error occurred while validating the JWT token
-            System.out.println("Invalid JWT token: " + ex.getMessage());
-            return false;
-        }
-    }
-
     @Override
-    public void handleRequest(final RpcContext rpcCtx, final WriteRequest request) {
+    public void handleRequest(final RpcContext rpcCtx, final UpdateSecretKeyRequest request) {
 
-        String token = request.getToken();
-        System.out.println("token: " + token);
-        if (!validateJWT(token)) {
-            System.out.println("Invalid JWT token");
-            return;
-        }
-        writeFlag = request.getWriteFlag();
-        appendAt = request.getAppendAt();
-        filePath = request.getFilePath();
-        fileSize = request.getFileSize();
-        System.out.printf("writeFlag: %s \n", writeFlag);
-        System.out.printf("appendAt: %d \n", appendAt);
-        System.out.printf("filePath: %s \n", filePath);
-        System.out.printf("fileSize: %d \n", fileSize);
+        String secretKey = request.getSecretKey();
+        System.out.printf("secretKey: %s \n", secretKey);
 
         final ChunkserverClosure closure = new ChunkserverClosure() {
             @Override
             public void run(Status status) {
-                System.out.printf("WriteRequestProcessor: run \n");
+                System.out.printf("UpdateSecretKeyRequest: run \n");
                 // redirect the print log to file
                 // PrintStream out = null;
                 // try {
@@ -152,15 +100,7 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
         // case "append":
         // break;
         // }
-        if (writeFlag.equals("create")) {
-            FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath, fileSize);
-            byte[][] shards = new byte[request.getPayloadCount()][];
-            for (int i = 0; i < request.getPayloadCount(); i++)
-                shards[i] = request.getPayload(i).toByteArray();
-            this.counterService.write(shards, metadata, closure);
-        } else if (writeFlag.equals("delete")) {
-            this.counterService.delete(filePath, closure);
-        }
+        this.counterService.updateSecretKey(secretKey, closure);
 
     }
 
@@ -181,6 +121,6 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
 
     @Override
     public String interest() {
-        return WriteRequest.class.getName();
+        return UpdateSecretKeyProcessor.class.getName();
     }
 }

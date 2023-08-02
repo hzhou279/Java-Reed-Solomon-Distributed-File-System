@@ -4,6 +4,18 @@ package edu.cmu.reedsolomonfs.server;
 
 option java_outer_classname = "ChunkserverOutter";
 
+service ChunkServerService {
+  rpc UpdateSecretKey(UpdateSecretKeyRequest) returns (UpdateSecretKeyResponse) {}
+}
+
+message UpdateSecretKeyRequest {
+  required string secretKey = 1;
+}
+
+message UpdateSecretKeyResponse {
+  required bool success = 1;
+}
+
 message GetValueRequest {
   repeated bool readOnlySafe = 1;
 }

@@ -23,6 +23,7 @@ message WriteRequest {
     repeated bytes payload = 6;
     string writeFlag = 7;
     int32 lastChunkIdx = 8;
+    string token = 9;
 }
 
 message WriteResponse {
