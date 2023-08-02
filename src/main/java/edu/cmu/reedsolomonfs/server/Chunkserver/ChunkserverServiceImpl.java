@@ -128,6 +128,7 @@ public class ChunkserverServiceImpl implements ChunkserverService {
 
     @Override
     public void updateSecretKey(final String secretKey, final ChunkserverClosure closure) {
+        System.out.println("updateSecretKey: ChunkserverServiceImpl " + secretKey);
         applyOperation(ChunkserverOperation.updateSecretKey(secretKey), closure);
     }
 

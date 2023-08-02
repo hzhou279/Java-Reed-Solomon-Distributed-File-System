@@ -55,7 +55,7 @@ public class UpdateSecretKeyProcessor implements RpcProcessor<UpdateSecretKeyReq
 
     @Override
     public void handleRequest(final RpcContext rpcCtx, final UpdateSecretKeyRequest request) {
-
+        System.out.println("UpdateSecretKeyProcessor: handleRequest");
         String secretKey = request.getSecretKey();
         System.out.printf("secretKey: %s \n", secretKey);
 

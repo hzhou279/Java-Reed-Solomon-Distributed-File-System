@@ -91,6 +91,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
+import java.util.concurrent.TimeoutException;
 
 public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.MasterServiceImplBase {
 
@@ -120,7 +121,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     private Configuration conf;
 
     public MasterImpl(String groupId, Configuration conf) {
-        generateSecretKey();
+        // generateSecretKey();
+        secretKey = "secretKey";
         cliClientService = new CliClientServiceImpl();
         cliClientService.init(new CliOptions());
         storageActivated = false;
@@ -342,6 +344,9 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     // heartbeat routine
     private class heartbeatChecker extends Thread {
 
+        boolean getLeader = false;
+        int passCnt = 0;
+
         public void run() {
             while (true) {
                 System.out.println("Checking last heartbeat");
@@ -362,6 +367,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                     // oldHeartbeat.put(entry.getKey(), entry.getValue());
                     // System.out.println("Pass timeout check");
                     // }
+                    passCnt = 0;
                     for (Map.Entry<Integer, Long> entry : oldHeartbeat.entrySet()) {
                         if (!currHeartbeat.containsKey(entry.getKey())
                                 || entry.getValue() == currHeartbeat.get(entry.getKey())) {
@@ -371,6 +377,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                             serverStatus.put(entry.getKey(), false);
                             needToRecover = true;
                         } else {
+                            passCnt++;
                             chunkserversPresent[entry.getKey()] = true;
                             oldHeartbeat.put(entry.getKey(), currHeartbeat.get(entry.getKey()));
                             System.out.println("Chunkserver " + entry.getKey() + " pass timeout check");
@@ -390,6 +397,31 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                         }
                         Arrays.fill(chunkserversPresent, true);
                         // break;
+                    }
+                    if (!getLeader && passCnt == 6) {
+                        getLeader = true;
+                        System.out.println("storageActivated, start to refresh leader");
+                        System.out.println("groupId: " + groupId);
+                        System.out.println("conf: " + conf);
+                        System.out.println("RouteTable.getInstance1: " + RouteTable.getInstance());
+                        RouteTable.getInstance().updateConfiguration(groupId, conf);
+                        System.out.println("RouteTable.getInstance2: " + RouteTable.getInstance());
+                        try {
+                            if (!RouteTable.getInstance().refreshLeader(cliClientService, groupId,
+                                    1000).isOk()) {
+                                throw new IllegalStateException("Refresh leader failed");
+                            }
+                        } catch (InterruptedException | TimeoutException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        System.out.println("RouteTable.getInstance3: " + RouteTable.getInstance());
+
+                        final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
+                        System.out.println("Leader is " + leader + "\n\n");
+                        System.out.println("RouteTable is " + RouteTable.getInstance() + "\n\n");
+                        System.out.println("Configuration is " +
+                                RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
                     }
 
                 }
@@ -561,21 +593,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             // storage activated
             if (!storageActivated) {
                 storageActivated = true;
-                System.out.println("storageActivated, start to refresh leader");
-                System.out.println("groupId: " + groupId);
-                System.out.println("conf: " + conf);
-                System.out.println("RouteTable.getInstance: " + RouteTable.getInstance());
-                RouteTable.getInstance().updateConfiguration(groupId, conf);
-                if (!RouteTable.getInstance().refreshLeader(cliClientService, groupId,
-                        1000).isOk()) {
-                    throw new IllegalStateException("Refresh leader failed");
-                }
 
-                final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
-                System.out.println("Leader is " + leader + "\n\n");
-                System.out.println("RouteTable is " + RouteTable.getInstance() + "\n\n");
-                System.out.println("Configuration is " +
-                        RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
                 for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
                     oldHeartbeat.put(i, (long) 0);
                     serverStatus.put(i, false);
@@ -918,6 +936,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
     public void updateSecretKey(final CliClientServiceImpl cliClientService, String secretKey)
             throws RemotingException, InterruptedException {
+        System.out.println("master send Updating secret key request to chunkserver " + secretKey);
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
         // final long start = System.currentTimeMillis();
@@ -928,7 +947,9 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
         // Pass padded file size
         UpdateSecretKeyRequest request = packUpdateSecretKeyRequest();
+        System.out.println("updateSecretKey request: " + request);
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
+        System.out.println("updateSecretKey request leader: " + leader);
         updateSecretKeyRequest(cliClientService, leader, request, latch);
         // latch.await();
         // System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start)
@@ -945,6 +966,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             UpdateSecretKeyRequest request, CountDownLatch latch) throws RemotingException,
             InterruptedException {
         try {
+            System.out.println("updateSecretKeyRequest sendddddd");
             cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, new InvokeCallback() {
                 @Override
                 public void complete(Object result, Throwable err) {

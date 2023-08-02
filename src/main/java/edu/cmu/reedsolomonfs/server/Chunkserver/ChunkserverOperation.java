@@ -74,6 +74,7 @@ public class ChunkserverOperation implements Serializable {
     }
 
     public static ChunkserverOperation updateSecretKey(final String secretKey) {
+        System.out.println("update secret key operation");
         return new ChunkserverOperation(UPDATE_SECRETKEY, secretKey);
     }
 

@@ -85,9 +85,7 @@ public class Master {
         cliClientService = new CliClientServiceImpl();
         cliClientService.init(new CliOptions());
 
-       
-
-        System.setErr(new PrintStream("/dev/null"));
+        // System.setErr(new PrintStream("/dev/null"));
         masterImpl = new MasterImpl(groupId, conf);
         Server server = ServerBuilder.forPort(8080)
                 .addService(masterImpl)

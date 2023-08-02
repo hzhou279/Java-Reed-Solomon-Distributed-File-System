@@ -70,6 +70,7 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
 
     public boolean validateJWT(String token) {
         try {
+            System.out.println("fsm.getSecretKey(): " + fsm.getSecretKey());
             byte[] secretKeyBytes = fsm.getSecretKey().getBytes(StandardCharsets.UTF_8);
             System.out.println("secretKeyBytes: " + secretKeyBytes);
             // Parse the JWT token

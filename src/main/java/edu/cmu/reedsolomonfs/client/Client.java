@@ -349,6 +349,7 @@ public class Client {
             InterruptedException {
 
         try {
+            System.out.println("write request to leader:" + leader);
             cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, new InvokeCallback() {
 
                 @Override
