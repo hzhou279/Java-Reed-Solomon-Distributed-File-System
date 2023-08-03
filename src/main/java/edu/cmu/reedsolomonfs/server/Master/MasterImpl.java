@@ -967,6 +967,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             InterruptedException {
         try {
             System.out.println("updateSecretKeyRequest sendddddd");
+            System.out.println("updateSecretKeyRequest leader: " + leader);
+            System.out.println("updateSecretKeyRequest request: " + request);
             cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, new InvokeCallback() {
                 @Override
                 public void complete(Object result, Throwable err) {

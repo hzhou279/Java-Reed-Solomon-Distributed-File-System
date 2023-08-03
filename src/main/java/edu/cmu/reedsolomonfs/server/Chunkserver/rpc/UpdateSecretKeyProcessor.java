@@ -121,6 +121,6 @@ public class UpdateSecretKeyProcessor implements RpcProcessor<UpdateSecretKeyReq
 
     @Override
     public String interest() {
-        return UpdateSecretKeyProcessor.class.getName();
+        return UpdateSecretKeyRequest.class.getName();
     }
 }
