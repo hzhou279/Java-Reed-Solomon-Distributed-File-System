@@ -100,7 +100,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     Map<Integer, Long> currHeartbeat;
     Map<Integer, Long> oldHeartbeat;
     Map<Integer, Boolean> serverStatus;
-    final long checkInterval = 7000;
+    final long checkInterval = 5000;
     boolean[] chunkserversPresent;
     boolean needToRecover;
     private Map<String, Map<Integer, List<String>>> fileVersions;
@@ -145,7 +145,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         latestChunkIndex = new ConcurrentHashMap<>();
         chunkServerChunkFileNames = new ConcurrentHashMap<>();
         metadata = new HashMap<>();
-        redirectSystemOutToFile();
+        // redirectSystemOutToFile();
 
         // load from file if exists
         try {
@@ -166,9 +166,9 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         hbc.start();
 
         // Shutdown the recovery channel
-        for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++)
-            if (recoveryConnectionEstablished[i])
-                recoveryChannels[i].shutdown();
+        // for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++)
+        // if (recoveryConnectionEstablished[i])
+        // recoveryChannels[i].shutdown();
     }
 
     // print fileVersions, latestFileVersion, latestChunkIndex,
@@ -239,7 +239,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     public void addFileVersion(String filename, long fileSize, long appendAt, String writeFlag) {
         // retrieve the latest file version from the map, if not found, start from 0
         int latestVersion = latestFileVersion.getOrDefault(filename, 0);
-        int newVersion = latestVersion + 1;
+        // int newVersion = latestVersion + 1;
+        int newVersion = 0;
 
         // construct the new chunk file names linked list from the file size, starting
         // from the appendAt position
@@ -257,7 +258,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         long latestChunkIdx = latestChunkIndex.getOrDefault(filename, 0L);
         // get the latest chunk file idx from the originalChunkFileNames linked list
         for (long i = latestChunkIdx; i < chunkCnt; i++) {
-            newChunkFileNames.add(filename + "." + newVersion + "." + i);
+            newChunkFileNames.add(filename + "." + newVersion + "-" + i);
         }
 
         // find the appendAt node in the originalChunkFileNames linked list
@@ -293,11 +294,15 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                     k -> new ConcurrentHashMap<>());
             Set<String> chunkFileNames = shardMap.computeIfAbsent(filename, k -> Sets.newConcurrentHashSet());
             chunkFileNames.add(chunkFileName);
+            System.out.println("shardIdx: " + shardIdx);
+            System.out.println("filename: " + filename);
+            System.out.println("chunkFileName: " + chunkFileName);
+            shardMap.put(filename, chunkFileNames);
             chunkServerChunkFileNames.put(shardIdx, shardMap);
             // update metadata
             List<Node> nodes = metadata.getOrDefault(filename, new java.util.LinkedList<>());
             // extract chunkIdx from chunkFileName, ex: 9 from test.txt.0-9
-            int chunkIdx = Integer.parseInt(chunkFileName.substring(chunkFileName.lastIndexOf('.') + 1));
+            int chunkIdx = Integer.parseInt(chunkFileName.substring(chunkFileName.lastIndexOf('-') + 1));
             Node n = new Node(chunkIdx, shardIdx, false, ConfigVariables.BLOCK_SIZE);
             nodes.add(n);
             metadata.put(filename, nodes);
@@ -385,17 +390,17 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                     }
                     if (needToRecover) {
                         System.out.println("line 74 in MasterImpl");
-                        recoverOfflineChunkserver(chunkserversPresent);
-                        try {
-                            Thread.sleep(checkInterval);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        recoverOfflineChunkserver();
+                        // try {
+                        // Thread.sleep(checkInterval);
+                        // } catch (InterruptedException e) {
+                        // e.printStackTrace();
+                        // }
                         needToRecover = false;
-                        for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
-                            oldHeartbeat.put(i, (long) 0);
-                        }
-                        Arrays.fill(chunkserversPresent, true);
+                        // for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
+                        // oldHeartbeat.put(i, (long) 0);
+                        // }
+                        // Arrays.fill(chunkserversPresent, true);
                         // break;
                     }
                     if (!getLeader && passCnt == 6) {
@@ -668,9 +673,17 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
     private void initRecoveryChannelsAndStubs(int serverIdx) {
         // Create a gRPC channel to connect to the chunkserver
-        recoveryChannels[serverIdx] = ManagedChannelBuilder.forAddress("localhost", recoveryPorts[serverIdx])
+        // name is chunkserver1, chunkserver2, according to the serverIdx
+        // String name = "chunkserver" + (serverIdx + 1);
+        String name = "chunkserver" + (serverIdx);
+        recoveryChannels[serverIdx] = ManagedChannelBuilder.forAddress(name, recoveryPorts[serverIdx])
                 .usePlaintext() // For simplicity, using plaintext communication
                 .build();
+
+        // recoveryChannels[serverIdx] = ManagedChannelBuilder.forAddress("localhost",
+        // recoveryPorts[serverIdx])
+        // .usePlaintext() // For simplicity, using plaintext communication
+        // .build();
 
         // Create a client stub using the generated MyServiceGrpc class
         stubs[serverIdx] = RecoveryServiceGrpc.newBlockingStub(recoveryChannels[serverIdx]);
@@ -679,13 +692,20 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
     // Master requests chunk file data from cluster
     public byte[] makeRecoveryReadRequest(String filePath, int serverIdx) {
+        System.out.print("makeRecoveryReadRequest: " + filePath + " " + serverIdx + "\n");
         if (!recoveryConnectionEstablished[serverIdx])
             initRecoveryChannelsAndStubs(serverIdx);
         // Perform RPC calls using the stub
         RecoveryReadRequest request = RecoveryReadRequest.newBuilder().setChunkFilePath(filePath).build();
-        RecoveryReadResponse response = stubs[serverIdx].recoveryRead(request);
-        // System.out.println("Response from server: " + response.getChunkFileData());
-        return response.getChunkFileData().toByteArray();
+        try {
+            RecoveryReadResponse response = stubs[serverIdx].recoveryRead(request);
+            System.out.println("Response from server: " + response.getChunkFileData());
+            return response.getChunkFileData().toByteArray();
+        } catch (StatusRuntimeException e) {
+            e.printStackTrace();
+            ;
+        }
+        return null;
     }
 
     // Master writes recovered chunk file data to recovered chunkservers
@@ -702,48 +722,95 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     }
 
     private void relaunchOfflineChunkserver(int serverIdx, CountDownLatch latch) {
-        // Create a new thread to re launch one offline chunkserver
+        // Create a new thread to re-launch one offline chunkserver
         Thread launchThread = new Thread(() -> {
             try {
-                // Specify the Maven command
-                String[] mvnCommand = {
-                        "mvn",
-                        "exec:java",
-                        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver",
-                        "-Dexec.args=chunkserver" + (serverIdx + 1) + " cluster 127.0.0.1:808" + (serverIdx + 1)
-                                + " 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083,127.0.0.1:8084,127.0.0.1:8085,127.0.0.1:8086 "
-                                + serverIdx
+                // Step 1: Stop and remove the specific service's container
+                String[] dockerStopCommand = {
+                        "docker-compose",
+                        "stop",
+                        "chunkserver" + serverIdx
                 };
 
-                // Build the process
-                ProcessBuilder pb = new ProcessBuilder(mvnCommand);
-                pb.redirectErrorStream(true);
+                System.out.println("Stopping chunkserver" + serverIdx + "...");
+                ProcessBuilder pbStop = new ProcessBuilder(dockerStopCommand);
+                System.out.println("pbStop: " + pbStop.command());
+                // pbStop.redirectErrorStream(true);
+                Process processStop = pbStop.start();
+                int exitCodeStop = processStop.waitFor();
+                System.out.println("Exit code: " + exitCodeStop);
 
-                // Start the process
-                Process process = pb.start();
+                if (exitCodeStop != 0) {
+                    System.out.println("Failed to stop chunkserver" + serverIdx + ". Exit code: " + exitCodeStop);
+                    // return; // If stopping fails, don't try to start
+                }
 
-                // latch.countDown();
+                String[] dockerRmCommand = {
+                        "docker-compose",
+                        "rm",
+                        "-f", // No prompt confirmation
+                        "chunkserver" + serverIdx
+                };
+                System.out.println("Removing chunkserver" + serverIdx + "...");
+                ProcessBuilder pbRm = new ProcessBuilder(dockerRmCommand);
+                System.out.println("pbRm: " + pbRm.command());
+                // pbRm.redirectErrorStream(true);
+                Process processRm = pbRm.start();
+                int exitCodeRm = processRm.waitFor();
+                System.out.println("Exit code: " + exitCodeRm);
 
-                // Wait for the process to complete
-                int exitCode = process.waitFor();
+                if (exitCodeRm != 0) {
+                    System.out.println("Failed to remove chunkserver" + serverIdx + ". Exit code: " + exitCodeRm);
+                    // return; // If removal fails, don't try to start
+                }
 
-                System.out.println("Relaunched chunkserver completes with exit code: " + exitCode);
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+                // Here, add code to manually remove the volume if you know its name or have a
+                // consistent naming convention
+
+                // Step 2: Start the specific service's container
+                String[] dockerStartCommand = {
+                        "docker-compose",
+                        "up",
+                        "-d", // Start in detached mode
+                        "chunkserver" + serverIdx
+                };
+
+                System.out.println("Starting chunkserver" + serverIdx + "...");
+                ProcessBuilder pbStart = new ProcessBuilder(dockerStartCommand);
+                System.out.println("pbStart: " + pbStart.command());
+                // pbStart.redirectErrorStream(true);
+                Process processStart = pbStart.start();
+                System.out.println("Waiting for chunkserver" + serverIdx + " to start...");
+                System.out.println("processStart: " + processStart);
+                int exitCodeStart = processStart.waitFor();
+                System.out.println("Exit code: " + exitCodeStart);
+
+                if (exitCodeStart == 0) {
+                    System.out.println("Successfully relaunched chunkserver" + serverIdx + ".");
+                } else {
+                    System.out.println("Failed to relaunch chunkserver" + serverIdx + ". Exit code: " + exitCodeStart);
+                }
+
+            } catch (IOException e) {
+                System.err.println(
+                        "IO exception while trying to relaunch chunkserver" + serverIdx + ": " + e.getMessage());
+            } catch (InterruptedException e) {
+                System.err.println("Interrupted exception while trying to relaunch chunkserver" + serverIdx + ": "
+                        + e.getMessage());
             }
         });
 
-        // Start the thread to launch the additional process
+        // Start the thread to manage the processes
         launchThread.start();
     }
 
-    public void recoverOfflineChunkserver(boolean[] chunkserverPresent) throws IllegalArgumentException {
+    public void recoverOfflineChunkserver() throws IllegalArgumentException {
         System.out.println("line 97 Master");
         String[] chunkFilePathsInOneServer = null;
         List<Integer> offlineServerIndices = new ArrayList<>();
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
-            System.out.println("chunkserverpresent[" + i + "] = " + chunkserverPresent[i]);
-            if (!chunkserverPresent[i]) {
+            System.out.println("chunkserverpresent[" + i + "] = " + chunkserversPresent[i]);
+            if (!chunkserversPresent[i]) {
                 offlineServerIndices.add(i);
                 if (offlineServerIndices.size() > ConfigVariables.PARITY_SHARD_COUNT) {
                     System.out.println("The number of offline chunkservers exceed the maximum number to recover");
@@ -756,7 +823,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             // In normal case, Master should know all chunk file paths in any existing
             // chunkserver
             if (chunkFilePathsInOneServer == null) {
-                chunkFilePathsInOneServer = getChunkserverChunkFilePaths(i);
+                // chunkFilePathsInOneServer = getChunkserverChunkFilePaths(i);
+                chunkFilePathsInOneServer = getChunkserverChunkFilePathsByMetadata();
                 System.out.println("chunkFilePathsInOneServer: " + Arrays.toString(chunkFilePathsInOneServer));
             }
         }
@@ -809,6 +877,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             initRecoveryChannelsAndStubs(offlineServerIdx);
         }
 
+        List<Integer> offlineServerIndicesDuringRecovery = new ArrayList<>();
+
         // print the chunkFilePathsInOneServer
         System.out.println("chunkFilePathsInOneServer: " + Arrays.toString(chunkFilePathsInOneServer));
         for (String chunkFilePath : chunkFilePathsInOneServer) {
@@ -824,12 +894,20 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             // chunkservers
 
             ChunkserverDiskRecoveryMachine recoveryMachine = new ChunkserverDiskRecoveryMachine();
-            for (int i = 0; i < chunkserverPresent.length; i++) {
-                if (!chunkserverPresent[i])
+            for (int i = 0; i < chunkserversPresent.length; i++) {
+                if (!chunkserversPresent[i])
                     continue;
                 // Create the new filename with the updated number
                 String curChunkFilePath = filePathWithDash + (chunkGroupStartIdx + i);
                 byte[] curChunkData = makeRecoveryReadRequest(curChunkFilePath, i);
+                if (curChunkData == null) {
+                    chunkserversPresent[i] = false;
+                    offlineServerIndicesDuringRecovery.add(i);
+                    if (offlineServerIndices.size() + offlineServerIndicesDuringRecovery.size() > 2)
+                        throw new IllegalArgumentException(
+                                "The number of offline chunkservers exceed the maximum number to recover");
+                    continue;
+                }
                 recoveryMachine.addChunkserverDisksData(i, curChunkData);
             }
 
@@ -883,6 +961,40 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             }
 
         }
+
+        for (int offlineServerIdx : offlineServerIndices) {
+            chunkserversPresent[offlineServerIdx] = true;
+        }
+
+    }
+
+    private String[] getChunkserverChunkFilePathsByMetadata() {
+        // init filename string array with dynamic size
+        ArrayList<String> fileNames = new ArrayList<String>();
+        // String fileNames[] = new String[];
+        // iterate metadata key as the filename and save it to incremental index
+        int i = 0;
+        // get all chunk file names in a functional chunk server
+        Map<String, Set<String>> shardMap = chunkServerChunkFileNames.get(0);
+        System.out.println("chunkServerChunkFileNames: " + chunkServerChunkFileNames);
+        System.out.println("shardMap: " + shardMap);
+        // add the shardMap value to fileNames
+        for (Set<String> filenames : shardMap.values()) {
+            for (String filename : filenames) {
+                fileNames.add(filename);
+            }
+        }
+
+        // for (String filename : metadata.keySet()) {
+        // fileNames[i] = filename;
+        // i++;
+        // }
+        // convert arraylist to array string
+        String result[] = new String[fileNames.size()];
+        for (int j = 0; j < fileNames.size(); j++) {
+            result[j] = fileNames.get(j);
+        }
+        return result;
     }
 
     /**

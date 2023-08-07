@@ -99,7 +99,7 @@ public class ReadClient {
         System.out.println("Configuration is " + RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
 
         // Create a channel to connect to the master
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("master", 8080)
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
 

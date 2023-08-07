@@ -109,7 +109,7 @@ public class Chunkserver extends edu.cmu.reedsolomonfs.server.ChunkServerService
         // GrpcServer need init marshaller
         ChunkserverGrpcHelper.initGRpc();
         ChunkserverGrpcHelper.setRpcServer(rpcServer);
-        channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+        channel = ManagedChannelBuilder.forAddress("master", 8080)
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
         stub = MasterServiceGrpc.newBlockingStub(channel);
@@ -234,7 +234,7 @@ public class Chunkserver extends edu.cmu.reedsolomonfs.server.ChunkServerService
                 // System.out.println("JWT token received at client is: " +
                 // response.getToken());
                 try {
-                    sleep(5000); // heartbeat interval
+                    sleep(3000); // heartbeat interval
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

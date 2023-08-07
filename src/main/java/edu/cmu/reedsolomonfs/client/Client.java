@@ -108,7 +108,7 @@ public class Client {
                 RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
 
         // Create a channel to connect to the master
-        channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("master", 8080)
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
     }
@@ -125,8 +125,8 @@ public class Client {
         byte[] fileData = Files.readAllBytes(Path.of(filePath));
         create(cliClientService, "test.txt", fileData, groupId, tResponse.getToken());
         System.out.println(filePath + " created successfully!!!!");
-        // // sleep for 7s to wait for the data to be replicated to the follower
-        Thread.sleep(7000);
+        // // sleep for 3s to wait for the data to be replicated to the follower
+        Thread.sleep(3000);
 
         System.out.println("Going to read the file!!!!");
 
