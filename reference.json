@@ -1,0 +1,28 @@
+{
+    "referenceGuide": "It is important to cite all reference sources in the required format in this file. Proper citations will help you avoid unnecessary trouble with regard to academic integrity. Additionally, citing resources that you referred to can also be helpful as it documents your learning process and can aid in recalling the material when revisiting the project later, such as when you are preparing for job interviews. Citing resources does not excuse copying code. Read the course and university policy statements in this regard. If you discuss ideas with others, limit the discussion to block diagrams and arrows. Do not look at another students' code. When editing this file, read the JSON semantics and you may want to make use of JSON validator from the Internet if needed.",
+    "websites": [
+        {
+            "title": "JavaReedSolomon",
+            "organization": "Backblaze",
+            "license": "MIT license",
+            "url": "https://github.com/Backblaze/JavaReedSolomon",
+            "code": "ReedSolomonEncoder.java: line 19, line 49; ReedSolomonDecoder.java: line 18, line 57",
+            "description": "create method: Generate a Reed-Solomon object which enables erasure coding and decoding of file data; encodeParity method: Based on file data, generate parity data; decodeMissing method: Given a number of file data shards, recover any missing shards"
+        },
+        {
+            "title": "org.apache.commons.cli",
+            "organization": "Apache Software Foundation",
+            "license": "Apache License 2.0",
+            "url": "https://commons.apache.org/proper/commons-cli/",
+            "code": "ClientCLI.java: line 40, line 52, line 53",
+            "description": "CommandLine class: Provides methods for parsing command line arguments and retrieving their values; Options class: Represents a collection of command-line options with associated characteristics"
+        }
+    ],
+    "collaborators": [
+        {
+            "submissionUsername": "<collaborator submissionUsername>",
+            "collaborationType": "<I helped X, X helped me, or we helped each other>",
+            "description": "<describe the idea discussed or shared>"
+        }
+    ]
+}

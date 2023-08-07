@@ -111,13 +111,25 @@ public class ChunkserverServiceImpl implements ChunkserverService {
     }
 
     @Override
+    public void delete(final String filePath, final ChunkserverClosure closure) {
+        applyOperation(ChunkserverOperation.createDelete(filePath), closure);
+    }
+
+    @Override
     public void read(String filePath, final ChunkserverClosure closure) {
-        System.out.println("read filePath: " + filePath);
+        //System.out.println("read filePath: " + filePath);
         Map<String, byte[]> fileData = this.counterServer.getFsm().readFromServerDisk(filePath);
-        // System.out.println("fileData: " + fileData);
+        System.out.println("fileData: " + fileData);
         closure.successWithRead(fileData);
         closure.run(Status.OK());
+        //System.out.println("read filePath: " + filePath + "completes");
         return;
+    }
+
+    @Override
+    public void updateSecretKey(final String secretKey, final ChunkserverClosure closure) {
+        System.out.println("updateSecretKey: ChunkserverServiceImpl " + secretKey);
+        applyOperation(ChunkserverOperation.updateSecretKey(secretKey), closure);
     }
 
     private void applyOperation(final ChunkserverOperation op, final ChunkserverClosure closure) {

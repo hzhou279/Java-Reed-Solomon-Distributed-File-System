@@ -21,6 +21,7 @@ import com.alipay.sofa.jraft.conf.Configuration;
 import com.alipay.sofa.jraft.entity.PeerId;
 import com.alipay.sofa.jraft.error.RemotingException;
 
+import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ChunkserverGrpcHelper;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.IncrementAndGetRequest;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.SetBytesRequest;
@@ -46,10 +47,12 @@ import java.util.concurrent.TimeoutException;
 
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
+import edu.cmu.reedsolomonfs.cli.ClientCLI;
 import edu.cmu.reedsolomonfs.ConfigVariables;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -65,8 +68,13 @@ public class Client {
     // this.confStr = confStr;
     // this.cliClientService = cliClientService;
     // }
+    static ClientCLI cli = new ClientCLI();
+    public ManagedChannel channel;
+    public CliClientServiceImpl cliClientService;
+    public String groupId;
+    public String confStr;
 
-    public static void main(final String[] args) throws Exception {
+    public Client(final String[] args) throws Exception {
         if (args.length != 2) {
             System.out.println("Usage : java com.alipay.sofa.jraft.example.counter.CounterClient {groupId} {conf}");
             System.out
@@ -74,42 +82,48 @@ public class Client {
                             "Example: java com.alipay.sofa.jraft.example.counter.CounterClient counter 127.0.0.1:8081,127.0.0.1:8082,127.0.0.1:8083");
             System.exit(1);
         }
-        final String groupId = args[0];
-        final String confStr = args[1];
+        groupId = args[0];
+        confStr = args[1];
         ChunkserverGrpcHelper.initGRpc();
 
         final Configuration conf = new Configuration();
         if (!conf.parse(confStr)) {
             throw new IllegalArgumentException("Fail to parse conf:" + confStr);
         }
-
+        System.out.println(groupId + "????");
         RouteTable.getInstance().updateConfiguration(groupId, conf);
 
-        final CliClientServiceImpl cliClientService = new CliClientServiceImpl();
+        cliClientService = new CliClientServiceImpl();
         cliClientService.init(new CliOptions());
 
-        if (!RouteTable.getInstance().refreshLeader(cliClientService, groupId, 1000).isOk()) {
+        if (!RouteTable.getInstance().refreshLeader(cliClientService, groupId,
+                1000).isOk()) {
             throw new IllegalStateException("Refresh leader failed");
         }
 
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         System.out.println("Leader is " + leader + "\n\n");
         System.out.println("RouteTable is " + RouteTable.getInstance() + "\n\n");
-        System.out.println("Configuration is " + RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
+        System.out.println("Configuration is " +
+                RouteTable.getInstance().getConfiguration(groupId) + "\n\n");
 
         // Create a channel to connect to the master
         ManagedChannel channel = ManagedChannelBuilder.forAddress("master", 8080)
                 .usePlaintext() // Use insecure connection, for testing only
                 .build();
+    }
 
+    public void test(final String[] args) throws Exception {
         // Cache file metadata
         Map<String, FileMetadata> cache = new HashMap<>();
+
+        TokenResponse tResponse = requestToken("read", "/A/B/C");
+        System.out.println("Token received: " + tResponse.getToken());
 
         // Make a create request
         String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
         byte[] fileData = Files.readAllBytes(Path.of(filePath));
-
-        create(cliClientService, "test.txt", fileData, groupId);
+        create(cliClientService, "test.txt", fileData, groupId, tResponse.getToken());
         System.out.println(filePath + " created successfully!!!!");
         // // sleep for 3s to wait for the data to be replicated to the follower
         Thread.sleep(3000);
@@ -180,14 +194,14 @@ public class Client {
         // System.out.println("peer:" + peer.getEndpoint());
         // }
         for (PeerId peer : conf) {
-            System.out.println("peer:" + peer.getEndpoint());
+            //System.out.println("peer:" + peer.getEndpoint());
 
             // invokeSync and print the result
             ValueResponse response = (ValueResponse) cliClientService.getRpcClient().invokeSync(peer.getEndpoint(),
                     request, 15000);
 
-            System.out.println("Chunk Data:" + response.getChunkDataMapMap());
-            System.out.println("Chunk Data Size:" + response.getChunkDataMapMap().size());
+            //System.out.println("Chunk Data:" + response.getChunkDataMapMap());
+            //System.out.println("Chunk Data Size:" + response.getChunkDataMapMap().size());
 
             // save the chunk data in a map
             Map<String, ByteString> chunkDataMap = new HashMap<>();
@@ -206,12 +220,12 @@ public class Client {
             // concate the sorted map value by key to byte[]
             byte[] shardBytes = new byte[0];
             for (Object key : sortedKeys) {
-                System.out.println("key:" + key);
+                //System.out.println("key:" + key);
                 shardBytes = Bytes.concat(shardBytes, chunkDataMap.get(key).toByteArray());
             }
 
             // System.out.println("shardBytes:" + new String(shardBytes));
-            System.out.println("shardBytes Size:" + shardBytes.length);
+            //System.out.println("shardBytes Size:" + shardBytes.length);
 
             if (response.getChunkDataMapMap() != null && response.getChunkDataMapMap().size() != 0) {
                 shardsPresent[serverCnt] = true;
@@ -222,8 +236,11 @@ public class Client {
             serverCnt++;
         }
 
-        if (byteCntInShards == 0)
-            throw new IllegalArgumentException("There is not enough data to decode");
+        if (byteCntInShards == 0) {
+            System.out.println("File does not exist");
+            return null;
+        }
+            // throw new IllegalArgumentException("There is not enough data to decode");
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
             if (shards[i] == null)
                 shards[i] = new byte[byteCntInShards];
@@ -235,25 +252,39 @@ public class Client {
         return decoder.getFileData();
     }
 
-    public static TokenResponse requestToken(ManagedChannel channel, String requestType, String filePath) {
+    public TokenResponse requestToken(String requestType, String filePath) {
         // Create a stub for the service
-        ClientMasterServiceGrpc.ClientMasterServiceBlockingStub stub = ClientMasterServiceGrpc.newBlockingStub(channel);
+        //System.out.println("Creating stub for master service");
+        // print out channel
+        //System.out.println("Channel is " + channel);
+        MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(channel);
 
+        //System.out.println("stub is " + stub);
+        //System.out.println("Requesting JWT token from master for " + requestType + " operation on file " + filePath);
         TokenRequest request = TokenRequest.newBuilder()
                 .setRequestType(requestType)
                 .setFilePath(filePath)
                 .build();
 
+        //System.out.println("Sending request to master for JWT token request" + request);
         // Make the RPC call and receive the response
         TokenResponse response = stub.getToken(request);
 
-        System.out.println("JWT token received at client is: " + response.getToken());
+        //System.out.println("JWT token received at client is: " + response.getToken());
 
         return response;
     }
 
-    public static void delete() {
+    public void delete(final CliClientServiceImpl cliClientService, String filePath,
+            final String groupId, String token) throws RemotingException, InterruptedException {
+        final int n = 10000;
+        final CountDownLatch latch = new CountDownLatch(n);
 
+        //System.out.println("Client delete: " + filePath);
+        WriteRequest request = packWriteRequest("delete", filePath, -1, 0, null, "delete",
+                -1, -1, token);
+        final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
+        writeRequest(cliClientService, leader, request, latch);
     }
 
     public static void overwrite() {
@@ -264,11 +295,11 @@ public class Client {
 
     }
 
-    public static void create(final CliClientServiceImpl cliClientService, String filePath, byte[] fileData,
-            final String groupId) throws RemotingException, InterruptedException {
+    public void create(final CliClientServiceImpl cliClientService, String filePath, byte[] fileData,
+            final String groupId, String token) throws RemotingException, InterruptedException {
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
-        final long start = System.currentTimeMillis();
+        // final long start = System.currentTimeMillis();
 
         ReedSolomonEncoder encoder = new ReedSolomonEncoder(fileData);
         encoder.encode();
@@ -279,31 +310,41 @@ public class Client {
         // encoder.getLastChunkIdx());
 
         // Pass padded file size
+        //System.out.println("Client create: " + filePath);
         WriteRequest request = packWriteRequest("touch", filePath, encoder.getPaddedFileSize(), 0, shards, "create",
-                encoder.getLastChunkIdx(), encoder.getFileSize());
+                encoder.getLastChunkIdx(), encoder.getFileSize(), token);
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
         // latch.await();
-        System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start) + " mssssssss.");
+        // System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start)
+        // + " mssssssss.");
     }
 
     private static WriteRequest packWriteRequest(String operationType, String filePath, int fileSize, int appendAt,
-            byte[][] shards, String writeFlag, int lastChunkIdx, int originalFileSize) {
+            byte[][] shards, String writeFlag, int lastChunkIdx, int originalFileSize, String token) {
         WriteRequest.Builder requestBuilder = WriteRequest.newBuilder();
 
-        for (byte[] shard : shards) {
-            // System.out.println("current shard is: " + new String(shard));
-            requestBuilder.addPayload(ByteString.copyFrom(shard));
+        if (writeFlag.equals("create")) {
+            for (byte[] shard : shards) {
+                // System.out.println("current shard is: " + new String(shard));
+                requestBuilder.addPayload(ByteString.copyFrom(shard));
+            }
+
+            requestBuilder.setOperationType(operationType);
+            //System.out.println("Client packWriteRequest: " + filePath);
+            requestBuilder.setFilePath(filePath);
+            requestBuilder.setFileSize(fileSize);
+            requestBuilder.setAppendAt(appendAt);
+            requestBuilder.setWriteFlag(writeFlag);
+            requestBuilder.setLastChunkIdx(lastChunkIdx);
+            requestBuilder.setOriginalFileSize(originalFileSize);
+            requestBuilder.setToken(token);
+
+        } else if (writeFlag.equals("delete")) {
+            requestBuilder.setWriteFlag(writeFlag);
+            requestBuilder.setFilePath(filePath);
+            requestBuilder.setToken(token);
         }
-
-        requestBuilder.setOperationType(operationType);
-        requestBuilder.setFilePath(filePath);
-        requestBuilder.setFileSize(fileSize);
-        requestBuilder.setAppendAt(appendAt);
-        requestBuilder.setWriteFlag(writeFlag);
-        requestBuilder.setLastChunkIdx(lastChunkIdx);
-        requestBuilder.setOriginalFileSize(originalFileSize);
-
         return requestBuilder.build();
     }
 
@@ -312,6 +353,7 @@ public class Client {
             InterruptedException {
 
         try {
+            //System.out.println("write request to leader:" + leader);
             cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, new InvokeCallback() {
 
                 @Override
@@ -333,7 +375,6 @@ public class Client {
         } catch (InaccessibleObjectException e) {
             System.err.println("Caught InaccessibleObjectException: " + e.getMessage());
         }
-
     }
 
     private static void setBytesValue(final CliClientServiceImpl cliClientService, final PeerId leader,

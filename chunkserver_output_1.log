@@ -1,0 +1,33 @@
+Sofa-Middleware-Log SLF4J : Actual binding is of type [ com.alipay.remoting Log4j2 ]
+ChunkserverStateMachine created for serverIdx 1
+serverDiskPath is ./ClientClusterCommTestFiles/Disks/chunkserver-1/
+originalFileName is B/C/txt.txt
+fileNameWithSubDir is B/C/txt.txt.0-1
+originalFileName is NI/NN/nn.txt
+fileNameWithSubDir is NI/NN/nn.txt.0-1
+originalFileName is A/B/txt.txt
+fileNameWithSubDir is A/B/txt.txt.0-1
+originalFileName is A/MM/mm.txt
+fileNameWithSubDir is A/MM/mm.txt.0-1
+originalFileName is A/C/cc.txt
+fileNameWithSubDir is A/C/cc.txt.0-1
+originalFileName is M/M/mm.txt
+fileNameWithSubDir is M/M/mm.txt.0-1
+originalFileName is E/F/pp.txt
+fileNameWithSubDir is E/F/pp.txt.0-1
+originalFileName is E/F/nice.txt
+fileNameWithSubDir is E/F/nice.txt.0-1
+originalFileName is E/E/E/ee.txt
+fileNameWithSubDir is E/E/E/ee.txt.0-1
+server 1 initialize printStoredFileNameToChunks:
+server 1 storedFileNameToChunks:
+storedFileNameToChunks size is 9
+File: /A/B/txt.txt, Chunks: [A/B/txt.txt.0-1]
+File: /E/E/E/ee.txt, Chunks: [E/E/E/ee.txt.0-1]
+File: /A/MM/mm.txt, Chunks: [A/MM/mm.txt.0-1]
+File: /E/F/nice.txt, Chunks: [E/F/nice.txt.0-1]
+File: /NI/NN/nn.txt, Chunks: [NI/NN/nn.txt.0-1]
+File: /E/F/pp.txt, Chunks: [E/F/pp.txt.0-1]
+File: /A/C/cc.txt, Chunks: [A/C/cc.txt.0-1]
+File: /B/C/txt.txt, Chunks: [B/C/txt.txt.0-1]
+File: /M/M/mm.txt, Chunks: [M/M/mm.txt.0-1]

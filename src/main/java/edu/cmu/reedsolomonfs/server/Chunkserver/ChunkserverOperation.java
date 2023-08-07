@@ -30,19 +30,24 @@ public class ChunkserverOperation implements Serializable {
     private static final long serialVersionUID = -6597003954824547294L;
 
     /** Get value */
-    public static final byte  GET              = 0x01;
+    public static final byte GET = 0x01;
     /** Increment and get value */
-    public static final byte  INCREMENT        = 0x02;
+    public static final byte INCREMENT = 0x02;
     /** Write bytes */
-    public static final byte  WRITE_BYTES      = 0x03;
+    public static final byte WRITE_BYTES = 0x03;
     /** Read bytes */
-    public static final byte  READ_BYTES       = 0x04;
+    public static final byte READ_BYTES = 0x04;
+    /** Delete bytes */
+    public static final byte DELETE_BYTES = 0x05;
 
-    private byte              op;
-    private long              delta;
-    private byte[]            bytes;
-    private byte[][]          shards;
-    private FileMetadata      metadata;
+    public static final byte UPDATE_SECRETKEY = 0x06;
+
+    private byte op;
+    private long delta;
+    private byte[] bytes;
+    private byte[][] shards;
+    private FileMetadata metadata;
+    private String filePath;
 
     public static ChunkserverOperation createGet() {
         return new ChunkserverOperation(GET);
@@ -60,8 +65,17 @@ public class ChunkserverOperation implements Serializable {
         return new ChunkserverOperation(WRITE_BYTES, shards, metadata);
     }
 
+    public static ChunkserverOperation createDelete(final String filePath) {
+        return new ChunkserverOperation(DELETE_BYTES, filePath);
+    }
+
     public static ChunkserverOperation createReadBytes() {
         return new ChunkserverOperation(READ_BYTES);
+    }
+
+    public static ChunkserverOperation updateSecretKey(final String secretKey) {
+        System.out.println("update secret key operation");
+        return new ChunkserverOperation(UPDATE_SECRETKEY, secretKey);
     }
 
     public ChunkserverOperation(byte op) {
@@ -84,6 +98,11 @@ public class ChunkserverOperation implements Serializable {
         this.metadata = metadata;
     }
 
+    public ChunkserverOperation(byte op, String filePath) {
+        this.op = op;
+        this.filePath = filePath;
+    }
+
     public byte getOp() {
         return op;
     }
@@ -100,8 +119,12 @@ public class ChunkserverOperation implements Serializable {
         return shards;
     }
 
-        public FileMetadata getMetadata() {
+    public FileMetadata getMetadata() {
         return metadata;
+    }
+
+    public String getFilePath() {
+        return filePath;
     }
 
     public boolean isReadOp() {

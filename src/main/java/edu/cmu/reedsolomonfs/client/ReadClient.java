@@ -21,6 +21,7 @@ import com.alipay.sofa.jraft.conf.Configuration;
 import com.alipay.sofa.jraft.entity.PeerId;
 import com.alipay.sofa.jraft.error.RemotingException;
 
+import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ChunkserverGrpcHelper;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.IncrementAndGetRequest;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.SetBytesRequest;
@@ -48,8 +49,8 @@ import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
 import edu.cmu.reedsolomonfs.ConfigVariables;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenRequest;
+import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -177,17 +178,17 @@ public class ReadClient {
         byte[][] shards = new byte[ConfigVariables.TOTAL_SHARD_COUNT][];
         boolean[] shardsPresent = new boolean[ConfigVariables.TOTAL_SHARD_COUNT];
         // for (PeerId peer : conf) {
-        //     System.out.println("peer:" + peer.getEndpoint());
+        // System.out.println("peer:" + peer.getEndpoint());
         // }
         for (PeerId peer : conf) {
-            System.out.println("peer:" + peer.getEndpoint());
+            //System.out.println("peer:" + peer.getEndpoint());
 
             // invokeSync and print the result
             ValueResponse response = (ValueResponse) cliClientService.getRpcClient().invokeSync(peer.getEndpoint(),
                     request, 15000);
 
-            System.out.println("Chunk Data:" + response.getChunkDataMapMap());
-            System.out.println("Chunk Data Size:" + response.getChunkDataMapMap().size());
+            //System.out.println("Chunk Data:" + response.getChunkDataMapMap());
+            //System.out.println("Chunk Data Size:" + response.getChunkDataMapMap().size());
 
             // save the chunk data in a map
             Map<String, ByteString> chunkDataMap = new HashMap<>();
@@ -206,12 +207,12 @@ public class ReadClient {
             // concate the sorted map value by key to byte[]
             byte[] shardBytes = new byte[0];
             for (Object key : sortedKeys) {
-                System.out.println("key:" + key);
+                //System.out.println("key:" + key);
                 shardBytes = Bytes.concat(shardBytes, chunkDataMap.get(key).toByteArray());
             }
 
             // System.out.println("shardBytes:" + new String(shardBytes));
-            System.out.println("shardBytes Size:" + shardBytes.length);
+            //System.out.println("shardBytes Size:" + shardBytes.length);
 
             if (response.getChunkDataMapMap() != null && response.getChunkDataMapMap().size() != 0) {
                 shardsPresent[serverCnt] = true;
@@ -237,7 +238,7 @@ public class ReadClient {
 
     public static TokenResponse requestToken(ManagedChannel channel, String requestType, String filePath) {
         // Create a stub for the service
-        ClientMasterServiceGrpc.ClientMasterServiceBlockingStub stub = ClientMasterServiceGrpc.newBlockingStub(channel);
+        MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(channel);
 
         TokenRequest request = TokenRequest.newBuilder()
                 .setRequestType(requestType)
@@ -247,7 +248,7 @@ public class ReadClient {
         // Make the RPC call and receive the response
         TokenResponse response = stub.getToken(request);
 
-        System.out.println("JWT token received at client is: " + response.getToken());
+        //System.out.println("JWT token received at client is: " + response.getToken());
 
         return response;
     }
@@ -274,9 +275,10 @@ public class ReadClient {
         encoder.encode();
         byte[][] shards = encoder.getShards();
 
-        // WriteRequest request = packWriteRequest("touch", filePath, encoder.getFileSize(), 0, shards, "create",
-        //         encoder.getLastChunkIdx());
-        
+        // WriteRequest request = packWriteRequest("touch", filePath,
+        // encoder.getFileSize(), 0, shards, "create",
+        // encoder.getLastChunkIdx());
+
         // Pass padded file size
         WriteRequest request = packWriteRequest("touch", filePath, encoder.getPaddedFileSize(), 0, shards, "create",
                 encoder.getLastChunkIdx(), encoder.getFileSize());

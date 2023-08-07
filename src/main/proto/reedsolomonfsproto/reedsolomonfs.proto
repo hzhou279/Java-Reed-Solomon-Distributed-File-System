@@ -2,29 +2,6 @@ syntax = "proto3";
 
 package edu.cmu.reedsolomonfs.client;
 
-message TokenRequest {
-    string requestType = 1;
-    string filePath = 2;
-}
-
-message TokenResponse {
-    bool isHealthy = 1;
-    string token = 2;
-    repeated string ips = 3;
-    GRPCMetadata metadata = 4;
-    int32 fileSize = 5;
-}
-
-message GRPCNode {
-    int32 chunkIdx = 1; 
-    int32 serverId = 2;
-    bool isData = 3;
-}
-
-message GRPCMetadata {
-    string filePath = 1;
-    repeated GRPCNode nodes = 2;
-}
 
 message ReadRequest {
     string operationType = 1;
@@ -46,6 +23,7 @@ message WriteRequest {
     repeated bytes payload = 6;
     string writeFlag = 7;
     int32 lastChunkIdx = 8;
+    string token = 9;
 }
 
 message WriteResponse {
@@ -57,11 +35,6 @@ message UpdateMetadataRequest {
     string filePath = 1;
     
 }
-
-service ClientMasterService {
-    rpc GetToken(TokenRequest) returns (TokenResponse);
-}
-
 
 
 // service ClientChunkserverService {
