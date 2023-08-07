@@ -121,12 +121,13 @@ public class ClientCLI implements KeyListener {
             } else if (words[0].equals("ls")) {
                 tree = new DirectoryTree();
                 TokenResponse tResponse1 = client.requestToken("read", "/A/B/C");
+                token = tResponse1.getToken();
                 List<GRPCMetadata> m1 = tResponse1.getMetadataList();
                 for (GRPCMetadata data : m1) {
                     tree.addPath(data.getFilePath());
                 }
                 root = tree.getRoot();
-
+                
                 List<String> lsList = new ArrayList<>();
                 lsList = tree.listDirectory(localPath);
                 for (String string : lsList) {

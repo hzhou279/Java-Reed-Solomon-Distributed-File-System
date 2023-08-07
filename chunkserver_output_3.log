@@ -9,11 +9,14 @@ originalFileName is A/MM/mm.txt
 fileNameWithSubDir is A/MM/mm.txt.0-3
 originalFileName is E/F/nice.txt
 fileNameWithSubDir is E/F/nice.txt.0-3
+originalFileName is E/F/pp.txt
+fileNameWithSubDir is E/F/pp.txt.0-3
 originalFileName is E/E/E/ee.txt
 fileNameWithSubDir is E/E/E/ee.txt.0-3
 server 3 initialize printStoredFileNameToChunks:
 server 3 storedFileNameToChunks:
-storedFileNameToChunks size is 5
+storedFileNameToChunks size is 6
+File: E/F/pp.txt, Chunks: [E/F/pp.txt.0-3]
 File: B/C/txt.txt, Chunks: [B/C/txt.txt.0-3]
 File: E/F/nice.txt, Chunks: [E/F/nice.txt.0-3]
 File: A/MM/mm.txt, Chunks: [A/MM/mm.txt.0-3]
