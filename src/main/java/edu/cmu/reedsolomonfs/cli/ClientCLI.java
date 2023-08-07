@@ -218,7 +218,7 @@ public class ClientCLI implements KeyListener {
                 
                 client.delete(client.cliClientService, wholePath, client.groupId, token);
                 System.out.println(wholePath);
-                tree.delete(wholePath);
+                // tree.delete(wholePath);
             } else {
                 System.out.println("Invalid Command");
             }
