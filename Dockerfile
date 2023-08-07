@@ -37,6 +37,9 @@ RUN apt-get update && apt-get install -y \
 RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose
 
+# Install vim
+RUN apt-get update && apt-get install -y vim
+
 # Compile the project
 RUN mvn clean compile -X
 

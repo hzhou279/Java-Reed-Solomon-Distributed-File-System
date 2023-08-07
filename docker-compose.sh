@@ -22,7 +22,7 @@ case $command in
     ;;
   client-cli)
     echo "Starting command line interface...."
-    docker-compose -f docker-compose.client-cli.yml up
+    docker-compose -f docker-compose.client-cli.yml run client_cli
     ;;
   *)
     echo "Invalid command. Valid commands are: build, start, stop"
