@@ -240,7 +240,7 @@ public class Client {
             System.out.println("File does not exist");
             return null;
         }
-            // throw new IllegalArgumentException("There is not enough data to decode");
+        // throw new IllegalArgumentException("There is not enough data to decode");
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
             if (shards[i] == null)
                 shards[i] = new byte[byteCntInShards];
@@ -281,6 +281,7 @@ public class Client {
         final CountDownLatch latch = new CountDownLatch(n);
 
         System.out.println("Client delete: " + filePath);
+        System.out.println("token: " + token);
         WriteRequest request = packWriteRequest("delete", filePath, -1, 0, null, "delete",
                 -1, -1, token);
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
@@ -343,6 +344,7 @@ public class Client {
         } else if (writeFlag.equals("delete")) {
             requestBuilder.setWriteFlag(writeFlag);
             requestBuilder.setFilePath(filePath);
+            requestBuilder.setToken(token);
         }
         return requestBuilder.build();
     }
