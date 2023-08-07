@@ -95,7 +95,7 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                     String originalFileName = fileNameWithSubDir.substring(0, separatorIndex);
                     System.out.println("originalFileName is " + originalFileName);
                     System.out.println("fileNameWithSubDir is " + fileNameWithSubDir);
-                    storedFileNameToChunks.computeIfAbsent(originalFileName, k -> new ArrayList<>())
+                    storedFileNameToChunks.computeIfAbsent("/" + originalFileName, k -> new ArrayList<>())
                             .add(fileNameWithSubDir);
                 }
 
@@ -185,8 +185,10 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
         System.out.println("readFromServerDisk line 181");
         // get chunks file path from storedFileNameToChunks
         List<String> chunkFilePaths = storedFileNameToChunks.get(filePath);
-        if (chunkFilePaths == null)
+        if (chunkFilePaths == null) {
             System.out.println("chunk file paths does not exist.");
+            return new HashMap<String, byte[]>();
+        }    
         // System.out.println("chunkFilePaths is " + chunkFilePaths);
         // read chunks from disk
         Map<String, byte[]> chunks = new HashMap<String, byte[]>();

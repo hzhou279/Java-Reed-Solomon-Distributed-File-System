@@ -236,8 +236,11 @@ public class Client {
             serverCnt++;
         }
 
-        if (byteCntInShards == 0)
-            throw new IllegalArgumentException("There is not enough data to decode");
+        if (byteCntInShards == 0) {
+            System.out.println("File does not exist");
+            return null;
+        }
+            // throw new IllegalArgumentException("There is not enough data to decode");
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
             if (shards[i] == null)
                 shards[i] = new byte[byteCntInShards];
