@@ -149,7 +149,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     public void addFileVersion(String filename, long fileSize, long appendAt, String writeFlag) {
         // retrieve the latest file version from the map, if not found, start from 0
         int latestVersion = latestFileVersion.getOrDefault(filename, 0);
-        int newVersion = latestVersion + 1;
+        // int newVersion = latestVersion + 1;
+        int newVersion = 0;
 
         // construct the new chunk file names linked list from the file size, starting
         // from the appendAt position
@@ -167,7 +168,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         long latestChunkIdx = latestChunkIndex.getOrDefault(filename, 0L);
         // get the latest chunk file idx from the originalChunkFileNames linked list
         for (long i = latestChunkIdx; i < chunkCnt; i++) {
-            newChunkFileNames.add(filename + "." + newVersion + "." + i);
+            newChunkFileNames.add(filename + "." + newVersion + "-" + i);
         }
 
         // find the appendAt node in the originalChunkFileNames linked list
@@ -203,11 +204,15 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                     k -> new ConcurrentHashMap<>());
             Set<String> chunkFileNames = shardMap.computeIfAbsent(filename, k -> Sets.newConcurrentHashSet());
             chunkFileNames.add(chunkFileName);
+            System.out.println("shardIdx: " + shardIdx);
+            System.out.println("filename: " + filename);
+            System.out.println("chunkFileName: " + chunkFileName);
+            shardMap.put(filename, chunkFileNames);
             chunkServerChunkFileNames.put(shardIdx, shardMap);
             // update metadata
             List<Node> nodes = metadata.getOrDefault(filename, new java.util.LinkedList<>());
             // extract chunkIdx from chunkFileName, ex: 9 from test.txt.0-9
-            int chunkIdx = Integer.parseInt(chunkFileName.substring(chunkFileName.lastIndexOf('.') + 1));
+            int chunkIdx = Integer.parseInt(chunkFileName.substring(chunkFileName.lastIndexOf('-') + 1));
             Node n = new Node(chunkIdx, shardIdx, false, ConfigVariables.BLOCK_SIZE);
             nodes.add(n);
             metadata.put(filename, nodes);
@@ -393,7 +398,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     private void initRecoveryChannelsAndStubs(int serverIdx) {
         // Create a gRPC channel to connect to the chunkserver
         // name is chunkserver1, chunkserver2, according to the serverIdx
-        String name = "chunkserver" + (serverIdx + 1);
+        // String name = "chunkserver" + (serverIdx + 1);
+        String name = "chunkserver" + (serverIdx);
         recoveryChannels[serverIdx] = ManagedChannelBuilder.forAddress(name, recoveryPorts[serverIdx])
                 .usePlaintext() // For simplicity, using plaintext communication
                 .build();
@@ -410,13 +416,14 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
     // Master requests chunk file data from cluster
     public byte[] makeRecoveryReadRequest(String filePath, int serverIdx) {
+        System.out.print("makeRecoveryReadRequest: " + filePath + " " + serverIdx + "\n");
         if (!recoveryConnectionEstablished[serverIdx])
             initRecoveryChannelsAndStubs(serverIdx);
         // Perform RPC calls using the stub
         RecoveryReadRequest request = RecoveryReadRequest.newBuilder().setChunkFilePath(filePath).build();
         try {
             RecoveryReadResponse response = stubs[serverIdx].recoveryRead(request);
-            // System.out.println("Response from server: " + response.getChunkFileData());
+            System.out.println("Response from server: " + response.getChunkFileData());
             return response.getChunkFileData().toByteArray();
         } catch (StatusRuntimeException e) {
             e.printStackTrace();
@@ -442,40 +449,82 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         // Create a new thread to re-launch one offline chunkserver
         Thread launchThread = new Thread(() -> {
             try {
-                // Specify the Docker command
-                String[] dockerCommand = {
+                // Step 1: Stop and remove the specific service's container
+                String[] dockerStopCommand = {
                         "docker-compose",
-                        "restart",
-                        "chunkserver" + (serverIdx)
+                        "stop",
+                        "chunkserver" + serverIdx
                 };
 
-                // Build the process
-                ProcessBuilder pb = new ProcessBuilder(dockerCommand);
-                pb.redirectErrorStream(true);
+                System.out.println("Stopping chunkserver" + serverIdx + "...");
+                ProcessBuilder pbStop = new ProcessBuilder(dockerStopCommand);
+                System.out.println("pbStop: " + pbStop.command());
+                // pbStop.redirectErrorStream(true);
+                Process processStop = pbStop.start();
+                int exitCodeStop = processStop.waitFor();
+                System.out.println("Exit code: " + exitCodeStop);
 
-                // Start the process
-                Process process = pb.start();
+                if (exitCodeStop != 0) {
+                    System.out.println("Failed to stop chunkserver" + serverIdx + ". Exit code: " + exitCodeStop);
+                    // return; // If stopping fails, don't try to start
+                }
 
-                // Wait for the process to complete
-                int exitCode = process.waitFor();
+                String[] dockerRmCommand = {
+                        "docker-compose",
+                        "rm",
+                        "-f", // No prompt confirmation
+                        "chunkserver" + serverIdx
+                };
+                System.out.println("Removing chunkserver" + serverIdx + "...");
+                ProcessBuilder pbRm = new ProcessBuilder(dockerRmCommand);
+                System.out.println("pbRm: " + pbRm.command());
+                // pbRm.redirectErrorStream(true);
+                Process processRm = pbRm.start();
+                int exitCodeRm = processRm.waitFor();
+                System.out.println("Exit code: " + exitCodeRm);
 
-                // Check exit code and print appropriate message
-                if (exitCode == 0) {
-                    System.out.println("Successfully relaunched chunkserver" + (serverIdx) + ".");
+                if (exitCodeRm != 0) {
+                    System.out.println("Failed to remove chunkserver" + serverIdx + ". Exit code: " + exitCodeRm);
+                    // return; // If removal fails, don't try to start
+                }
+
+                // Here, add code to manually remove the volume if you know its name or have a
+                // consistent naming convention
+
+                // Step 2: Start the specific service's container
+                String[] dockerStartCommand = {
+                        "docker-compose",
+                        "up",
+                        "-d", // Start in detached mode
+                        "chunkserver" + serverIdx
+                };
+
+                System.out.println("Starting chunkserver" + serverIdx + "...");
+                ProcessBuilder pbStart = new ProcessBuilder(dockerStartCommand);
+                System.out.println("pbStart: " + pbStart.command());
+                // pbStart.redirectErrorStream(true);
+                Process processStart = pbStart.start();
+                System.out.println("Waiting for chunkserver" + serverIdx + " to start...");
+                System.out.println("processStart: " + processStart);
+                int exitCodeStart = processStart.waitFor();
+                System.out.println("Exit code: " + exitCodeStart);
+
+                if (exitCodeStart == 0) {
+                    System.out.println("Successfully relaunched chunkserver" + serverIdx + ".");
                 } else {
-                    System.out.println("Failed to relaunch chunkserver" + (serverIdx) + ". Exit code: " + exitCode);
+                    System.out.println("Failed to relaunch chunkserver" + serverIdx + ". Exit code: " + exitCodeStart);
                 }
 
             } catch (IOException e) {
                 System.err.println(
-                        "IO exception while trying to relaunch chunkserver" + (serverIdx + 1) + ": " + e.getMessage());
+                        "IO exception while trying to relaunch chunkserver" + serverIdx + ": " + e.getMessage());
             } catch (InterruptedException e) {
-                System.err.println("Interrupted exception while trying to relaunch chunkserver" + (serverIdx + 1) + ": "
+                System.err.println("Interrupted exception while trying to relaunch chunkserver" + serverIdx + ": "
                         + e.getMessage());
             }
         });
 
-        // Start the thread to launch the additional process
+        // Start the thread to manage the processes
         launchThread.start();
     }
 
@@ -644,15 +693,32 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
     }
 
     private String[] getChunkserverChunkFilePathsByMetadata() {
-        // init filename string array with the size of metadata key set
-        String fileNames[] = new String[metadata.keySet().size()];
+        // init filename string array with dynamic size
+        ArrayList<String> fileNames = new ArrayList<String>();
+        // String fileNames[] = new String[];
         // iterate metadata key as the filename and save it to incremental index
         int i = 0;
-        for (String filename : metadata.keySet()) {
-            fileNames[i] = filename;
-            i++;
+        // get all chunk file names in a functional chunk server
+        Map<String, Set<String>> shardMap = chunkServerChunkFileNames.get(0);
+        System.out.println("chunkServerChunkFileNames: " + chunkServerChunkFileNames);
+        System.out.println("shardMap: " + shardMap);
+        // add the shardMap value to fileNames
+        for (Set<String> filenames : shardMap.values()) {
+            for (String filename : filenames) {
+                fileNames.add(filename);
+            }
         }
-        return fileNames;
+
+        // for (String filename : metadata.keySet()) {
+        // fileNames[i] = filename;
+        // i++;
+        // }
+        // convert arraylist to array string
+        String result[] = new String[fileNames.size()];
+        for (int j = 0; j < fileNames.size(); j++) {
+            result[j] = fileNames.get(j);
+        }
+        return result;
     }
 
     /**

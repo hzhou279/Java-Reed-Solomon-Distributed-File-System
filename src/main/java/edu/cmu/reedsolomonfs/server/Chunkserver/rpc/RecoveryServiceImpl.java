@@ -1,5 +1,6 @@
 package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class RecoveryServiceImpl extends RecoveryServiceImplBase {
     public void recoveryRead(RecoveryReadRequest request,
             StreamObserver<RecoveryReadResponse> responseObserver) {
         String chunkFilePath = request.getChunkFilePath();
-
+        System.out.println("RecoveryReadRequest received from Master: " + chunkFilePath);
         try {
             Path path = Paths.get(diskPath, chunkFilePath);
             byte[] fileContent = Files.readAllBytes(path);
@@ -59,35 +60,32 @@ public class RecoveryServiceImpl extends RecoveryServiceImplBase {
     }
 
     @Override
-    public void recoveryWrite(RecoveryWriteRequest request,
-            StreamObserver<RecoveryWriteResponse> responseObserver) {
-
+    public void recoveryWrite(RecoveryWriteRequest request, StreamObserver<RecoveryWriteResponse> responseObserver) {
         System.out.println("RecoveryWriteRequest received from Master");
+
         String recoveredChunkFilePath = diskPath + request.getChunkFilePath();
         byte[] recoveredChunkFileData = request.getChunkFileData().toByteArray();
-        try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
-            fos.write(recoveredChunkFilePath.getBytes()); // Write the recovered data to the recovered file path
+
+        // Create parent directories if they don't exist
+        File file = new File(recoveredChunkFilePath);
+        if (file.getParentFile() != null) {
+            file.getParentFile().mkdirs();
+        }
+
+        // Write the recovered data to the recovered file path
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(recoveredChunkFileData);
+            System.out.println("request.getChunkFilePath(): " + new String(request.getChunkFilePath()));
+            this.chunkServer.getFsm().updateStoredFileNameToChunks(request.getChunkFilePath());
+            System.out.println("recoveredChunkFilePath: " + recoveredChunkFilePath);
         } catch (IOException e) {
             System.err.println("An error occurred while writing the file: " + e.getMessage());
         }
 
         // Prepare the recovery response with the disk path
         RecoveryWriteResponse response = RecoveryWriteResponse.newBuilder()
-                .setRecoveryWriteSuccess(false)
+                .setRecoveryWriteSuccess(true)
                 .build();
-
-        try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
-            fos.write(recoveredChunkFileData); // Write the recovered data to the recovered file path
-            // print recoveredChunkFileData
-            System.out.println("request.getChunkFilePath(): " + new String(request.getChunkFilePath()));
-            this.chunkServer.getFsm().updateStoredFileNameToChunks(request.getChunkFilePath());
-            System.out.println("recoveredChunkFilePath: " + recoveredChunkFilePath);
-            response = RecoveryWriteResponse.newBuilder()
-                    .setRecoveryWriteSuccess(true)
-                    .build();
-        } catch (IOException e) {
-            System.err.println("An error occurred while writing the file: " + e.getMessage());
-        }
 
         // Send the response back to the Master
         responseObserver.onNext(response);

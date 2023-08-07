@@ -38,6 +38,6 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-c
     chmod +x /usr/local/bin/docker-compose
 
 # Compile the project
-RUN mvn compile -X
+RUN mvn clean compile -X
 
 CMD ["mvn", "exec:java", "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Master.Master"]
