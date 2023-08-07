@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  client_cli:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+    command:
+      [
+        "mvn",
+        "exec:java",
+        "-Dexec.mainClass=edu.cmu.reedsolomonfs.client.ClientCLI",
+        "-Dexec.args=cluster chunkserver0:8081,chunkserver1:8082,chunkserver2:8083,chunkserver3:8084,chunkserver4:8085,chunkserver5:8086",
+        "-Dexec.classpathScope=compile",
+        "-Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+      ]
+
+networks:
+  reed_solomon:

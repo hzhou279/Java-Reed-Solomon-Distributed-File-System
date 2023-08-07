@@ -20,6 +20,10 @@ case $command in
     echo "Starting client..."
     docker-compose -f docker-compose.client.yml up
     ;;
+  client-cli)
+    echo "Starting command line interface...."
+    docker-compose -f docker-compose.client-cli.yml up
+    ;;
   *)
     echo "Invalid command. Valid commands are: build, start, stop"
     ;;
