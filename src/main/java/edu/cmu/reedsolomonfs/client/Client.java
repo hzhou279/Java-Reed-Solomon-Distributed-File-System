@@ -343,6 +343,7 @@ public class Client {
         } else if (writeFlag.equals("delete")) {
             requestBuilder.setWriteFlag(writeFlag);
             requestBuilder.setFilePath(filePath);
+            requestBuilder.setToken(token);
         }
         return requestBuilder.build();
     }
