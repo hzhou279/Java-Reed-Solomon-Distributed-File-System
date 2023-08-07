@@ -194,14 +194,14 @@ public class Client {
         // System.out.println("peer:" + peer.getEndpoint());
         // }
         for (PeerId peer : conf) {
-            System.out.println("peer:" + peer.getEndpoint());
+            //System.out.println("peer:" + peer.getEndpoint());
 
             // invokeSync and print the result
             ValueResponse response = (ValueResponse) cliClientService.getRpcClient().invokeSync(peer.getEndpoint(),
                     request, 15000);
 
-            System.out.println("Chunk Data:" + response.getChunkDataMapMap());
-            System.out.println("Chunk Data Size:" + response.getChunkDataMapMap().size());
+            //System.out.println("Chunk Data:" + response.getChunkDataMapMap());
+            //System.out.println("Chunk Data Size:" + response.getChunkDataMapMap().size());
 
             // save the chunk data in a map
             Map<String, ByteString> chunkDataMap = new HashMap<>();
@@ -220,12 +220,12 @@ public class Client {
             // concate the sorted map value by key to byte[]
             byte[] shardBytes = new byte[0];
             for (Object key : sortedKeys) {
-                System.out.println("key:" + key);
+                //System.out.println("key:" + key);
                 shardBytes = Bytes.concat(shardBytes, chunkDataMap.get(key).toByteArray());
             }
 
             // System.out.println("shardBytes:" + new String(shardBytes));
-            System.out.println("shardBytes Size:" + shardBytes.length);
+            //System.out.println("shardBytes Size:" + shardBytes.length);
 
             if (response.getChunkDataMapMap() != null && response.getChunkDataMapMap().size() != 0) {
                 shardsPresent[serverCnt] = true;
@@ -236,8 +236,11 @@ public class Client {
             serverCnt++;
         }
 
-        if (byteCntInShards == 0)
-            throw new IllegalArgumentException("There is not enough data to decode");
+        if (byteCntInShards == 0) {
+            System.out.println("File does not exist");
+            return null;
+        }
+            // throw new IllegalArgumentException("There is not enough data to decode");
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
             if (shards[i] == null)
                 shards[i] = new byte[byteCntInShards];
@@ -251,23 +254,23 @@ public class Client {
 
     public TokenResponse requestToken(String requestType, String filePath) {
         // Create a stub for the service
-        System.out.println("Creating stub for master service");
+        //System.out.println("Creating stub for master service");
         // print out channel
-        System.out.println("Channel is " + channel);
+        //System.out.println("Channel is " + channel);
         MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(channel);
 
-        System.out.println("stub is " + stub);
-        System.out.println("Requesting JWT token from master for " + requestType + " operation on file " + filePath);
+        //System.out.println("stub is " + stub);
+        //System.out.println("Requesting JWT token from master for " + requestType + " operation on file " + filePath);
         TokenRequest request = TokenRequest.newBuilder()
                 .setRequestType(requestType)
                 .setFilePath(filePath)
                 .build();
 
-        System.out.println("Sending request to master for JWT token request" + request);
+        //System.out.println("Sending request to master for JWT token request" + request);
         // Make the RPC call and receive the response
         TokenResponse response = stub.getToken(request);
 
-        System.out.println("JWT token received at client is: " + response.getToken());
+        //System.out.println("JWT token received at client is: " + response.getToken());
 
         return response;
     }
@@ -277,7 +280,7 @@ public class Client {
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
 
-        System.out.println("Client delete: " + filePath);
+        //System.out.println("Client delete: " + filePath);
         WriteRequest request = packWriteRequest("delete", filePath, -1, 0, null, "delete",
                 -1, -1, token);
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
@@ -307,7 +310,7 @@ public class Client {
         // encoder.getLastChunkIdx());
 
         // Pass padded file size
-        System.out.println("Client create: " + filePath);
+        //System.out.println("Client create: " + filePath);
         WriteRequest request = packWriteRequest("touch", filePath, encoder.getPaddedFileSize(), 0, shards, "create",
                 encoder.getLastChunkIdx(), encoder.getFileSize(), token);
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
@@ -328,7 +331,7 @@ public class Client {
             }
 
             requestBuilder.setOperationType(operationType);
-            System.out.println("Client packWriteRequest: " + filePath);
+            //System.out.println("Client packWriteRequest: " + filePath);
             requestBuilder.setFilePath(filePath);
             requestBuilder.setFileSize(fileSize);
             requestBuilder.setAppendAt(appendAt);
@@ -349,7 +352,7 @@ public class Client {
             InterruptedException {
 
         try {
-            System.out.println("write request to leader:" + leader);
+            //System.out.println("write request to leader:" + leader);
             cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, new InvokeCallback() {
 
                 @Override

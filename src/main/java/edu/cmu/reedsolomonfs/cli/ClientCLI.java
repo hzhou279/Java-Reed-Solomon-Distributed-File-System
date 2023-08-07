@@ -198,7 +198,12 @@ public class ClientCLI implements KeyListener {
                 }
 
                 byte[] fileDataRead = client.read(client.cliClientService, "read", wholePath, 724, client.groupId);
-
+                if (fileDataRead == null) {
+                    System.out.println("File read does not exist?");
+                    continue;
+                }
+                String content = new String(fileDataRead);
+                System.out.println(content);
                 System.out.println("File read successfully!!!!");
 
                 // write fileDataRead to a file
