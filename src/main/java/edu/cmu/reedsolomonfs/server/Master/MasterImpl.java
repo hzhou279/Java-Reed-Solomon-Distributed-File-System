@@ -453,7 +453,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         claims.put("permission", requestType);
         System.out.println("requestType: " + requestType);
         claims.put("filePath", filePath);
-        System.out.println("filePath: " + filePath);
+        //System.out.println("filePath: " + filePath);
         System.out.println("secretKey: " + secretKey);
 
         // Build the JWT

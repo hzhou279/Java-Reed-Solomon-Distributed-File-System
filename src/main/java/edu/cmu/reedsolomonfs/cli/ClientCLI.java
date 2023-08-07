@@ -49,7 +49,7 @@ public class ClientCLI implements KeyListener {
     public static void main(final String[] args) throws Exception {
         // System.setErr(new PrintStream("./log/err.txt"));
         // /dev/null is a null device that discards any data that is written to it
-        // System.setErr(new PrintStream("/dev/null"));
+        System.setErr(new PrintStream("/dev/null"));
         client = new Client(args);
         // client.test(args);
 
@@ -217,6 +217,7 @@ public class ClientCLI implements KeyListener {
                 }
                 
                 client.delete(client.cliClientService, wholePath, client.groupId, token);
+                System.out.println(wholePath);
                 tree.delete(wholePath);
             } else {
                 System.out.println("Invalid Command");

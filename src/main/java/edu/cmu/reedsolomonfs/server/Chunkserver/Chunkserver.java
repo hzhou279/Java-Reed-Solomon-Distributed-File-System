@@ -329,7 +329,7 @@ public class Chunkserver extends edu.cmu.reedsolomonfs.server.ChunkServerService
     // SOFAJRaft documentation
     // https://www.sofastack.tech/en/projects/sofa-jraft/jraft-user-guide/
     public static void main(final String[] args) throws NumberFormatException, Exception {
-        // System.setErr(new PrintStream("/dev/null"));
+        System.setErr(new PrintStream("/dev/null"));
         if (args.length != 5) {
             System.out
                     .println(

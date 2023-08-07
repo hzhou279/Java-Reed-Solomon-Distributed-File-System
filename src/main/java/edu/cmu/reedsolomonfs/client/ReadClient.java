@@ -181,14 +181,14 @@ public class ReadClient {
         // System.out.println("peer:" + peer.getEndpoint());
         // }
         for (PeerId peer : conf) {
-            System.out.println("peer:" + peer.getEndpoint());
+            //System.out.println("peer:" + peer.getEndpoint());
 
             // invokeSync and print the result
             ValueResponse response = (ValueResponse) cliClientService.getRpcClient().invokeSync(peer.getEndpoint(),
                     request, 15000);
 
-            System.out.println("Chunk Data:" + response.getChunkDataMapMap());
-            System.out.println("Chunk Data Size:" + response.getChunkDataMapMap().size());
+            //System.out.println("Chunk Data:" + response.getChunkDataMapMap());
+            //System.out.println("Chunk Data Size:" + response.getChunkDataMapMap().size());
 
             // save the chunk data in a map
             Map<String, ByteString> chunkDataMap = new HashMap<>();
@@ -207,12 +207,12 @@ public class ReadClient {
             // concate the sorted map value by key to byte[]
             byte[] shardBytes = new byte[0];
             for (Object key : sortedKeys) {
-                System.out.println("key:" + key);
+                //System.out.println("key:" + key);
                 shardBytes = Bytes.concat(shardBytes, chunkDataMap.get(key).toByteArray());
             }
 
             // System.out.println("shardBytes:" + new String(shardBytes));
-            System.out.println("shardBytes Size:" + shardBytes.length);
+            //System.out.println("shardBytes Size:" + shardBytes.length);
 
             if (response.getChunkDataMapMap() != null && response.getChunkDataMapMap().size() != 0) {
                 shardsPresent[serverCnt] = true;
@@ -248,7 +248,7 @@ public class ReadClient {
         // Make the RPC call and receive the response
         TokenResponse response = stub.getToken(request);
 
-        System.out.println("JWT token received at client is: " + response.getToken());
+        //System.out.println("JWT token received at client is: " + response.getToken());
 
         return response;
     }

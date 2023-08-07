@@ -52,6 +52,7 @@ public class DirectoryTree {
                 i = i + 1;
             }
             if (!node.children.containsKey(dirs[i])) {
+                System.out.println(dirs[i]);
                 throw new IllegalArgumentException("Path does not exist in the tree");
             }
             node = node.children.get(dirs[i]);

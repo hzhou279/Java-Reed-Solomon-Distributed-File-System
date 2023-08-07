@@ -117,12 +117,12 @@ public class ChunkserverServiceImpl implements ChunkserverService {
 
     @Override
     public void read(String filePath, final ChunkserverClosure closure) {
-        System.out.println("read filePath: " + filePath);
+        //System.out.println("read filePath: " + filePath);
         Map<String, byte[]> fileData = this.counterServer.getFsm().readFromServerDisk(filePath);
         System.out.println("fileData: " + fileData);
         closure.successWithRead(fileData);
         closure.run(Status.OK());
-        System.out.println("read filePath: " + filePath + "completes");
+        //System.out.println("read filePath: " + filePath + "completes");
         return;
     }
 
