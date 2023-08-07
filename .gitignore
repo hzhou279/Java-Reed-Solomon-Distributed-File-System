@@ -13,3 +13,4 @@
 /log
 /ReedSolomonTestFiles
 /ClientClusterCommTestFiles
+*.log
