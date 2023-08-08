@@ -194,11 +194,24 @@ public class Client {
         // System.out.println("peer:" + peer.getEndpoint());
         // }
         for (PeerId peer : conf) {
-            // System.out.println("peer:" + peer.getEndpoint());
 
+            ValueResponse response = null;
+            try {
+                // invokeSync and print the result
+                response = (ValueResponse) cliClientService.getRpcClient().invokeSync(peer.getEndpoint(),
+                        request, 1500);
+            } catch (com.alipay.sofa.jraft.error.RemotingException e) {
+                // Handle the exception. For now, just print the error.
+                System.err.println("Failed to invoke RPC on " + peer.getEndpoint() + ": " + e.getMessage());
+                serverCnt++;
+                // Skip to the next iteration since this peer failed
+                continue;
+            }
+            // System.out.println("peer:" + peer.getEndpoint());
             // invokeSync and print the result
-            ValueResponse response = (ValueResponse) cliClientService.getRpcClient().invokeSync(peer.getEndpoint(),
-                    request, 15000);
+            // ValueResponse response = (ValueResponse)
+            // cliClientService.getRpcClient().invokeSync(peer.getEndpoint(),
+            // request, 15000);
 
             // System.out.println("Chunk Data:" + response.getChunkDataMapMap());
             // System.out.println("Chunk Data Size:" +
@@ -364,7 +377,7 @@ public class Client {
                 public void complete(Object result, Throwable err) {
                     if (err == null) {
                         latch.countDown();
-                        System.out.println("write request result:" + result);
+                        // System.out.println("write request result:" + result);
                     } else {
                         err.printStackTrace();
                         latch.countDown();

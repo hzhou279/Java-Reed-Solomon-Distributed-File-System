@@ -127,7 +127,7 @@ public class ClientCLI implements KeyListener {
                     tree.addPath(data.getFilePath());
                 }
                 root = tree.getRoot();
-                
+
                 List<String> lsList = new ArrayList<>();
                 lsList = tree.listDirectory(localPath);
                 for (String string : lsList) {
@@ -168,7 +168,7 @@ public class ClientCLI implements KeyListener {
                 if (Files.exists(newFilePath)) {
                     try {
                         byte[] fileData = Files.readAllBytes(newFilePath);
-                        
+
                         String wholePath = localPath + words[1];
                         if (words[1].charAt(0) == '/') {
                             wholePath = words[1];
@@ -215,9 +215,9 @@ public class ClientCLI implements KeyListener {
                 } else {
                     wholePath = localPath + '/' + words[1];
                 }
-                
+
                 client.delete(client.cliClientService, wholePath, client.groupId, token);
-                System.out.println(wholePath);
+                // System.out.println(wholePath);
                 // tree.delete(wholePath);
             } else {
                 System.out.println("Invalid Command");

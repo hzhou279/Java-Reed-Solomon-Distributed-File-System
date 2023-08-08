@@ -7,8 +7,6 @@ FROM openjdk:17-jdk-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
 
 RUN chmod +x wait-for-master.sh
 
@@ -39,6 +37,9 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-c
 
 # Install vim
 RUN apt-get update && apt-get install -y vim
+
+# Copy the current directory contents into the container at /app
+COPY . /app
 
 # Compile the project
 RUN mvn clean compile -X

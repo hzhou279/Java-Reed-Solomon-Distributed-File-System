@@ -12,8 +12,9 @@ import edu.cmu.reedsolomonfs.ConfigVariables;
 // do recovery if any disks are missing
 public class ReedSolomonDecoder {
 
-    private static final ReedSolomon REED_SOLOMON = ReedSolomon.create(ConfigVariables.DATA_SHARD_COUNT, ConfigVariables.PARITY_SHARD_COUNT);
-    
+    private static final ReedSolomon REED_SOLOMON = ReedSolomon.create(ConfigVariables.DATA_SHARD_COUNT,
+            ConfigVariables.PARITY_SHARD_COUNT);
+
     private String[] diskPaths;
     private byte[][] shards;
     private boolean[] shardPresent;
@@ -31,11 +32,12 @@ public class ReedSolomonDecoder {
         // this.shardPresent = shardPresent;
         // this.byteCntInShard = byteCntInShard;
         this.fileSize = fileSize;
+        // System.out.println("shardPresent: " + shardPresent);
         REED_SOLOMON.decodeMissing(shards, shardPresent, 0, byteCntInShard);
         fileData = mergeShardsToFile(shards);
         trimPadding();
     }
-    
+
     public ReedSolomonDecoder(String filePath, String[] diskPaths, int fileSize) {
         this.diskPaths = diskPaths;
         shards = new byte[ConfigVariables.TOTAL_SHARD_COUNT][];
@@ -66,9 +68,11 @@ public class ReedSolomonDecoder {
 
     public void decode() {
         retrieveShards();
-        if (byteCntInShard == 0) throw new IllegalArgumentException("There is not enough data to decode");
+        if (byteCntInShard == 0)
+            throw new IllegalArgumentException("There is not enough data to decode");
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
-            if (shards[i] == null) shards[i] = new byte[byteCntInShard];
+            if (shards[i] == null)
+                shards[i] = new byte[byteCntInShard];
         }
         REED_SOLOMON.decodeMissing(shards, shardPresent, 0, byteCntInShard);
         fileData = mergeShardsToFile(shards);
@@ -90,7 +94,8 @@ public class ReedSolomonDecoder {
         for (int blockIdx = 0; blockIdx < blockCnt; blockIdx++) {
             int byteIdxInFile = blockIdx * ConfigVariables.BLOCK_SIZE;
             int shardIdx = blockIdx % ConfigVariables.DATA_SHARD_COUNT;
-            // int byteIdxInShard = blockIdx / ConfigurationVariables.BLOCK_SIZE * ConfigurationVariables.BLOCK_SIZE;
+            // int byteIdxInShard = blockIdx / ConfigurationVariables.BLOCK_SIZE *
+            // ConfigurationVariables.BLOCK_SIZE;
             int byteIdxInShard = blockIdx / ConfigVariables.DATA_SHARD_COUNT * ConfigVariables.BLOCK_SIZE;
             for (int i = 0; i < ConfigVariables.BLOCK_SIZE; i++, byteIdxInFile++, byteIdxInShard++)
                 fileData[byteIdxInFile] = shards[shardIdx][byteIdxInShard];
