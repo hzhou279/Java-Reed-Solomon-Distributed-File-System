@@ -8,7 +8,6 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 
-RUN chmod +x wait-for-master.sh
 
 # Install netcat
 RUN apt-get update && apt-get install -y netcat
@@ -40,6 +39,8 @@ RUN apt-get update && apt-get install -y vim
 
 # Copy the current directory contents into the container at /app
 COPY . /app
+
+RUN chmod +x wait-for-master.sh
 
 # Compile the project
 RUN mvn clean compile -X
