@@ -1,0 +1,90 @@
+version: '3'
+
+services:
+  master:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      [
+        "mvn",
+        "exec:java",
+        "-Dexec.mainClass=edu.cmu.reedsolomonfs.server.Master.Master",
+        "-Dexec.args=cluster chunkserver0:8081,chunkserver1:8082,chunkserver2:8083,chunkserver3:8084,chunkserver4:8085,chunkserver5:8086",
+        "-Dexec.classpathScope=compile",
+        "-Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+      ]
+
+  chunkserver0:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+      # depends_on:
+      # - master
+    command: /bin/bash -c "./wait-for-master.sh && mvn exec:java -Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver -Dexec.args='chunkserver0 cluster chunkserver0:8081 chunkserver0:8081,chunkserver1:8082,chunkserver2:8083,chunkserver3:8084,chunkserver4:8085,chunkserver5:8086 0' -Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+
+  chunkserver1:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+      # depends_on:
+      # - master
+    command: /bin/bash -c "./wait-for-master.sh && mvn exec:java -Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver -Dexec.args='chunkserver1 cluster chunkserver1:8082 chunkserver0:8081,chunkserver1:8082,chunkserver2:8083,chunkserver3:8084,chunkserver4:8085,chunkserver5:8086 1' -Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+
+  chunkserver2:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+      # depends_on:
+      # - master
+    command: /bin/bash -c "./wait-for-master.sh && mvn exec:java -Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver -Dexec.args='chunkserver2 cluster chunkserver2:8083 chunkserver0:8081,chunkserver1:8082,chunkserver2:8083,chunkserver3:8084,chunkserver4:8085,chunkserver5:8086 2' -Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+
+  chunkserver3:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+      # depends_on:
+      # - master
+    command: /bin/bash -c "./wait-for-master.sh && mvn exec:java -Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver -Dexec.args='chunkserver3 cluster chunkserver3:8084 chunkserver0:8081,chunkserver1:8082,chunkserver2:8083,chunkserver3:8084,chunkserver4:8085,chunkserver5:8086 3' -Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+
+  chunkserver4:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+      # depends_on:
+      # - master
+    command: /bin/bash -c "./wait-for-master.sh && mvn exec:java -Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver -Dexec.args='chunkserver4 cluster chunkserver4:8085 chunkserver0:8081,chunkserver1:8082,chunkserver2:8083,chunkserver3:8084,chunkserver4:8085,chunkserver5:8086 4' -Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+
+  chunkserver5:
+    image: reed-solomon-fs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - reed_solomon
+      # depends_on:
+      # - master
+    command: /bin/bash -c "./wait-for-master.sh && mvn exec:java -Dexec.mainClass=edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver -Dexec.args='chunkserver5 cluster chunkserver5:8086 chunkserver0:8081,chunkserver1:8082,chunkserver2:8083,chunkserver3:8084,chunkserver4:8085,chunkserver5:8086 5' -Dexec.additionalClasspath=/maven-repo/reed-solomon-1.0.jar"
+
+networks:
+  reed_solomon:
