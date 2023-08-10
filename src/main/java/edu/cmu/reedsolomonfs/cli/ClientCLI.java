@@ -14,29 +14,21 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 
 import edu.cmu.reedsolomonfs.cli.DirectoryTree.Node;
 import edu.cmu.reedsolomonfs.client.Client;
-import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCMetadata;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCNode;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenResponse;
-import io.grpc.ManagedChannelBuilder;
-
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-
+/**
+ * @author Yue yueyu3@andrew.cmu.edu
+ */
 public class ClientCLI implements KeyListener {
     public static String localPath = "/";
     public static String[] lowerDirectory = { "direcory1", "directory2", "file1", "file2" };
@@ -47,11 +39,7 @@ public class ClientCLI implements KeyListener {
     static Client client;
 
     public static void main(final String[] args) throws Exception {
-        // System.setErr(new PrintStream("./log/err.txt"));
-        // /dev/null is a null device that discards any data that is written to it
-        System.setErr(new PrintStream("/dev/null"));
         client = new Client(args);
-        // client.test(args);
 
         Scanner scanner = new Scanner(System.in);
         CommandLineParser parser = new DefaultParser();
@@ -70,8 +58,6 @@ public class ClientCLI implements KeyListener {
 
         TokenResponse tResponse = client.requestToken("read", "/A/B/C");
         String token = tResponse.getToken();
-        // print out tResponse metadata
-        // System.out.println("tResponse metadata");
         List<GRPCMetadata> m = tResponse.getMetadataList();
         for (GRPCMetadata data : m) {
             tree.addPath(data.getFilePath());
@@ -139,20 +125,16 @@ public class ClientCLI implements KeyListener {
             } else if (words[0].equals("mkdir")) {
                 System.out.println("MAKE DIRECTORY");
             } else if (words[0].equals("create")) {
-                // String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
-                // byte[] fileData = Files.readAllBytes(Path.of(filePath));
-                // client.create(client.cliClientService, words[1], fileData, client.groupId);
                 String clientFileDirectory = "./ClientClusterCommTestFiles/Files/";
                 String newFileName = words[1];
                 Path newFilePath = Paths.get(clientFileDirectory, newFileName);
 
-                // Create parent directories if they do not exist
                 File parentDirectory = newFilePath.toFile().getParentFile();
                 if (!parentDirectory.exists()) {
                     boolean dirsCreated = parentDirectory.mkdirs();
                     if (!dirsCreated) {
                         System.out.println("Failed to create directories.");
-                        return; // Skip the rest of the code if directories weren't created
+                        return;
                     }
                 }
 
@@ -175,7 +157,6 @@ public class ClientCLI implements KeyListener {
                         } else {
                             wholePath = localPath + '/' + words[1];
                         }
-                        // System.out.println(wholePath);
                         client.create(client.cliClientService, wholePath, fileData, client.groupId, token);
                         tree.addPath(wholePath);
                     } catch (IOException e) {
@@ -185,11 +166,7 @@ public class ClientCLI implements KeyListener {
                     System.out.println("There is nothing to create");
                 }
 
-                // String filePath = "./ClientClusterCommTestFiles/Files/test.txt";
-                // client.create(client.cliClientService, wholePath, fileData, client.groupId);
-                // System.out.println("!!!!!!");
             } else if (words[0].equals("read")) {
-                // System.out.println(words[1]);
                 String wholePath = localPath + words[1];
                 if (words[1].charAt(0) == '/') {
                     wholePath = words[1];
@@ -206,7 +183,6 @@ public class ClientCLI implements KeyListener {
                 System.out.println(content);
                 System.out.println("File read successfully!!!!");
 
-                // write fileDataRead to a file
                 Files.write(Path.of("./ClientClusterCommTestFiles/FilesRead/testRead1.txt"), fileDataRead);
             } else if (words[0].equals("delete")) {
                 String wholePath = localPath + words[1];

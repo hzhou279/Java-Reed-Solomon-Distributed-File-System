@@ -12,6 +12,8 @@ import edu.cmu.reedsolomonfs.ConfigVariables;
 // read data from a file and calculate its parity
 public class ReedSolomonEncoder {
     
+    // line 17 calls function create at line 29 in ReedSolomon.java
+    // https://github.com/Backblaze/JavaReedSolomon/blob/master/src/main/java/com/backblaze/erasure/ReedSolomon.java
     private static final ReedSolomon REED_SOLOMON = ReedSolomon.create(ConfigVariables.DATA_SHARD_COUNT, ConfigVariables.PARITY_SHARD_COUNT);
 
     private String filePath;
@@ -49,6 +51,8 @@ public class ReedSolomonEncoder {
         }
     }
 
+    // line 59 calls function encodeParity at line 89 in ReedSolomon.java
+    // https://github.com/Backblaze/JavaReedSolomon/blob/master/src/main/java/com/backblaze/erasure/ReedSolomon.java
     public void encode()  {
         paddedFileData = pad(fileData);
         shards = splitFileToShards(paddedFileData);
@@ -58,13 +62,9 @@ public class ReedSolomonEncoder {
     private byte[][] splitFileToShards(byte[] fileData) {
         byte[][] shards = new byte[ConfigVariables.TOTAL_SHARD_COUNT][fileData.length / ConfigVariables.DATA_SHARD_COUNT];
         int blockCnt = fileData.length / ConfigVariables.BLOCK_SIZE;
-        // System.out.println("file size is: " + this.fileSize);
-        // System.out.println("padded file size is: " + fileData.length);
-        // System.out.println("blockCnt: " + blockCnt);
         for (int blockIdx = 0; blockIdx < blockCnt; blockIdx++) {
             int byteIdxInFile = blockIdx * ConfigVariables.BLOCK_SIZE;
             int shardIdx = blockIdx % ConfigVariables.DATA_SHARD_COUNT;
-            // int byteIdxInShard = blockIdx / ConfigurationVariables.BLOCK_SIZE * ConfigurationVariables.BLOCK_SIZE;
             int byteIdxInShard = blockIdx / ConfigVariables.DATA_SHARD_COUNT * ConfigVariables.BLOCK_SIZE;
             for (int i = 0; i < ConfigVariables.BLOCK_SIZE; i++, byteIdxInFile++, byteIdxInShard++)
                 shards[shardIdx][byteIdxInShard] = fileData[byteIdxInFile];

@@ -23,10 +23,8 @@ import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.WRIT
 import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.DELETE_BYTES;
 import static edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverOperation.UPDATE_SECRETKEY;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
@@ -39,7 +37,6 @@ import java.util.Map;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicLongArray;
 import java.util.stream.Stream;
 
 import com.alipay.sofa.jraft.util.NamedThreadFactory;
@@ -62,13 +59,9 @@ import com.alipay.sofa.jraft.error.RaftException;
 import com.alipay.sofa.jraft.storage.snapshot.SnapshotReader;
 import com.alipay.sofa.jraft.storage.snapshot.SnapshotWriter;
 
-/**
- * Counter state machine.
- *
- * @author boyan (boyan@alibaba-inc.com)
- *
- *         2018-Apr-09 4:52:31 PM
- */
+
+// The ChunkserverStateMachine class is referenced from 
+// https://github.com/sofastack/sofa-jraft/blob/19ed179e02ee9108adc0bbf66badb47f62c62af8/jraft-example/src/main/java/com/alipay/sofa/jraft/example/counter/CounterStateMachine.java
 public class ChunkserverStateMachine extends StateMachineAdapter {
 
     private final int serverIdx;
@@ -189,7 +182,6 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
             System.out.println("chunk file paths does not exist.");
             return new HashMap<String, byte[]>();
         }    
-        // System.out.println("chunkFilePaths is " + chunkFilePaths);
         // read chunks from disk
         Map<String, byte[]> chunks = new HashMap<String, byte[]>();
         for (int i = 0; i < chunkFilePaths.size(); i++) {
@@ -197,9 +189,6 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
             try {
                 System.out.println("To read " + chunkFilePath);
                 byte[] chunk = Files.readAllBytes(Paths.get(chunkFilePath));
-                // System.out.println("Byte data read from " + chunkFilePath + " is " + new
-                // String(chunk));
-
                 chunks.put(chunkFilePaths.get(i), chunk);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -228,9 +217,7 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
             String chunkFilePath = serverDiskPath + chunkFilePaths.get(i);
             try {
                 System.out.println("To delete " + chunkFilePath);
-
                 Path path = Paths.get(chunkFilePath);
-
                 // Delete the file using Files.delete() method
                 Files.delete(path);
             } catch (IOException e) {
@@ -316,39 +303,10 @@ public class ChunkserverStateMachine extends StateMachineAdapter {
                                 fos.write(chunks[i]); // Write the byte data to the file
                                 String fileNameWithSubDir = chunkFilePaths.get(i);
                                 updateStoredFileNameToChunks(fileNameWithSubDir);
-                                // printStoredFileNameToChunks();
-                                // System.out.println("Byte data to store is " + new String(chunks[i]));
-                                // System.out.println("Byte data stored in " + chunkFilePath + "
-                                // successfully.");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
-
-                        // final byte[][] shards = counterOperation.getShards();
-                        // try (FileOutputStream fos = new FileOutputStream(serverDiskPath)) {
-                        // fos.write(shards[serverIdx]); // Write the byte data to the file
-                        // System.out.println("Byte data to store is " + new String(shards[serverIdx]));
-                        // System.out.println("Byte data stored in " + serverDiskPath + "
-                        // successfully.");
-                        // } catch (IOException e) {
-                        // e.printStackTrace();
-                        // }
-
-                        // for (int i = 0; i < byteValue.length; i++) {
-                        // this.byteValue[i] = byteValue[i];
-                        // }
-                        // LOG.info("Set byte value={} length={} at logIndex={}", byteValue,
-                        // byteValue.length,
-                        // iter.getIndex());
-                        // LOG.info("Get byte value={} length={} at logIndex={}",
-                        // this.byteValue[0].toString(),
-                        // this.byteValue.length, iter.getIndex());
-                        // log this.byteValue using for loop
-                        // for (int i = 0; i < this.byteValue.length; i++) {
-                        // LOG.info("Get byte value={} at logIndex={}", this.byteValue[i].toString(),
-                        // iter.getIndex());
-                        // }
                         break;
                     case READ_BYTES:
                         final Byte[] byteValue2 = this.byteValue;

@@ -19,24 +19,20 @@ package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-
 import com.alipay.sofa.jraft.Status;
-
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
-import edu.cmu.reedsolomonfs.datatype.FileMetadata;
-import edu.cmu.reedsolomonfs.datatype.FileMetadataHelper;
 import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverClosure;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverService;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.UpdateSecretKeyRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 
 import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
+/**
+ * @author Matt (chenweiy@andrew.cmu.edu) and Tommy (hungchic@andrew.cmu.edu)
+ */
 public class UpdateSecretKeyProcessor implements RpcProcessor<UpdateSecretKeyRequest> {
 
     private final ChunkserverService counterService;
@@ -63,14 +59,6 @@ public class UpdateSecretKeyProcessor implements RpcProcessor<UpdateSecretKeyReq
             @Override
             public void run(Status status) {
                 System.out.printf("UpdateSecretKeyRequest: run \n");
-                // redirect the print log to file
-                // PrintStream out = null;
-                // try {
-                // out = new PrintStream(new FileOutputStream("./output.txt"));
-                // } catch (FileNotFoundException e) {
-                // e.printStackTrace();
-                // }
-                // System.setOut(out);
                 // send success to master
                 MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(masterChannel);
                 ackMasterWriteSuccessRequest ack = ackMasterWriteSuccessRequest.newBuilder()
@@ -87,19 +75,6 @@ public class UpdateSecretKeyProcessor implements RpcProcessor<UpdateSecretKeyReq
             }
         };
 
-        // WriteFlag can be "create", "append", "overwrite", and "delete"
-        // switch (writeFlag) {
-        // case "create":
-        // FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath,
-        // fileSize);
-        // byte[][] shards = new byte[request.getPayloadCount()][];
-        // for (int i = 0; i < request.getPayloadCount(); i++)
-        // shards[i] = request.getPayload(i).toByteArray();
-        // this.counterService.write(shards, metadata, closure);
-        // break;
-        // case "append":
-        // break;
-        // }
         this.counterService.updateSecretKey(secretKey, closure);
 
     }

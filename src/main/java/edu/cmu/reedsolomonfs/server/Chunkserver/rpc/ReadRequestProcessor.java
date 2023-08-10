@@ -17,20 +17,14 @@
 package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 
 import com.alipay.sofa.jraft.Status;
-
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverClosure;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverService;
-
 import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
 /**
- * GetBytesValueRequest processor.
- *
- * @author boyan (boyan@alibaba-inc.com)
- *
- *         2018-Apr-09 5:48:33 PM
+ * @author Matt (chenweiy@andrew.cmu.edu) and Tommy (hungchic@andrew.cmu.edu)
  */
 public class ReadRequestProcessor implements RpcProcessor<ReadRequest> {
 

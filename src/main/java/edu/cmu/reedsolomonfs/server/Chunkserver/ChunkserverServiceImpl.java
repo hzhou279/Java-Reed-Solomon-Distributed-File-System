@@ -36,9 +36,8 @@ import com.alipay.sofa.jraft.util.BytesUtil;
 
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
 
-/**
- * @author likun (saimu.msm@antfin.com)
- */
+// The ChunkserverServiceImpl is referenced from
+// https://github.com/sofastack/sofa-jraft/blob/19ed179e02ee9108adc0bbf66badb47f62c62af8/jraft-example/src/main/java/com/alipay/sofa/jraft/example/counter/CounterServiceImpl.java
 public class ChunkserverServiceImpl implements ChunkserverService {
     private static final Logger LOG = LoggerFactory.getLogger(ChunkserverServiceImpl.class);
 

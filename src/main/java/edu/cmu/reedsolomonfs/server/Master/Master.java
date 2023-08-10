@@ -1,59 +1,19 @@
 package edu.cmu.reedsolomonfs.server.Master;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
-
-import edu.cmu.reedsolomonfs.ConfigVariables;
 import com.alipay.sofa.jraft.conf.Configuration;
-// import edu.cmu.reedsolomonfs.client.RecoveryServiceGrpc;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCMetadata;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenRequest;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenResponse;
 import edu.cmu.reedsolomonfs.datatype.Node;
-import edu.cmu.reedsolomonfs.server.RecoveryServiceGrpc;
-import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverDiskRecoveryMachine;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ChunkserverGrpcHelper;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryReadRequest;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryReadResponse;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryWriteRequest;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryWriteResponse;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCNode;
-// import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadRequest;
-// import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadResponse;
-import io.grpc.BindableService;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import io.grpc.StatusRuntimeException;
-import io.grpc.stub.StreamObserver;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import java.util.Date;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-
-import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Magenta;
-
 import com.alipay.sofa.jraft.RouteTable;
-import com.alipay.sofa.jraft.entity.PeerId;
 import com.alipay.sofa.jraft.option.CliOptions;
 import com.alipay.sofa.jraft.rpc.impl.cli.CliClientServiceImpl;
-import com.google.protobuf.ByteString;
 
 import java.util.HashMap;
+
 
 public class Master {
 
@@ -62,8 +22,11 @@ public class Master {
     public static CliClientServiceImpl cliClientService;
     public static String groupId;
     public static String confStr;
-
+    
     public static void main(String[] args) throws IOException, InterruptedException, Exception {
+        
+        // Reference: line 28 to line 35 follows jRaft documentation to set up raft group client
+        // https://www.sofastack.tech/projects/sofa-jraft/counter-example/
         if (args.length != 2) {
             System.out.println("Usage : java com.alipay.sofa.jraft.example.counter.CounterClient {groupId} {conf}");
             System.out
@@ -85,7 +48,8 @@ public class Master {
         cliClientService = new CliClientServiceImpl();
         cliClientService.init(new CliOptions());
 
-        System.setErr(new PrintStream("/dev/null"));
+        // Reference: line 52 to line 56 follows gRPC documentation to set up gRPC server
+        // https://grpc.io/docs/languages/java/basics/#server
         masterImpl = new MasterImpl(groupId, conf);
         Server server = ServerBuilder.forPort(8080)
                 .addService(masterImpl)
@@ -93,8 +57,6 @@ public class Master {
                 .start();
 
         metadata = new HashMap<>();
-
-        // FileInputStream fileInputStream = new FileInputStream("./as");
         server.awaitTermination();
     }
 

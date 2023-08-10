@@ -12,9 +12,10 @@ import edu.cmu.reedsolomonfs.ConfigVariables;
 // do recovery if any disks are missing
 public class ReedSolomonDecoder {
 
-    private static final ReedSolomon REED_SOLOMON = ReedSolomon.create(ConfigVariables.DATA_SHARD_COUNT,
-            ConfigVariables.PARITY_SHARD_COUNT);
-
+    // line 17 calls function create at line 29 in ReedSolomon.java
+    // https://github.com/Backblaze/JavaReedSolomon/blob/master/src/main/java/com/backblaze/erasure/ReedSolomon.java
+    private static final ReedSolomon REED_SOLOMON = ReedSolomon.create(ConfigVariables.DATA_SHARD_COUNT, ConfigVariables.PARITY_SHARD_COUNT);
+    
     private String[] diskPaths;
     private byte[][] shards;
     private boolean[] shardPresent;
@@ -27,10 +28,9 @@ public class ReedSolomonDecoder {
         return fileData;
     }
 
+    // line 35 calls function decodeMissing at line 174 in ReedSolomon.java
+    // https://github.com/Backblaze/JavaReedSolomon/blob/master/src/main/java/com/backblaze/erasure/ReedSolomon.java
     public ReedSolomonDecoder(byte[][] shards, boolean[] shardPresent, int byteCntInShard, int fileSize) {
-        // this.shards = shards;
-        // this.shardPresent = shardPresent;
-        // this.byteCntInShard = byteCntInShard;
         this.fileSize = fileSize;
         // System.out.println("shardPresent: " + shardPresent);
         REED_SOLOMON.decodeMissing(shards, shardPresent, 0, byteCntInShard);
@@ -53,7 +53,6 @@ public class ReedSolomonDecoder {
                 shards[i] = Files.readAllBytes(Path.of(diskPaths[i]));
                 shardPresent[i] = true;
                 byteCntInShard = shards[i].length;
-                // System.out.println(shards[i].length);
             } catch (IOException e) {
                 continue;
             }
@@ -66,6 +65,8 @@ public class ReedSolomonDecoder {
         fileData = trimmedFileData;
     }
 
+    // line 75 calls function decodeMissing at line 174 in ReedSolomon.java
+    // https://github.com/Backblaze/JavaReedSolomon/blob/master/src/main/java/com/backblaze/erasure/ReedSolomon.java
     public void decode() {
         retrieveShards();
         if (byteCntInShard == 0)
@@ -94,8 +95,6 @@ public class ReedSolomonDecoder {
         for (int blockIdx = 0; blockIdx < blockCnt; blockIdx++) {
             int byteIdxInFile = blockIdx * ConfigVariables.BLOCK_SIZE;
             int shardIdx = blockIdx % ConfigVariables.DATA_SHARD_COUNT;
-            // int byteIdxInShard = blockIdx / ConfigurationVariables.BLOCK_SIZE *
-            // ConfigurationVariables.BLOCK_SIZE;
             int byteIdxInShard = blockIdx / ConfigVariables.DATA_SHARD_COUNT * ConfigVariables.BLOCK_SIZE;
             for (int i = 0; i < ConfigVariables.BLOCK_SIZE; i++, byteIdxInFile++, byteIdxInShard++)
                 fileData[byteIdxInFile] = shards[shardIdx][byteIdxInShard];
