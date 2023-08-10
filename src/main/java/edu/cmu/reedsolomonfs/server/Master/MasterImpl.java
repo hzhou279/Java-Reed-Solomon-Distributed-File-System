@@ -1,8 +1,6 @@
 package edu.cmu.reedsolomonfs.server.Master;
 
 import edu.cmu.reedsolomonfs.ConfigVariables;
-import edu.cmu.reedsolomonfs.client.ReedSolomonEncoder;
-import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverDiskRecoveryMachine;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest.ChunkFileNames;
@@ -14,9 +12,7 @@ import edu.cmu.reedsolomonfs.datatype.Node;
 import com.alipay.sofa.jraft.error.RemotingException;
 import com.alipay.sofa.jraft.option.CliOptions;
 import com.alipay.sofa.jraft.rpc.InvokeCallback;
-
 import io.grpc.stub.StreamObserver;
-
 import java.io.FileInputStream;
 import com.alipay.sofa.jraft.conf.Configuration;
 import java.io.FileNotFoundException;
@@ -33,22 +29,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.commons.logging.impl.LogKitLogger;
-
 import com.alipay.sofa.jraft.RouteTable;
 import com.alipay.sofa.jraft.entity.PeerId;
 import com.alipay.sofa.jraft.rpc.impl.cli.CliClientServiceImpl;
 import com.google.common.collect.Sets;
-// import io.grpc.ManagedChannel;
-// import io.grpc.ManagedChannelBuilder;
-// import edu.cmu.reedsolomonfs.server.RecoveryServiceGrpc;
-// import java.util.concurrent.CountDownLatch;
 import com.google.protobuf.ByteString;
-
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -56,42 +42,26 @@ import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
-
-import edu.cmu.reedsolomonfs.ConfigVariables;
-// import edu.cmu.reedsolomonfs.client.RecoveryServiceGrpc;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCMetadata;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenResponse;
-import edu.cmu.reedsolomonfs.datatype.Node;
 import edu.cmu.reedsolomonfs.server.RecoveryServiceGrpc;
-import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverDiskRecoveryMachine;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryReadRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryReadResponse;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryWriteRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryWriteResponse;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.GRPCNode;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.SecretKeyRequest;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.SecretKeyResponse;
-// import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadRequest;
-// import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadResponse;
-import io.grpc.BindableService;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.Server;
-import io.grpc.ServerBuilder;
-import io.grpc.StatusRuntimeException;
-import io.grpc.stub.StreamObserver;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
-import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeoutException;
+
 
 public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.MasterServiceImplBase {
 
@@ -351,22 +321,6 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             while (true) {
                 System.out.println("Checking last heartbeat");
                 if (storageActivated) {
-                    // for (Map.Entry<Integer, Long> entry : currHeartbeat.entrySet()) {
-                    // if (entry.getValue() == oldHeartbeat.get(entry.getKey())) {
-                    // // timeout
-                    // System.out.println("Chunkserver " + entry.getKey() + " heartbeat timeout");
-                    // chunkserversPresent[entry.getKey()] = false;
-                    // needToRecover = true;
-                    // } else
-                    // chunkserversPresent[entry.getKey()] = true;
-                    // if (needToRecover) {
-                    // Master.recoverOfflineChunkserver(chunkserversPresent);
-                    // needToRecover = false;
-                    // break;
-                    // }
-                    // oldHeartbeat.put(entry.getKey(), entry.getValue());
-                    // System.out.println("Pass timeout check");
-                    // }
                     passCnt = 0;
                     for (Map.Entry<Integer, Long> entry : oldHeartbeat.entrySet()) {
                         if (!currHeartbeat.containsKey(entry.getKey())
@@ -447,9 +401,7 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         // Set the JWT claims (e.g., subject and issuer)
         Claims claims = Jwts.claims();
         System.out.println("claims: " + claims);
-        // claims.setSubject("example_subject"); // this can be the name of the
         // client
-        // claims.setIssuer("example_issuer"); // this can be the name of the master
         claims.put("permission", requestType);
         System.out.println("requestType: " + requestType);
         claims.put("filePath", filePath);
@@ -491,24 +443,6 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             System.out.println("token: " + token);
             List<String> ips = new ArrayList<>(); // Compute the value of ips
 
-            // Get nodes of current file
-            // List<GRPCNode> grpcNodes = new ArrayList<>();
-            // List<Node> nodes = getMetadata(request.getFilePath());
-            // for (Node node : nodes) {
-            // GRPCNode grpcNode = GRPCNode.newBuilder()
-            // .setChunkIdx(node.getChunkIdx())
-            // .setServerId(node.getServerId())
-            // .setIsData(node.getIsData())
-            // .build();
-            // grpcNodes.add(grpcNode);
-            // }
-            // // print out grpcNodes
-            // System.out.println("grpcNodes");
-            // for (GRPCNode grpcNode : grpcNodes) {
-            // System.out.println(grpcNode.getChunkIdx() + " " + grpcNode.getServerId() + "
-            // " + grpcNode.getIsData());
-            // }
-
             List<GRPCMetadata> grpcMetadatas = new ArrayList<>();
             metadata = getMetadata();
             System.out.println("metadata: " + metadata);
@@ -546,8 +480,6 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             System.out.print("tokenResponseBuilder: " + tokenResponseBuilder);
             tokenResponseBuilder.setToken(token);
             System.out.print("tokenResponseBuilder: " + tokenResponseBuilder);
-            // tokenResponseBuilder.addAllIps(ips);
-            // System.out.print("tokenResponseBuilder: " + tokenResponseBuilder);
             tokenResponseBuilder.addAllMetadata(grpcMetadatas);
             System.out.print("tokenResponseBuilder: " + tokenResponseBuilder);
             TokenResponse response = tokenResponseBuilder.build();
@@ -568,8 +500,6 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             String serverTag = request.getServerTag();
 
-            // System.out.println("request getChunkFileNamesMap: ");
-            // System.out.println(request.getChunkFileNamesMap());
             Map<String, ChunkFileNames> chunkFilesMap = request.getChunkFileNamesMap();
             // TODO: recovery/delete chunk file if not exists
             // TODO: check if the difference is expected or not
@@ -684,7 +614,6 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         // Perform RPC calls using the stub
         RecoveryReadRequest request = RecoveryReadRequest.newBuilder().setChunkFilePath(filePath).build();
         RecoveryReadResponse response = stubs[serverIdx].recoveryRead(request);
-        // System.out.println("Response from server: " + response.getChunkFileData());
         return response.getChunkFileData().toByteArray();
     }
 
@@ -721,8 +650,6 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
 
                 // Start the process
                 Process process = pb.start();
-
-                // latch.countDown();
 
                 // Wait for the process to complete
                 int exitCode = process.waitFor();
@@ -780,21 +707,8 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         CountDownLatch latch = new CountDownLatch(offlineServerIndices.size());
         for (Integer offlineServerIdx : offlineServerIndices) {
             System.out.println("Relaunch offline chunkserver" + offlineServerIdx);
-            // relaunchOfflineChunkserver(offlineServerIdx);
             relaunchOfflineChunkserver(offlineServerIdx, latch);
         }
-
-        // try {
-        // latch.await();
-        // } catch (InterruptedException e) {
-        // }
-
-        // try {
-        // // wait for offline chunkservers to relaunch
-        // Thread.sleep(10000);
-        // } catch (InterruptedException e) {
-        // e.printStackTrace();
-        // }
 
         for (int offlineServerIdx : offlineServerIndices) {
             while (!serverStatus.get(offlineServerIdx)) {
@@ -840,46 +754,12 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
                 byte[] recoveredChunkData = recoveryMachine.retrieveRecoveredDiskData(offlineServerIdx);
                 String recoveredChunkFilePath = "./ClientClusterCommTestFiles/Disks/chunkserver-" + offlineServerIdx
                         + "/" + filePath + "-" + (chunkGroupStartIdx + offlineServerIdx);
-                // String recoveredChunkFilePath = filePath + "-" + (chunkGroupStartIdx +
-                // offlineServerIdx);
                 System.out.println(
                         "Server Status: " + " ID " + offlineServerIdx + "," + serverStatus.get(offlineServerIdx));
-                // while (!serverStatus.get(offlineServerIdx)) {
-                // try {
-                // // wait for offline chunkservers to relaunch
-
-                // Thread.sleep(5000);
-                // } catch (InterruptedException e2) {
-                // e2.printStackTrace();
-                // }
-                // }
-
+                
                 boolean writeSuccess = makeRecoveryWriteRequest(
                         filePath + "-" + (chunkGroupStartIdx + offlineServerIdx), recoveredChunkData, offlineServerIdx);
                 System.out.println("writeSuccess ? : " + writeSuccess);
-                // while (!writeSuccess) {
-                // try {
-                // writeSuccess = makeRecoveryWriteRequest(filePath, recoveredChunkData,
-                // offlineServerIdx);
-                // } catch (StatusRuntimeException e1) {
-                // writeSuccess = false;
-                // try {
-                // // wait for offline chunkservers to relaunch
-                // Thread.sleep(5000);
-                // } catch (InterruptedException e2) {
-                // e2.printStackTrace();
-                // }
-                // }
-                // System.out.println(
-                // "Recovered " + recoveredChunkFilePath + " in chunkserver-" + offlineServerIdx
-                // + " failed");
-                // }
-                // try (FileOutputStream fos = new FileOutputStream(recoveredChunkFilePath)) {
-                // fos.write(recoveredChunkData); // Write the recovered data to the recovered
-                // file path
-                // } catch (IOException e) {
-                // e.printStackTrace();
-                // }
             }
 
         }
@@ -939,21 +819,12 @@ public class MasterImpl extends edu.cmu.reedsolomonfs.server.MasterServiceGrpc.M
         System.out.println("master send Updating secret key request to chunkserver " + secretKey);
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
-        // final long start = System.currentTimeMillis();
-
-        // WriteRequest request = packWriteRequest("touch", filePath,
-        // encoder.getFileSize(), 0, shards, "create",
-        // encoder.getLastChunkIdx());
-
         // Pass padded file size
         UpdateSecretKeyRequest request = packUpdateSecretKeyRequest();
         System.out.println("updateSecretKey request: " + request);
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         System.out.println("updateSecretKey request leader: " + leader);
         updateSecretKeyRequest(cliClientService, leader, request, latch);
-        // latch.await();
-        // System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start)
-        // + " mssssssss.");
     }
 
     private static UpdateSecretKeyRequest packUpdateSecretKeyRequest() {

@@ -16,11 +16,12 @@ import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryWriteRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.RecoveryWriteResponse;
 import edu.cmu.reedsolomonfs.server.RecoveryServiceGrpc.RecoveryServiceImplBase;
 import edu.cmu.reedsolomonfs.server.Chunkserver.Chunkserver;
-// import edu.cmu.reedsolomonfs.client.RecoveryServiceGrpc.RecoveryServiceImplBase;
-// import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadRequest;
-// import edu.cmu.reedsolomonfs.client.Reedsolomonfs.RecoveryReadResponse;
 import io.grpc.stub.StreamObserver;
 
+
+/**
+ * @author Hongru (hongruz@andrew.cmu.edu) 
+ */
 public class RecoveryServiceImpl extends RecoveryServiceImplBase {
 
     private int serverIdx;

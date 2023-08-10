@@ -19,15 +19,15 @@ package edu.cmu.reedsolomonfs.server.Chunkserver.rpc;
 import com.alipay.sofa.jraft.rpc.RpcServer;
 import com.alipay.sofa.jraft.util.RpcFactoryHelper;
 import com.google.protobuf.Message;
-
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
+// RPC wrapper to wrap up rpc methods provided by jRaft library
+// Follows the example in jRaft documentation:
+// https://www.sofastack.tech/projects/sofa-jraft/counter-example/ 
 public class ChunkserverGrpcHelper {
 
     private static final Logger LOG = LoggerFactory.getLogger(ChunkserverGrpcHelper.class);

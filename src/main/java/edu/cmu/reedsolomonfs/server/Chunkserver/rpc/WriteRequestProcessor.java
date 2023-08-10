@@ -20,20 +20,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-
 import com.alipay.sofa.jraft.Status;
-
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
 import edu.cmu.reedsolomonfs.datatype.FileMetadataHelper;
 import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverClosure;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverService;
 import edu.cmu.reedsolomonfs.server.Chunkserver.ChunkserverStateMachine;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.ackMasterWriteSuccessRequest;
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -43,11 +39,7 @@ import com.alipay.sofa.jraft.rpc.RpcContext;
 import com.alipay.sofa.jraft.rpc.RpcProcessor;
 
 /**
- * SetBytesValueRequest processor.
- *
- * @author boyan (boyan@alibaba-inc.com)
- *
- *         2018-Apr-09 5:43:57 PM
+ * @author Matt (chenweiy@andrew.cmu.edu) and Tommy (hungchic@andrew.cmu.edu)
  */
 public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
 
@@ -65,7 +57,6 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
         this.counterService = counterService;
         this.masterChannel = masterChannel;
         this.fsm = fsm;
-        // redirectSystemOutToFile();
     }
 
     public boolean validateJWT(String token) {
@@ -116,14 +107,6 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
             @Override
             public void run(Status status) {
                 System.out.printf("WriteRequestProcessor: run \n");
-                // redirect the print log to file
-                // PrintStream out = null;
-                // try {
-                // out = new PrintStream(new FileOutputStream("./output.txt"));
-                // } catch (FileNotFoundException e) {
-                // e.printStackTrace();
-                // }
-                // System.setOut(out);
                 // send success to master
                 MasterServiceGrpc.MasterServiceBlockingStub stub = MasterServiceGrpc.newBlockingStub(masterChannel);
                 ackMasterWriteSuccessRequest ack = ackMasterWriteSuccessRequest.newBuilder()
@@ -140,19 +123,6 @@ public class WriteRequestProcessor implements RpcProcessor<WriteRequest> {
             }
         };
 
-        // WriteFlag can be "create", "append", "overwrite", and "delete"
-        // switch (writeFlag) {
-        // case "create":
-        // FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath,
-        // fileSize);
-        // byte[][] shards = new byte[request.getPayloadCount()][];
-        // for (int i = 0; i < request.getPayloadCount(); i++)
-        // shards[i] = request.getPayload(i).toByteArray();
-        // this.counterService.write(shards, metadata, closure);
-        // break;
-        // case "append":
-        // break;
-        // }
         if (writeFlag.equals("create")) {
             FileMetadata metadata = FileMetadataHelper.createFileMetadata(filePath, fileSize);
             byte[][] shards = new byte[request.getPayloadCount()][];

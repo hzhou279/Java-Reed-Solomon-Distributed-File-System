@@ -20,11 +20,8 @@ import java.io.Serializable;
 
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
 
-/**
- * The counter operation
- *
- * @author likun (saimu.msm@antfin.com)
- */
+// The ChunkserverOperation class is referenced from 
+// https://github.com/sofastack/sofa-jraft/blob/19ed179e02ee9108adc0bbf66badb47f62c62af8/jraft-example/src/main/java/com/alipay/sofa/jraft/example/counter/CounterOperation.java
 public class ChunkserverOperation implements Serializable {
 
     private static final long serialVersionUID = -6597003954824547294L;

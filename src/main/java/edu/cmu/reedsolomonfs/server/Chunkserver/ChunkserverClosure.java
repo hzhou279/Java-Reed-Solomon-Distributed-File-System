@@ -21,15 +21,11 @@ import java.util.Map;
 import com.alipay.sofa.jraft.Closure;
 import com.google.protobuf.ByteString;
 
-import edu.cmu.reedsolomonfs.server.ChunkserverOutter;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse;
-import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse.Builder;
 
-/**
- * @author likun (saimu.msm@antfin.com)
- */
+// The ChunkserverClosure class is referenced from 
+// https://github.com/sofastack/sofa-jraft/blob/19ed179e02ee9108adc0bbf66badb47f62c62af8/jraft-example/src/main/java/com/alipay/sofa/jraft/example/counter/CounterClosure.java
 public abstract class ChunkserverClosure implements Closure {
-
     private ValueResponse    valueResponse;
     private ChunkserverOperation counterOperation;
 
@@ -73,8 +69,6 @@ public abstract class ChunkserverClosure implements Closure {
                 builder.putChunkDataMap(key, ByteString.copyFrom(bytes));
             }
         }
-        // if (bytes != null && bytes.length != 0)
-            // builder.setChunkData(ByteString.copyFrom(bytes));
 
         builder.setSuccess(true);
         builder.setValue(1);

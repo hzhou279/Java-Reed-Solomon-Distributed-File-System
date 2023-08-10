@@ -26,9 +26,6 @@ public class ChunkserverDiskRecoveryMachine {
             throw new IllegalArgumentException("Number of bytes in different chunkserver disks mismatch");
         chunkserverDiskByteCnt = chunkserverDiskData.length;
         chunkserverDisksData[serverIdx] = new byte[chunkserverDiskByteCnt];
-        // System.arraycopy(chunkserverDisksData[serverIdx], 0, chunkserverDiskData, 0, chunkserverDiskByteCnt);
-        // for (int i = 0; i < chunkserverDiskByteCnt; i++)
-        //     chunkserverDisksData[serverIdx][i] = chunkserverDiskData[i];
         System.arraycopy(chunkserverDiskData, 0, chunkserverDisksData[serverIdx], 0, chunkserverDiskByteCnt);
         chunkserverDiskPresent[serverIdx] = true;
         chunkserverDiskPresentCnt++;

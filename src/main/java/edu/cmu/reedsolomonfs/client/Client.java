@@ -23,16 +23,12 @@ import com.alipay.sofa.jraft.error.RemotingException;
 
 import edu.cmu.reedsolomonfs.server.MasterServiceGrpc;
 import edu.cmu.reedsolomonfs.server.Chunkserver.rpc.ChunkserverGrpcHelper;
-import edu.cmu.reedsolomonfs.server.ChunkserverOutter.IncrementAndGetRequest;
-import edu.cmu.reedsolomonfs.server.ChunkserverOutter.SetBytesRequest;
 import edu.cmu.reedsolomonfs.server.ChunkserverOutter.ValueResponse;
-
 import com.alipay.sofa.jraft.option.CliOptions;
 import com.alipay.sofa.jraft.rpc.InvokeCallback;
 import com.alipay.sofa.jraft.rpc.impl.cli.CliClientServiceImpl;
 import com.google.common.primitives.Bytes;
 import com.google.protobuf.ByteString;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InaccessibleObjectException;
@@ -43,14 +39,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
-import java.util.concurrent.TimeoutException;
-
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.WriteRequest;
 import edu.cmu.reedsolomonfs.datatype.FileMetadata;
 import edu.cmu.reedsolomonfs.cli.ClientCLI;
 import edu.cmu.reedsolomonfs.ConfigVariables;
 import edu.cmu.reedsolomonfs.client.Reedsolomonfs.ReadRequest;
-import edu.cmu.reedsolomonfs.server.MasterserverOutter.HeartbeatRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenRequest;
 import edu.cmu.reedsolomonfs.server.MasterserverOutter.TokenResponse;
 import io.grpc.ManagedChannel;
@@ -58,16 +51,6 @@ import io.grpc.ManagedChannelBuilder;
 
 public class Client {
 
-    // private final String groupId;
-    // private final String confStr;
-    // private final CliClientServiceImpl cliClientService;
-
-    // public Client(final String groupId, final String confStr, final
-    // CliClientServiceImpl cliClientService) {
-    // this.groupId = groupId;
-    // this.confStr = confStr;
-    // this.cliClientService = cliClientService;
-    // }
     static ClientCLI cli = new ClientCLI();
     public ManagedChannel channel;
     public CliClientServiceImpl cliClientService;
@@ -75,6 +58,11 @@ public class Client {
     public String confStr;
 
     public Client(final String[] args) throws Exception {
+        /**
+         * Reference
+         * Line 67 to line 72 follows jRaft documentation to set up raft group client
+         * https://www.sofastack.tech/projects/sofa-jraft/counter-example/
+         */
         if (args.length != 2) {
             System.out.println("Usage : java com.alipay.sofa.jraft.example.counter.CounterClient {groupId} {conf}");
             System.out
@@ -142,15 +130,10 @@ public class Client {
             System.out.println("[Client-Cluster] Create and Read a new file succeeded!!!!");
         } else {
             System.out.println("Client-Cluster Create and Read a new file failed?????");
-            // System.out.println(new String(fileData) + "\n\n\n\n\n");
-            // System.out.println(new String(fileDataRead));
         }
         String clientDiskPath = "./ClientClusterCommTestFiles/FilesRead/test.txt";
         try (FileOutputStream fos = new FileOutputStream(clientDiskPath)) {
             fos.write(fileDataRead); // Write the byte data to the file
-            // System.out.println("Byte data to store is " + new String(shards[serverIdx]));
-            // System.out.println("Byte data stored in " + serverDiskPath + "
-            // successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -190,9 +173,7 @@ public class Client {
         int byteCntInShards = 0;
         byte[][] shards = new byte[ConfigVariables.TOTAL_SHARD_COUNT][];
         boolean[] shardsPresent = new boolean[ConfigVariables.TOTAL_SHARD_COUNT];
-        // for (PeerId peer : conf) {
-        // System.out.println("peer:" + peer.getEndpoint());
-        // }
+        
         for (PeerId peer : conf) {
             System.out.println("peer:" + peer.getEndpoint());
 
@@ -224,7 +205,6 @@ public class Client {
                 shardBytes = Bytes.concat(shardBytes, chunkDataMap.get(key).toByteArray());
             }
 
-            // System.out.println("shardBytes:" + new String(shardBytes));
             System.out.println("shardBytes Size:" + shardBytes.length);
 
             if (response.getChunkDataMapMap() != null && response.getChunkDataMapMap().size() != 0) {
@@ -232,23 +212,18 @@ public class Client {
                 shards[serverCnt] = shardBytes;
                 byteCntInShards = shards[serverCnt].length;
             }
-
             serverCnt++;
         }
-
         if (byteCntInShards == 0) {
             System.out.println("File does not exist");
             return null;
         }
-        // throw new IllegalArgumentException("There is not enough data to decode");
         for (int i = 0; i < ConfigVariables.TOTAL_SHARD_COUNT; i++) {
             if (shards[i] == null)
                 shards[i] = new byte[byteCntInShards];
-            // System.out.println("shard " + i + " size is " + shards[i].length);
         }
 
         ReedSolomonDecoder decoder = new ReedSolomonDecoder(shards, shardsPresent, byteCntInShards, fileSize);
-        // decoder.store();
         return decoder.getFileData();
     }
 
@@ -300,15 +275,10 @@ public class Client {
             final String groupId, String token) throws RemotingException, InterruptedException {
         final int n = 10000;
         final CountDownLatch latch = new CountDownLatch(n);
-        // final long start = System.currentTimeMillis();
 
         ReedSolomonEncoder encoder = new ReedSolomonEncoder(fileData);
         encoder.encode();
         byte[][] shards = encoder.getShards();
-
-        // WriteRequest request = packWriteRequest("touch", filePath,
-        // encoder.getFileSize(), 0, shards, "create",
-        // encoder.getLastChunkIdx());
 
         // Pass padded file size
         System.out.println("Client create: " + filePath);
@@ -316,9 +286,6 @@ public class Client {
                 encoder.getLastChunkIdx(), encoder.getFileSize(), token);
         final PeerId leader = RouteTable.getInstance().selectLeader(groupId);
         writeRequest(cliClientService, leader, request, latch);
-        // latch.await();
-        // System.out.println(n + " ops, cost : " + (System.currentTimeMillis() - start)
-        // + " mssssssss.");
     }
 
     private static WriteRequest packWriteRequest(String operationType, String filePath, int fileSize, int appendAt,
@@ -327,7 +294,6 @@ public class Client {
 
         if (writeFlag.equals("create")) {
             for (byte[] shard : shards) {
-                // System.out.println("current shard is: " + new String(shard));
                 requestBuilder.addPayload(ByteString.copyFrom(shard));
             }
 
@@ -377,65 +343,5 @@ public class Client {
             System.err.println("Caught InaccessibleObjectException: " + e.getMessage());
         }
     }
-
-    private static void setBytesValue(final CliClientServiceImpl cliClientService, final PeerId leader,
-            final byte[] bytes, CountDownLatch latch) throws RemotingException,
-            InterruptedException {
-        SetBytesRequest request = SetBytesRequest.newBuilder().setValue(com.google.protobuf.ByteString.copyFrom(bytes))
-                .build();
-
-        cliClientService.getRpcClient().invokeAsync(leader.getEndpoint(), request, new InvokeCallback() {
-
-            @Override
-            public void complete(Object result, Throwable err) {
-                if (err == null) {
-                    latch.countDown();
-                    System.out.println("setBytesValue result:" + result);
-                } else {
-                    err.printStackTrace();
-                    latch.countDown();
-                }
-            }
-
-            @Override
-            public Executor executor() {
-                return null;
-            }
-        }, 5000);
-    }
-
 }
 
-// package edu.cmu.reedsolomonfs.client;
-
-// import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenRequest;
-// import edu.cmu.reedsolomonfs.client.Reedsolomonfs.TokenResponse;
-// import io.grpc.ManagedChannel;
-// import io.grpc.ManagedChannelBuilder;
-
-// public class Client {
-// public static void main(String[] args) {
-// // Create a channel to connect to the server
-// ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
-// .usePlaintext() // Use insecure connection, for testing only
-// .build();
-
-// // Create a stub for the service
-// ClientMasterServiceGrpc.ClientMasterServiceBlockingStub stub =
-// ClientMasterServiceGrpc.newBlockingStub(channel);
-
-// TokenRequest request = TokenRequest.newBuilder()
-// .setRequestType("R")
-// .setFilePath("./Files/test.txt")
-// .build();
-
-// // Make the RPC call and receive the response
-// TokenResponse response = stub.getToken(request);
-
-// System.out.println("JWT token received at client is: " +
-// response.getToken());
-
-// // Shutdown the channel
-// channel.shutdown();
-// }
-// }
